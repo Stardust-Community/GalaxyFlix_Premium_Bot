@@ -176,7 +176,7 @@ async def not_joined(client: Client, message: Message):
                         link = await kingdb.get_stored_reqLink(id)
                         if not link:
                             invite_link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
-                            await kingdb.store_reqLink(id, invite_link)
+                            await kingdb.store_reqLink(id, invite_link); await kingdb.add_reqChannel(id)
                             link = invite_link
                                                 
                     if not link:
