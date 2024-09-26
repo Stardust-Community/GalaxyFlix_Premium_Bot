@@ -15,11 +15,19 @@ from pyrogram.enums import ChatMemberStatus
 @Bot.on_chat_member_updated()
 async def handle_Chatmembers(client, chat_member_updated: ChatMemberUpdated):
     print("Bot.on_chat_member_updated() Triggred....")
+
+    new_member = chat_member_updated.new_chat_member
+    old_member = chat_member_updated.old_chat_member
+    if any([new_member, old_member]):
+        member = new_member if new_member else old_member
+    else:
+        print(f'Both new member and old meber are None')
+        return
     
     member_status = ChatMemberStatus.MEMBER, ChatMemberStatus.LEFT, ChatMemberStatus.BANNED
     
-    if chat_member_updated.new_chat_member.status in member_status:
-        user_id = chat_member_updated.new_chat_member.user.id
+    if member.status in member_status:
+        user_id = member.user.id
         chat_id = chat_member_updated.chat.id
         print(f"A Specified Event Occured between User ID: {user_id} and Channel ID: {chat_id}")
         
