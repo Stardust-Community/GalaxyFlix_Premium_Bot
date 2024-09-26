@@ -15,6 +15,7 @@ import subprocess
 import sys
 from plugins.advance_features import convert_time, auto_del_notification, delete_message
 from plugins.FORMATS import START_MSG, FORCE_MSG, BAN_TXT
+from plugins.request_forcesub import *
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed & ~banUser)
 async def start_command(client: Client, message: Message): 
@@ -156,17 +157,10 @@ async def not_joined(client: Client, message: Message):
     temp = await message.reply(f"<b>??</b>")
 	
     user_id = message.from_user.id
-    #if await ban_user_exist(user_id):
-        #return await message.reply(text=BAN_TXT, message_effect_id=5046589136895476101)
-	    
-    
     excl = '! '
-        
-    #banned_users = await get_ban_users()
-    #if user_id in banned_users:
-        #return await temp.edit(BAN_TXT)
                
     channels = await kingdb.get_all_channels()
+    RQFSUB = await kingdb.get_request_forcesub()
     buttons = []
     count = 0
 
@@ -175,12 +169,22 @@ async def not_joined(client: Client, message: Message):
             if not await is_userJoin(client, user_id, id):
                 try:
                     data = await client.get_chat(id)
-                    link = data.invite_link 
-                    cname = data.title
+		    cname = data.title
+                    link = ""
+			
+		    if REQFSUB and await privateChannel(client, id):
+		        link = kingdb.get_stored_reqLink(id)
+			if not link:
+			    invite_link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
+			    await kingdb.store_reqLink(id, invite_link)
+			    link = invite_link
                                                 
                     if not link:
-                        await client.export_chat_invite_link(id)
-                        link = (await client.get_chat(id)).invite_link 
+			link = data.invite_link
+			    
+			if not link:
+                            await client.export_chat_invite_link(id)
+                            link = (await client.get_chat(id)).invite_link 
                                                         
                     buttons.append([InlineKeyboardButton(text=cname, url=link)])
                     count += 1
