@@ -504,4 +504,28 @@ async def files_commands(client: Client, message: Message):
     except Exception as e:
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
         await message.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote><b><i>Cᴏɴᴛᴀɴᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ: @Shidoteshika1</i></b>", reply_markup=reply_markup)
-   
+
+
+
+#Request force sub mode commad,,,,,,
+@Bot.on_message(~banUser & filters.command('req_fsub') & filters.private)
+async def handle_reqFsub(client: Client, message: Message):
+    await message.reply_chat_action(ChatAction.TYPING)
+    try:
+        on = off = ""
+        if await kingdb.get_request_forcesub():
+            on = "🟢"
+            texting = on_txt
+        else:
+            off = "🔴"
+            texting = off_txt
+
+        button = [
+            [InlineKeyboardButton(f"{on} ON", "on_req"), InlineKeyboardButton(f"{off} OFF", "off_req")],
+            [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
+        ]
+        await message.reply(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button))
+        
+    except Exception as e:
+        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
+        await message.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote><b><i>Cᴏɴᴛᴀɴᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ: @Shidoteshika1</i></b>", reply_markup=reply_markup)
