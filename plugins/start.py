@@ -166,6 +166,7 @@ async def not_joined(client: Client, message: Message):
 
     try:
         for id in channels:
+	    await message.reply_chat_action(ChatAction.PLAYING)
             if not await is_userJoin(client, user_id, id):
                 try:
                     data = await client.get_chat(id)
@@ -173,10 +174,10 @@ async def not_joined(client: Client, message: Message):
                     link = ""
                     
                     if REQFSUB and await privateChannel(client, id):
-                        link = await kingdb.get_stored_reqLink(id)
+                        link = await kingdb.get_stored_reqLink(id); await kingdb.add_reqChannel(id)
                         if not link:
                             invite_link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
-                            await kingdb.store_reqLink(id, invite_link); await kingdb.add_reqChannel(id)
+                            await kingdb.store_reqLink(id, invite_link)
                             link = invite_link
                                                 
                     if not link:
@@ -198,7 +199,8 @@ async def not_joined(client: Client, message: Message):
             buttons.append([InlineKeyboardButton(text='♻️ Tʀʏ Aɢᴀɪɴ', url=f"https://t.me/{client.username}?start={message.command[1]}")])
         except IndexError:
             pass
-                        
+
+	await message.reply_chat_action(ChatAction.CANCEL)
         await temp.edit(
             #photo = random.choice(PICS),   
             text=FORCE_MSG.format(
