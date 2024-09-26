@@ -4,7 +4,7 @@ from bot import Bot
 import asyncio
 from pyrogram.enums import ParseMode, ChatAction
 from helper_func import is_admin, banUser
-from plugins.FORMATS import autodel_cmd_pic, files_cmd_pic, on_txt, off_txt, FILES_CMD_TXT, AUTODEL_CMD_TXT, BAN_TXT
+from plugins.FORMATS import autodel_cmd_pic, files_cmd_pic, on_txt, off_txt, FILES_CMD_TXT, AUTODEL_CMD_TXT, BAN_TXT, RFSUB_CMD_TXT
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from config import OWNER_ID
 from pyrogram import Client, filters
