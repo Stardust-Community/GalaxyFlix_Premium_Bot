@@ -1,7 +1,6 @@
 ### <h1>ADVANCE FILE SHARING BOT 🤖</h1>
 <img src="https://telegra.ph/file/ff8fbe7d67a3c7492c353.jpg">
-<blockquote><b><i>CREDIT: INSPIRED FROM <a href="https://t.me/CodeXBotz">Code 𝕏 Botz</a></i></b><br>
-<b>THIS IS AN ADVANCE FILE SHARE BOT BY: <a href="https://t.me/Shidoteshika1">King 🜲</a>. HERE ONLY THE HIGHLIGHTTED FEATURES ARE MENTIONED BELOW ;</b></blockquote>
+<blockquote><b>THIS IS AN ADVANCE REQUEST FORCE-FSUB FILE SHARING BOT BY: <a href="https://t.me/Shidoteshika1">King 王</a>. HERE ONLY THE HIGHLIGHTTED FEATURES ARE MENTIONED BELOW ;</b></blockquote>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
@@ -40,6 +39,7 @@
 start - ⚡️ ᴄʜᴇᴄᴋ ᴀʟɪᴠᴇ/ᴅᴇᴀᴅ !
 help - ⚡️ ɪɴsᴛʀᴜᴄᴛɪᴏɴ ғᴏʀ ᴜsɪɴɢ ʙᴏᴛ
 forcesub - 👀 ᴠɪᴇᴡ ғᴏʀᴄᴇsᴜʙ ʀᴇʟᴀᴛᴇᴅ ᴄᴏᴍᴍᴀɴᴅs
+req_fsub - 👀 ᴠɪᴇᴡ ʀᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ sᴇᴛᴛɪɴɢs
 users - 👀 ᴠɪᴇᴡ ᴜsᴇʀ sᴇᴛᴛɪɴɢ ᴄᴏᴍᴍᴀɴᴅs
 files - 👀 ᴠɪᴇᴡ ᴍᴇssᴀɢᴇ/ғɪʟᴇs ʀᴇʟᴀᴛᴇᴅ sᴇᴛᴛɪɴɢs
 auto_del - 👀 ᴠɪᴇᴡ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇ sᴇᴛᴛɪɴɢs 
@@ -48,7 +48,7 @@ restart - ⚠️ ғᴏʀᴄᴇғᴜʟʟʏ ʀᴇsᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ (�
 ```
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
-<h2>🧑‍💻 CONTACT DEVELOPER : <a href="https://t.me/Shidoteshika1">Shidoteshika (King 🜲)</a></h2>
+<h2>🧑‍💻 CONTACT DEVELOPER : <a href="https://t.me/Shidoteshika1">Shidoteshika (King 王)</a></h2>
 
 
 
