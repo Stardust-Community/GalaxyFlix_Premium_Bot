@@ -20,7 +20,7 @@ class sidDataBase:
         self.channel_button_data = self.database['channel_button']
         
         self.del_timer_data = self.database['del_timer']
-        self.channel_button_link_data = dself.atabase['channelButton_link']
+        self.channel_button_link_data = self.database['channelButton_link']
     
     
     async def set_channel_button_link(self, button_name: str, button_link: str):
