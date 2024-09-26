@@ -153,12 +153,12 @@ class sidDataBase:
         return bool(found)
         
     async def add_channel(self, channel_id: int):
-        if not await channel_exist(channel_id):
+        if not await self.channel_exist(channel_id):
             self.channel_data.insert_one({'_id': channel_id})
             return
     
     async def del_channel(self, channel_id: int):
-        if await channel_exist(channel_id):
+        if await self.channel_exist(channel_id):
             self.channel_data.delete_one({'_id': channel_id})
             return
     
@@ -173,12 +173,12 @@ class sidDataBase:
         return bool(found)
         
     async def add_admin(self, admin_id: int):
-        if not await admin_exist(admin_id):
+        if not await self.admin_exist(admin_id):
             self.admins_data.insert_one({'_id': admin_id})
             return
     
     async def del_admin(self, admin_id: int):
-        if await admin_exist(admin_id):
+        if await self.admin_exist(admin_id):
             self.admins_data.delete_one({'_id': admin_id})
             return
     
@@ -194,12 +194,12 @@ class sidDataBase:
         return bool(found)
         
     async def add_ban_user(self, user_id: int):
-        if not await ban_user_exist(user_id):
+        if not await self.ban_user_exist(user_id):
             self.banned_user_data.insert_one({'_id': user_id})
             return
     
     async def del_ban_user(self, user_id: int):
-        if await ban_user_exist(user_id):
+        if await self.ban_user_exist(user_id):
             self.banned_user_data.delete_one({'_id': user_id})
             return
     
