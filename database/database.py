@@ -21,6 +21,9 @@ class sidDataBase:
         
         self.del_timer_data = self.database['del_timer']
         self.channel_button_link_data = self.database['channelButton_link']
+
+        self.rqst_fsub_data = self.database['request_forcesub']
+        self.rqst_fsub_Channel_data = self.database['request_forcesub_channel']
     
     
     async def set_channel_button_link(self, button_name: str, button_link: str):
@@ -89,7 +92,7 @@ class sidDataBase:
             channel_button_data.insert_one({'value': value})
     
     async def set_request_forcesub(self, value: bool):
-        request_forcesub_data = self.request_forcesub_data
+        request_forcesub_data = self.rqst_fsub_data
         
         existing = request_forcesub_data.find_one({})
         if existing:
@@ -122,7 +125,7 @@ class sidDataBase:
         return False
     
     async def get_request_forcesub(self):
-        data = self.request_forcesub_data.find_one({})
+        data = self.rqst_fsub_data.find_one({})
         if data:
             return data.get('value', False)
         return False
@@ -207,6 +210,61 @@ class sidDataBase:
         users_docs = self.banned_user_data.find()
         user_ids = [doc['_id'] for doc in users_docs]
         return user_ids
+
+
+
+    # Method 1: Add user to the channel set
+    async def reqSent_user(self, channel_id: int, user_id: int):
+        # Add the user to the set of users for a specific channel
+        self.rqst_fsub_Channel_data.update_one(
+            {'_id': channel_id}, 
+            {'$addToSet': {'user_ids': user_id}}, 
+            upsert=True
+        )
+
+    # Method 2: Remove a user from the channel set
+    async def del_reqSent_user(self, channel_id: int, user_id: int):
+        # Remove the user from the set of users for the channel
+        self.rqst_fsub_Channel_data.update_one(
+            {'_id': channel_id}, 
+            {'$pull': {'user_ids': user_id}}
+        )
+
+    # Method 3: Check if a user exists in the channel set
+    async def reqSent_user_exist(self, channel_id: int, user_id: int):
+        # Check if the user exists in the set of the channel's users
+        found = self.rqst_fsub_Channel_data.find_one(
+            {'_id': channel_id, 'user_ids': user_id}
+        )
+        return bool(found)
+
+    # Method 4: Remove a channel and its set of users
+    async def del_reqChannel(self, channel_id: int):
+        # Delete the entire channel's user set
+        self.rqst_fsub_Channel_data.delete_one({'_id': channel_id})
+
+    # Method 5: Check if a channel exists
+    async def reqChannel_exist(self, channel_id: int):
+        # Check if the channel exists
+        found = self.rqst_fsub_Channel_data.find_one({'_id': channel_id})
+        return bool(found)
+
+    # Method 6: Get all users from a channel's set
+    async def get_reqSent_user(self, channel_id: int):
+        # Retrieve the list of users for a specific channel
+        data = self.rqst_fsub_Channel_data.find_one({'_id': channel_id})
+        if data:
+            return data.get('user_ids', [])
+        return []
+
+    # Method 7: Get all available channel IDs
+    async def get_reqChannel(self):
+        # Retrieve all channel IDs
+        channel_docs = self.rqst_fsub_Channel_data.find()
+        channel_ids = [doc['_id'] for doc in channel_docs]
+        return channel_ids
+
+    
     
     
     """# autho User functions
