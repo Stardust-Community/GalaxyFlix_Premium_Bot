@@ -8,7 +8,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait
 
 from bot import Bot
-from helper_func import is_userJoin, is_admin, subscribed
+#from helper_func import is_userJoin, is_admin, subscribed
 from database.database import kingdb#get_all_channels, store_req_link, get_req_link, del_req_link, store_reqsent_id, get_reqsent_ids, del_reqsent_id, get_request_forcesub, set_request_forcesub, get_ban_users
 
 from pyrogram.types import ChatMemberUpdated, ChatMemberLeft
