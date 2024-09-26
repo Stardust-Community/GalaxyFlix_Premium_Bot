@@ -4,18 +4,16 @@ import os
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.enums import ParseMode
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery,  ChatMemberUpdated
 from pyrogram.errors import FloodWait
 
 from bot import Bot
-#from helper_func import is_userJoin, is_admin, subscribed
-from database.database import kingdb#get_all_channels, store_req_link, get_req_link, del_req_link, store_reqsent_id, get_reqsent_ids, del_reqsent_id, get_request_forcesub, set_request_forcesub, get_ban_users
-
-from pyrogram.types import ChatMemberUpdated, ChatMemberStatus
+from database.database import kingdb
+from pyrogram.enums import ChatMemberStatus
 
 # This handler captures membership updates (like when a user leaves)
 @Bot.on_chat_member_updated()
-async def handle_member_leave(client, chat_member_updated: ChatMemberUpdated):
+async def handle_Chatmembers(client, chat_member_updated: ChatMemberUpdated):
     print("Bot.on_chat_member_updated() Triggred....")
     
     member_status = ChatMemberStatus.MEMBER, ChatMemberStatus.LEFT, ChatMemberStatus.BANNED
@@ -53,8 +51,4 @@ async def privateChannel(client, channel_id):
         print(f"Unexcpected error in privateChannel(): {e}")
         return False
   
-    #if chat.username:
-        #print("This is a public channel.")
-    #else:
-        #print("This is a private channel.")
 
