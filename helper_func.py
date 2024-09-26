@@ -40,7 +40,7 @@ async def is_subscribed(filter, client, update):
         
     member_status = ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER
     
-    RQFSUB = await kingdb.get_request_forcesub()
+    REQFSUB = await kingdb.get_request_forcesub()
                     
     for id in Channel_ids:
         if not id:
@@ -61,7 +61,7 @@ async def is_subscribed(filter, client, update):
     return True
 
 async def is_userJoin(client, user_id, channel_id):
-    RQFSUB = await kingdb.get_request_forcesub()
+    REQFSUB = await kingdb.get_request_forcesub()
     
     try:
         member = await client.get_chat_member(chat_id=channel_id, user_id=user_id)
