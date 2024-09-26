@@ -67,8 +67,8 @@ async def is_userJoin(client, user_id, channel_id):
         member = await client.get_chat_member(chat_id=channel_id, user_id=user_id)
         return member.status in {ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER}
     except UserNotParticipant:
-        if REQFSUB and await privateChannel(client, id):
-                return await kingdb.reqSent_user_exist(id, user_id)
+        if REQFSUB and await privateChannel(client, channel_id):
+                return await kingdb.reqSent_user_exist(channel_id, user_id)
         return False
     except Exception as e:
         print(f"An error occurred on is_userJoin(): {e}")
