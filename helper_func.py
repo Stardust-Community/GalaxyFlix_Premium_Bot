@@ -8,6 +8,7 @@ from config import OWNER_ID
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 from pyrogram.errors import FloodWait
 from database.database import kingdb #get_all_channels, get_all_admins, admin_exist, ban_user_exist
+from plugins.request_forcesub import privateChannel
 
 async def check_banUser(filter, client, update):
     user_id = update.from_user.id
@@ -33,31 +34,41 @@ async def is_subscribed(filter, client, update):
         return True
 
     user_id = update.from_user.id
-    Admin_ids = await kingdb.get_all_admins()
 
-    if user_id == OWNER_ID or user_id in Admin_ids:
+    if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
         return True
         
     member_status = ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER
+    
+    RQFSUB = await kingdb.get_request_forcesub()
                     
     for id in Channel_ids:
         if not id:
             continue
+            
         try:
             member = await client.get_chat_member(chat_id=id, user_id=user_id)
         except UserNotParticipant:
+            if REQFSUB and await privateChannel(client, id):
+                return await kingdb.reqSent_user_exist(id, user_id)
             return False
     
         if member.status not in member_status:
+            if REQFSUB and await privateChannel(client, id):
+                return await kingdb.reqSent_user_exist(id, user_id)
             return False
 
     return True
 
 async def is_userJoin(client, user_id, channel_id):
+    RQFSUB = await kingdb.get_request_forcesub()
+    
     try:
         member = await client.get_chat_member(chat_id=channel_id, user_id=user_id)
         return member.status in {ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER}
     except UserNotParticipant:
+        if REQFSUB and await privateChannel(client, id):
+                return await kingdb.reqSent_user_exist(id, user_id)
         return False
     except Exception as e:
         print(f"An error occurred on is_userJoin(): {e}")
