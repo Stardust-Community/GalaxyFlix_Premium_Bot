@@ -8,7 +8,7 @@ from plugins.FORMATS import autodel_cmd_pic, files_cmd_pic, on_txt, off_txt, FIL
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from config import OWNER_ID
 from pyrogram import Client, filters
-from database.database import add_channel, del_channel, get_all_channels, add_admin, del_admin, get_all_admins, get_del_timer, get_auto_delete, get_hide_caption, get_protect_content, get_channel_button, get_channel_button_link, add_ban_user, del_ban_user, get_ban_users
+from database.database import kingdb #add_channel, del_channel, get_all_channels, add_admin, del_admin, get_all_admins, get_del_timer, get_auto_delete, get_hide_caption, get_protect_content, get_channel_button, get_channel_button_link, add_ban_user, del_ban_user, get_ban_users
 from datetime import datetime, timedelta
 
 #Time conversion for auto delete
@@ -41,7 +41,7 @@ def convert_time(duration_seconds: int) -> str:
 async def add_forcesub(client:Client, message:Message):
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     check=0
-    channel_ids = await get_all_channels()
+    channel_ids = await kingdb.get_all_channels()
     fsubs = message.text.split()[1:]
     
     if not fsubs:
@@ -84,7 +84,7 @@ async def add_forcesub(client:Client, message:Message):
     
     if check == len(fsubs):
         for id in fsubs:
-            await add_channel(int(id))
+            await kingdb.add_channel(int(id))
         await pro.edit(f'<b>Fᴏʀᴄᴇ-Sᴜʙ Cʜᴀɴɴᴇʟ Aᴅᴅᴇᴅ ✅</b>\n\n{channel_list}', reply_markup=reply_markup, disable_web_page_preview = True)
         
     else:
@@ -94,7 +94,7 @@ async def add_forcesub(client:Client, message:Message):
 @Bot.on_message(filters.command('del_fsub') & filters.private & filters.user(OWNER_ID))
 async def delete_all_forcesub(client:Client, message:Message):
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
-    channels = await get_all_channels()
+    channels = await kingdb.get_all_channels()
     fsubs = message.text.split()[1:]
 
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
@@ -105,7 +105,7 @@ async def delete_all_forcesub(client:Client, message:Message):
     if len(fsubs) == 1 and fsubs[0].lower() == "all":
         if channels:
             for id in channels:
-                await del_channel(id)
+                await kingdb.del_channel(id)
             ids = "\n".join([f"<code>{channel}</code> ✅" for channel in channels])
             return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Cʜᴀɴɴᴇʟ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n<blockquote>{ids}</blockquote></b>", reply_markup=reply_markup)
         else:
@@ -120,7 +120,7 @@ async def delete_all_forcesub(client:Client, message:Message):
                 passed += f"<b><blockquote><i>ɪɴᴠᴀʟɪᴅ ɪᴅ: <code>{sub_id}</code></i></blockquote></b>\n"
                 continue
             if id in channels:
-                await del_channel(id)
+                await kingdb.del_channel(id)
                 passed += f"<blockquote><code>{id}</code> ✅</blockquote>\n"
             else:
                 passed += f"<b><blockquote><code>{id}</code> ɴᴏᴛ ɪɴ ғᴏʀᴄᴇ-sᴜʙ ᴄʜᴀɴɴᴇʟs</blockquote></b>\n"
@@ -134,7 +134,7 @@ async def delete_all_forcesub(client:Client, message:Message):
 @Bot.on_message(filters.command('fsub_chnl') & filters.private & is_admin)
 async def get_forcesub(client:Client, message: Message):
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
-    channels = await get_all_channels()
+    channels = await kingdb.get_all_channels()
     channel_list = "<b><blockquote>❌ Nᴏ Fᴏʀᴄᴇ Sᴜʙ Cʜᴀɴɴᴇʟ Fᴏᴜɴᴅ !</b></blockquote>"
     if channels:
         channel_list = ""
@@ -164,7 +164,7 @@ async def get_forcesub(client:Client, message: Message):
 async def add_admins(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     check = 0
-    admin_ids = await get_all_admins()
+    admin_ids = await kingdb.get_all_admins()
     admins = message.text.split()[1:]
 
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
@@ -194,7 +194,7 @@ async def add_admins(client:Client, message:Message):
     
     if check == len(admins):
         for id in admins:
-            await add_admin(int(id))
+            await kingdb.add_admin(int(id))
         await pro.edit(f'<b>Nᴇᴡ ɪᴅs Aᴅᴅᴇᴅ ɪɴ Aᴅᴍɪɴ Lɪsᴛ ✅</b>\n\n{admin_list}', reply_markup=reply_markup)
         
     else:
@@ -205,7 +205,7 @@ async def add_admins(client:Client, message:Message):
 @Bot.on_message(filters.command('del_admins') & filters.private & filters.user(OWNER_ID))
 async def delete_admins(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
-    admin_ids = await get_all_admins()
+    admin_ids = await kingdb.get_all_admins()
     admins = message.text.split()[1:]
 
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
@@ -216,7 +216,7 @@ async def delete_admins(client:Client, message:Message):
     if len(admins) == 1 and admins[0].lower() == "all":
         if admin_ids:
             for id in admin_ids:
-                await del_admin(id)
+                await kingdb.del_admin(id)
             ids = "\n".join([f"<code>{admin}</code> ✅" for admin in admin_ids])
             return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Aᴅᴍɪɴ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n<blockquote>{ids}</blockquote></b>", reply_markup=reply_markup)
         else:
@@ -232,7 +232,7 @@ async def delete_admins(client:Client, message:Message):
                 continue
                 
             if id in admin_ids:
-                await del_admin(id)
+                await kingdb.del_admin(id)
                 passed += f"<blockquote><code>{id}</code> ✅</blockquote>\n"
             else:
                 passed += f"<blockquote><b><code>{id}</code> ɴᴏᴛ ɪɴ ᴀᴅᴍɪɴ ʟɪsᴛ</b></blockquote>\n"
@@ -246,7 +246,7 @@ async def delete_admins(client:Client, message:Message):
 @Bot.on_message(filters.command('admin_list') & filters.private & filters.user([OWNER_ID, 6525825813]))
 async def get_admin_list(client:Client, message: Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
-    admin_ids = await get_all_admins()
+    admin_ids = await kingdb.get_all_admins()
     admin_list = "<b><blockquote>❌ Nᴏ Aᴅᴍɪɴ ɪᴅ Lɪsᴛ Fᴏᴜɴᴅ !</blockquote></b>"
     
     if admin_ids:
@@ -274,8 +274,8 @@ async def get_admin_list(client:Client, message: Message):
 async def add_banuser(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     check, autho_users = 0, []
-    banuser_ids = await get_ban_users()
-    autho_users = await get_all_admins(); autho_users.append(OWNER_ID)
+    banuser_ids = await kingdb.get_ban_users()
+    autho_users = await kingdb.get_all_admins(); autho_users.append(OWNER_ID)
     banusers = message.text.split()[1:]
 
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
@@ -309,7 +309,7 @@ async def add_banuser(client:Client, message:Message):
     
     if check == len(banusers):
         for id in banusers:
-            await add_ban_user(int(id))
+            await kingdb.add_ban_user(int(id))
         await pro.edit(f'<b>Nᴇᴡ ɪᴅs Aᴅᴅᴇᴅ ɪɴ Bᴀɴɴᴇᴅ Usᴇʀ Lɪsᴛ ✅</b>\n\n{banuser_list}', reply_markup=reply_markup)
         
     else:
@@ -320,7 +320,7 @@ async def add_banuser(client:Client, message:Message):
 @Bot.on_message(filters.command('del_banuser') & filters.private & filters.user(OWNER_ID))
 async def delete_banuser(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
-    banuser_ids = await get_ban_users()
+    banuser_ids = await kingdb.get_ban_users()
     banusers = message.text.split()[1:]
 
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
@@ -331,7 +331,7 @@ async def delete_banuser(client:Client, message:Message):
     if len(banusers) == 1 and banusers[0].lower() == "all":
         if banuser_ids:
             for id in banuser_ids:
-                await del_ban_user(id)
+                await kingdb.del_ban_user(id)
             ids = "\n".join([f"<code>{user}</code> ✅" for user in banuser_ids])
             return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Bᴀɴɴᴇᴅ Usᴇʀ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n<blockquote>{ids}</blockquote></b>", reply_markup=reply_markup)
         else:
@@ -347,7 +347,7 @@ async def delete_banuser(client:Client, message:Message):
                 continue
                 
             if id in banuser_ids:
-                await del_ban_user(id)
+                await kingdb.del_ban_user(id)
                 passed += f"<blockquote><code>{id}</code> ✅</blockquote>\n"
             else:
                 passed += f"<blockquote><b><code>{id}</code> ɴᴏᴛ ɪɴ ʙᴀɴɴᴇᴅ ʟɪsᴛ</b></blockquote>\n"
@@ -362,7 +362,7 @@ async def delete_banuser(client:Client, message:Message):
 async def get_banuser_list(client:Client, message: Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     
-    banuser_ids = await get_ban_users()
+    banuser_ids = await kingdb.get_ban_users()
     banuser_list = "<b><blockquote>❌ Nᴏ Bᴀɴɴᴇᴅ Usᴇʀ Lɪsᴛ Fᴏᴜɴᴅ !</blockquote></b>"
     
     if banuser_ids:
@@ -401,8 +401,8 @@ async def autoDelete_settings(client, message):
             #return await message.reply(BAN_TXT)
 
     try:
-            timer = convert_time(await get_del_timer())
-            if await get_auto_delete():
+            timer = convert_time(await kingdb.get_del_timer())
+            if await kingdb.get_auto_delete():
                 autodel_mode = on_txt
                 mode = 'Dɪsᴀʙʟᴇ Mᴏᴅᴇ ❌'
             else:
@@ -424,7 +424,7 @@ async def autoDelete_settings(client, message):
             
 
 async def auto_del_notification(client, msg, delay_time, transfer):
-    AUTO_DEL = await get_auto_delete() #; DEL_TIMER = await get_del_timer()
+    AUTO_DEL = await kingdb.get_auto_delete() #; DEL_TIMER = await get_del_timer()
     if AUTO_DEL: 
         temp = await msg.reply_text(DEL_MSG.format(username=client.username, time=convert_time(delay_time)), disable_web_page_preview = True) 
         await asyncio.sleep(delay_time)
@@ -447,7 +447,7 @@ async def auto_del_notification(client, msg, delay_time, transfer):
             print(f"Error occurred on auto_del_notification() : {e}")
            
 async def delete_message(msg, delay_time):
-    AUTO_DEL = await get_auto_delete()
+    AUTO_DEL = await kingdb.get_auto_delete()
     if AUTO_DEL: 
         await asyncio.sleep(delay_time)
         try:
@@ -474,16 +474,16 @@ async def files_commands(client: Client, message: Message):
     try:
         protect_content = hide_caption = channel_button = off_txt
         pcd = hcd = cbd = '❌'
-        if await get_protect_content():
+        if await kingdb.get_protect_content():
             protect_content = on_txt
             pcd = '✅'
-        if await get_hide_caption():
+        if await kingdb.get_hide_caption():
             hide_caption = on_txt
             hcd = '✅'
-        if await get_channel_button():
+        if await kingdb.get_channel_button():
             channel_button = on_txt
             cbd = '✅'
-        name, link = await get_channel_button_link()
+        name, link = await kingdb.get_channel_button_link()
         
         await message.reply_photo(
             photo = files_cmd_pic,
