@@ -211,8 +211,14 @@ class sidDataBase:
         users_docs = self.banned_user_data.find()
         user_ids = [doc['_id'] for doc in users_docs]
         return user_ids
-
-
+        
+    # Initialize a channel with an empty user_ids array (acting as a set)
+    async def add_reqChannel(self, channel_id: int):
+        self.rqst_fsub_Channel_data.update_one(
+            {'_id': channel_id}, 
+            {'$setOnInsert': {'user_ids': []}},  # Start with an empty array to represent the set
+            upsert=True  # Insert the document if it doesn't exist
+        )
 
     # Method 1: Add user to the channel set
     async def reqSent_user(self, channel_id: int, user_id: int):
