@@ -11,23 +11,25 @@ from bot import Bot
 #from helper_func import is_userJoin, is_admin, subscribed
 from database.database import kingdb#get_all_channels, store_req_link, get_req_link, del_req_link, store_reqsent_id, get_reqsent_ids, del_reqsent_id, get_request_forcesub, set_request_forcesub, get_ban_users
 
-from pyrogram.types import ChatMemberUpdated
+from pyrogram.types import ChatMemberUpdated, ChatMemberStatus
 
 # This handler captures membership updates (like when a user leaves)
 @Bot.on_chat_member_updated()
 async def handle_member_leave(client, chat_member_updated: ChatMemberUpdated):
     print("Bot.on_chat_member_updated() Triggred....")
-    # Check if the new status of the user is 'left'
-    if chat_member_updated.new_chat_member.status == "left":
+    
+    member_status = ChatMemberStatus.MEMBER, ChatMemberStatus.LEFT, ChatMemberStatus.BANNED
+    
+    if chat_member_updated.new_chat_member.status in member_status:
         user_id = chat_member_updated.new_chat_member.user.id
-        chat_id = chat_member_updated.chat.id  # Channel ID from which the user left
+        chat_id = chat_member_updated.chat.id
+        print(f"A Specified Event Occured between User ID: {user_id} and Channel ID: {chat_id}")
         
-        print(f"User ID: {user_id} has left Channel ID: {chat_id}")
-      
         if await kingdb.reqChannel_exist(chat_id) and kingdb.reqSent_user_exist(chat_id, user_id):
-            print(f'{user_id} successfully removed from {chat_id} Database')  
             await kingdb.del_reqSent_user(chat_id, user_id)
-
+            print(f'{user_id} successfully removed from {chat_id} Database')  
+            
+      
 # This handler will capture any join request to the channel/group where the bot is an admin
 @Bot.on_chat_join_request()
 async def handle_join_request(client, chat_join_request):
