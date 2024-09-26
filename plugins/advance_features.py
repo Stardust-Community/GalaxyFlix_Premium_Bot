@@ -106,6 +106,10 @@ async def delete_all_forcesub(client:Client, message:Message):
         if channels:
             for id in channels:
                 await kingdb.del_channel(id)
+                
+                if await kingdb.reqChannel_exist(id):
+                    await kingdb.del_reqChannel(id)
+                    
             ids = "\n".join([f"<code>{channel}</code> ✅" for channel in channels])
             return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Cʜᴀɴɴᴇʟ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n<blockquote>{ids}</blockquote></b>", reply_markup=reply_markup)
         else:
@@ -121,6 +125,10 @@ async def delete_all_forcesub(client:Client, message:Message):
                 continue
             if id in channels:
                 await kingdb.del_channel(id)
+                
+                if await kingdb.reqChannel_exist(id):
+                    await kingdb.del_reqChannel(id)
+                    
                 passed += f"<blockquote><code>{id}</code> ✅</blockquote>\n"
             else:
                 passed += f"<b><blockquote><code>{id}</code> ɴᴏᴛ ɪɴ ғᴏʀᴄᴇ-sᴜʙ ᴄʜᴀɴɴᴇʟs</blockquote></b>\n"
