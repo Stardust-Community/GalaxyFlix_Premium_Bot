@@ -173,7 +173,7 @@ async def not_joined(client: Client, message: Message):
                     link = ""
                     
                     if REQFSUB and await privateChannel(client, id):
-                        link = kingdb.get_stored_reqLink(id)
+                        link = await kingdb.get_stored_reqLink(id)
                         if not link:
                             invite_link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
                             await kingdb.store_reqLink(id, invite_link)
