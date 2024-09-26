@@ -10,7 +10,7 @@ from pyrogram import Client, filters
 from helper_func import is_admin, get_readable_time, banUser
 from plugins.FORMATS import HELP_TEXT, BAN_TXT, CMD_TXT, USER_CMD_TXT, FSUB_CMD_TXT
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
-from database.database import add_user, del_user, full_userbase, present_user, get_ban_users, ban_user_exist
+from database.database import kingdb #.add_user, del_user, full_userbase, present_user, get_ban_users, ban_user_exist
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 REPLY_ERROR = """Usᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴀs ᴀ ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ Tᴇʟᴇɢʀᴀᴍ ᴍᴇssᴀɢᴇ ᴡɪᴛʜᴏᴜᴛ ᴀɴʏ sᴘᴀᴄᴇs."""
@@ -45,7 +45,7 @@ async def send_text(client: Bot, message: Message):
         broad_mode = 'SILENT '
 
     if message.reply_to_message:
-        query = await full_userbase()
+        query = await kingdb.full_userbase()
         broadcast_msg = message.reply_to_message
         total = len(query)
         successful = 0
@@ -76,14 +76,14 @@ async def send_text(client: Bot, message: Message):
                 await broadcast_msg.copy(chat_id, disable_notification=mode)
                 successful += 1
             except UserIsBlocked:
-                await del_user(chat_id)
+                await kingdb.del_user(chat_id)
                 blocked += 1
             except InputUserDeactivated:
-                await del_user(chat_id)
+                await kingdb.del_user(chat_id)
                 deleted += 1
             except:
                 unsuccessful += 1
-                await del_user(chat_id)
+                await kingdb.del_user(chat_id)
                 pass
 
             # Calculate percentage complete
@@ -138,7 +138,7 @@ async def info(client: Bot, message: Message):
     # Calculate ping time in milliseconds
     ping_time = (end_time - start_time) * 1000
     
-    users = await full_userbase()
+    users = await kingdb.full_userbase()
     now = datetime.now()
     delta = now - client.uptime
     bottime = get_readable_time(delta.seconds)
