@@ -160,7 +160,7 @@ async def not_joined(client: Client, message: Message):
     excl = '! '
                
     channels = await kingdb.get_all_channels()
-    RQFSUB = await kingdb.get_request_forcesub()
+    REQFSUB = await kingdb.get_request_forcesub()
     buttons = []
     count = 0
 
