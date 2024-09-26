@@ -5,7 +5,7 @@ from bot import Bot
 from plugins.FORMATS import *
 from config import OWNER_ID, PICS
 from plugins.advance_features import convert_time
-from database.database import *
+from database.database import kingdb
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto
     
 async def fileSettings(getfunc, setfunc=None, delfunc=False) :
@@ -80,13 +80,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     elif data == "setting":
         await query.edit_message_media(InputMediaPhoto(random.choice(PICS), "<b>Pʟᴇᴀsᴇ wᴀɪᴛ !\n\n<i>🔄 Rᴇᴛʀɪᴇᴠɪɴɢ ᴀʟʟ Sᴇᴛᴛɪɴɢs...</i></b>"))
         try:
-            total_fsub = len(await get_all_channels())
-            total_admin = len(await get_all_admins())
-            total_ban = len(await get_ban_users())
-            autodel_mode = 'Eɴᴀʙʟᴇᴅ' if await get_auto_delete() else 'Dɪsᴀʙʟᴇᴅ'
-            protect_content = 'Eɴᴀʙʟᴇᴅ' if await get_protect_content() else 'Dɪsᴀʙʟᴇᴅ'
-            hide_caption = 'Eɴᴀʙʟᴇᴅ' if await get_hide_caption() else 'Dɪsᴀʙʟᴇᴅ'
-            chnl_butn = 'Eɴᴀʙʟᴇᴅ' if await get_channel_button() else 'Dɪsᴀʙʟᴇᴅ'
+            total_fsub = len(await kingdb.get_all_channels())
+            total_admin = len(await kingdb.get_all_admins())
+            total_ban = len(await kingdb.get_ban_users())
+            autodel_mode = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_auto_delete() else 'Dɪsᴀʙʟᴇᴅ'
+            protect_content = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_protect_content() else 'Dɪsᴀʙʟᴇᴅ'
+            hide_caption = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_hide_caption() else 'Dɪsᴀʙʟᴇᴅ'
+            chnl_butn = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_channel_button() else 'Dɪsᴀʙʟᴇᴅ'
             
             await query.edit_message_media(
                 InputMediaPhoto(random.choice(PICS),
@@ -126,15 +126,15 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     elif data == "files_cmd":
         id = query.from_user.id
         #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await admin_exist(id)]):
+        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
             return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True) 
 
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
             
         try:
-            protect_content, pcd = await fileSettings(get_protect_content)
-            hide_caption, hcd = await fileSettings(get_hide_caption)
-            channel_button, cbd = await fileSettings(get_channel_button)
+            protect_content, pcd = await fileSettings(kingdb.get_protect_content)
+            hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)
+            channel_button, cbd = await fileSettings(kingdb.get_channel_button)
             name, link = await get_channel_button_link()
             
             await query.edit_message_media(
@@ -155,16 +155,16 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     elif data == "pc":
         id = query.from_user.id
         #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await admin_exist(id)]):
+        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
             return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
 
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
             
         try:
-            pic, protect_content, pcd = await fileSettings(get_protect_content, set_protect_content)
-            hide_caption, hcd = await fileSettings(get_hide_caption)   
-            channel_button, cbd = await fileSettings(get_channel_button) 
-            name, link = await get_channel_button_link()
+            pic, protect_content, pcd = await fileSettings(kingdb.get_protect_content, kingdb.set_protect_content)
+            hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)   
+            channel_button, cbd = await fileSettings(kingdb.get_channel_button) 
+            name, link = await kingdb.get_channel_button_link()
             
             await query.edit_message_media(
                 InputMediaPhoto(pic,
@@ -184,16 +184,16 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     elif data == "hc":
         id = query.from_user.id
         #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await admin_exist(id)]):
+        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
             return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
 
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
             
         try:
-            protect_content, pcd = await fileSettings(get_protect_content)
-            pic, hide_caption, hcd = await fileSettings(get_hide_caption, set_hide_caption)   
-            channel_button, cbd = await fileSettings(get_channel_button) 
-            name, link = await get_channel_button_link()
+            protect_content, pcd = await fileSettings(kingdb.get_protect_content)
+            pic, hide_caption, hcd = await fileSettings(kingdb.get_hide_caption, kingdb.set_hide_caption)   
+            channel_button, cbd = await fileSettings(kingdb.get_channel_button) 
+            name, link = await kingdb.get_channel_button_link()
             
             await query.edit_message_media(
                 InputMediaPhoto(pic,
@@ -213,16 +213,16 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     elif data == "cb":
         id = query.from_user.id
         #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await admin_exist(id)]):
+        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
             return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
 
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
             
         try:
-            protect_content, pcd = await fileSettings(get_protect_content)
-            hide_caption, hcd = await fileSettings(get_hide_caption)   
-            pic, channel_button, cbd = await fileSettings(get_channel_button, set_channel_button) 
-            name, link = await get_channel_button_link()
+            protect_content, pcd = await fileSettings(kingdb.get_protect_content)
+            hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)   
+            pic, channel_button, cbd = await fileSettings(kingdb.get_channel_button, kingdb.set_channel_button) 
+            name, link = await kingdb.get_channel_button_link()
             
             await query.edit_message_media(
                 InputMediaPhoto(pic,
@@ -242,13 +242,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     elif data == "setcb":
         id = query.from_user.id
         #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await admin_exist(id)]):
+        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
             return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
 
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
             
         try:
-            button_name, button_link = await get_channel_button_link()
+            button_name, button_link = await kingdb.get_channel_button_link()
         
             button_preview = [[InlineKeyboardButton(text=button_name, url=button_link)]]  
             set_msg = await client.ask(chat_id = id, text=f'<b>Tᴏ ᴄʜᴀɴɢᴇ ᴛʜᴇ ʙᴜᴛᴛᴏɴ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ᴀʀɢᴜᴍᴇɴᴛs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\nFᴏʀ ᴇxᴀᴍᴘʟᴇ:\n<blockquote><code>Join Channel - https://t.me/btth480p</code></blockquote>\n\n<i>Bᴇʟᴏᴡ ɪs ʙᴜᴛᴛᴏɴ Pʀᴇᴠɪᴇᴡ ⬇️</i></b>', timeout=60, reply_markup=InlineKeyboardMarkup(button_preview), disable_web_page_preview = True)
@@ -262,7 +262,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             button_preview = [[InlineKeyboardButton(text=button_name, url=button_link)]]
             
             await set_msg.reply("<b><i>Aᴅᴅᴇᴅ Sᴜᴄcᴇssғᴜʟʟʏ ✅</i>\n<blockquote>Sᴇᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴀs Pʀᴇᴠɪᴇᴡ ⬇️</blockquote></b>", reply_markup=InlineKeyboardMarkup(button_preview))
-            await set_channel_button_link(button_name, button_link)
+            await kingdb.set_channel_button_link(button_name, button_link)
             return
         except Exception as e:
             try:
@@ -281,8 +281,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
             
         try:
-            timer = convert_time(await get_del_timer())
-            autodel_mode, mode = await fileSettings(get_auto_delete, delfunc=True)
+            timer = convert_time(await kingdb.get_del_timer())
+            autodel_mode, mode = await fileSettings(kingdb.get_auto_delete, delfunc=True)
             
             await query.edit_message_media(
                 InputMediaPhoto(autodel_cmd_pic,
@@ -308,8 +308,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
             
         try:
-            timer = convert_time(await get_del_timer())
-            pic, autodel_mode, mode = await fileSettings(get_auto_delete, set_auto_delete, delfunc=True)
+            timer = convert_time(await kingdb.get_del_timer())
+            pic, autodel_mode, mode = await fileSettings(kingdb.get_auto_delete, kingdb.set_auto_delete, delfunc=True)
         
             await query.edit_message_media(
                 InputMediaPhoto(pic,
@@ -332,13 +332,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
         try:
             
-            timer = convert_time(await get_del_timer())
+            timer = convert_time(await kingdb.get_del_timer())
             set_msg = await client.ask(chat_id = id, text=f'<b><blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote>\n\nTᴏ ᴄʜᴀɴɢᴇ ᴛɪᴍᴇʀ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ɪɴ sᴇᴄᴏɴᴅs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\n<blockquote>Fᴏʀ ᴇxᴀᴍᴘʟᴇ: <code>300</code>, <code>600</code>, <code>900</code></b></blockquote>', timeout=60)
             del_timer = set_msg.text.split()
             
             if len(del_timer) == 1 and del_timer[0].isdigit():
                 DEL_TIMER = int(del_timer[0])
-                await set_del_timer(DEL_TIMER)
+                await kingdb.set_del_timer(DEL_TIMER)
                 timer = convert_time(DEL_TIMER)
                 await set_msg.reply(f"<b><i>Aᴅᴅᴇᴅ Sᴜᴄcᴇssғᴜʟʟʏ ✅</i>\n<blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote></b>")
             else:
