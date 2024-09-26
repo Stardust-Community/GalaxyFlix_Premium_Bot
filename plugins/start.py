@@ -10,7 +10,7 @@ from pyrogram.errors import FloodWait
 from bot import Bot
 from config import CUSTOM_CAPTION, OWNER_ID, PICS
 from helper_func import banUser, is_userJoin, is_admin, subscribed, encode, decode, get_messages
-from database.database import * 
+from database.database import kingdb #.* 
 import subprocess
 import sys
 from plugins.advance_features import convert_time, auto_del_notification, delete_message
@@ -25,9 +25,9 @@ async def start_command(client: Client, message: Message):
     #if await ban_user_exist(id):
         #return await message.reply(text=BAN_TXT, message_effect_id=5046589136895476101)
     
-    if not await present_user(id):
+    if not await kingdb.present_user(id):
         try:
-            await add_user(id)
+            await kingdb.add_user(id)
         except:
             pass
                 
@@ -75,11 +75,11 @@ async def start_command(client: Client, message: Message):
         except:
             return await message.reply("<b><i>Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ ᴡʀᴏɴɢ..!</i></b>")
             
-        AUTO_DEL = await get_auto_delete(); DEL_TIMER = await get_del_timer()
-        HIDE_CAPTION = await get_hide_caption(); CHNL_BTN = await get_channel_button(); PROTECT_MODE = await get_protect_content()   
+        AUTO_DEL = await kingdb.get_auto_delete(); DEL_TIMER = await kingdb.get_del_timer()
+        HIDE_CAPTION = await kingdb.get_hide_caption(); CHNL_BTN = await kingdb.get_channel_button(); PROTECT_MODE = await kingdb.get_protect_content()   
             
         if CHNL_BTN:
-            button_name, button_link = await get_channel_button_link()
+            button_name, button_link = await kingdb.get_channel_button_link()
             
         # temp_msg = await message.reply("<b>. . . </b>")
         # await temp_msg.delete()
@@ -166,7 +166,7 @@ async def not_joined(client: Client, message: Message):
     #if user_id in banned_users:
         #return await temp.edit(BAN_TXT)
                
-    channels = await get_all_channels()
+    channels = await kingdb.get_all_channels()
     buttons = []
     count = 0
 
