@@ -45,9 +45,8 @@ async def handle_join_request(client, chat_join_request):
     
     print(f"User ID: {user_id} has sent a join request to Channel ID: {chat_id}")
 
-    if await kingdb.reqChannel_exist(chat_id):
-        await kingdb.reqSent_user(chat_id, user_id)
-        print(f'{user_id} successfully added to SET[{chat_id}] Database')
+    await kingdb.reqSent_user(chat_id, user_id)
+    print(f'{user_id} successfully added to SET[{chat_id}] Database')
 
 
 async def privateChannel(client, channel_id):
