@@ -275,7 +275,7 @@ class sidDataBase:
         return None
 
     # Set (or update) the stored link for a specific channel
-    async def set_stored_reqLink(self, channel_id: int, link: str):
+    async def store_reqLink(self, channel_id: int, link: str):
         # Insert or update the link for the channel_id in store_reqLink_data
         self.store_reqLink_data.update_one(
             {'_id': channel_id}, 
