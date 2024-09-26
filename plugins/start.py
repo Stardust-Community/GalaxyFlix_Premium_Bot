@@ -169,7 +169,7 @@ async def not_joined(client: Client, message: Message):
             if not await is_userJoin(client, user_id, id):
                 try:
                     data = await client.get_chat(id)
-		    cname = data.title
+                    cname = data.title
                     link = ""
 			
 		    if REQFSUB and await privateChannel(client, id):
