@@ -135,7 +135,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             protect_content, pcd = await fileSettings(kingdb.get_protect_content)
             hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)
             channel_button, cbd = await fileSettings(kingdb.get_channel_button)
-            name, link = await get_channel_button_link()
+            name, link = await kingdb.get_channel_button_link()
             
             await query.edit_message_media(
                 InputMediaPhoto(files_cmd_pic,
