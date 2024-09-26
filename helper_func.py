@@ -7,11 +7,11 @@ from pyrogram.enums import ChatMemberStatus
 from config import OWNER_ID
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 from pyrogram.errors import FloodWait
-from database.database import get_all_channels, get_all_admins, admin_exist, ban_user_exist
+from database.database import kingdb #get_all_channels, get_all_admins, admin_exist, ban_user_exist
 
 async def check_banUser(filter, client, update):
     user_id = update.from_user.id
-    return await ban_user_exist(user_id)
+    return await kingdb.ban_user_exist(user_id)
 
 async def check_admin(filter, client, update):
     #Admin_ids = await get_all_admins()
@@ -24,16 +24,16 @@ async def check_admin(filter, client, update):
     #if user_id == OWNER_ID:
         #return True
             
-    return any([user_id == OWNER_ID, await admin_exist(user_id)])
+    return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
 
 async def is_subscribed(filter, client, update):
-    Channel_ids = await get_all_channels()
+    Channel_ids = await kingdb.get_all_channels()
     
     if not Channel_ids:
         return True
 
     user_id = update.from_user.id
-    Admin_ids = await get_all_admins()
+    Admin_ids = await kingdb.get_all_admins()
 
     if user_id == OWNER_ID or user_id in Admin_ids:
         return True
