@@ -352,7 +352,49 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             except:
                 await client.send_message(id, text=f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote><i>Rᴇᴀsᴏɴ: 1 minute Time out ..</i></b></blockquote>", disable_notification=True)
                 print(f"! Error Occured on callback data = 'set_timer' -> Rᴇᴀsᴏɴ: 1 minute Time out ..")
-                
+
+    elif data == 'chng_req':
+        id = query.from_user.id
+        
+        if id != OWNER_ID:
+            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
+
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+
+        try:
+            on = off = ""
+            if await kingdb.get_request_forcesub():
+                await kingdb.set_request_forcesub(False)
+                off = "🔴"
+                texting = off_txt
+            else:
+                await kingdb.set_request_forcesub(True)
+                on = "🟢"
+                texting = on_txt
+
+            button = [
+                [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
+                [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
+            ]
+            await query.edit_message(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button)) #🎉)
+
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'chng_req' : {e}")
+
+
+    elif data == 'more_settings':
+        id = query.from_user.id
+        
+        if id != OWNER_ID:
+            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
+
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        
+        try:
+            pass
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+            
                 
                     
                  
