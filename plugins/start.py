@@ -166,7 +166,7 @@ async def not_joined(client: Client, message: Message):
 
     try:
         for id in channels:
-	    await message.reply_chat_action(ChatAction.PLAYING)
+            await message.reply_chat_action(ChatAction.PLAYING)
             if not await is_userJoin(client, user_id, id):
                 try:
                     data = await client.get_chat(id)
@@ -200,7 +200,7 @@ async def not_joined(client: Client, message: Message):
         except IndexError:
             pass
 
-	await message.reply_chat_action(ChatAction.CANCEL)
+        await message.reply_chat_action(ChatAction.CANCEL)
         await temp.edit(
             #photo = random.choice(PICS),   
             text=FORCE_MSG.format(
@@ -225,7 +225,6 @@ async def not_joined(client: Client, message: Message):
     except Exception as e:
         print(f"Unable to perform forcesub buttons reason : {e}")
         return await temp.edit(f"<blockquote><b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b></blockquote>\n\n<blockquote><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
-
 
 #=====================================================================================##
 #.........Extra Fetures .......#
