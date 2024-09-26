@@ -97,3 +97,19 @@ USER_CMD_TXT = """<b>🤖 𝗨𝗦𝗘𝗥 𝗦𝗘𝗧𝗧𝗜𝗡𝗚 𝗖𝗢
 
 <b>/del_banuser</b> : ᴅᴇʟᴇᴛᴇ ᴏɴᴇ ᴏʀ ᴍᴜʟᴛɪᴘʟᴇ ᴜsᴇʀ ɪᴅs ғʀᴏᴍ ʙᴀɴɴᴇᴅ ʟɪsᴛ (ᴏᴡɴᴇʀ)"""
 
+
+
+RFSUB_CMD_TXT = """<b>🤖 𝗥𝗘𝗤𝗨𝗘𝗦𝗧 𝗙𝗦𝗨𝗕 𝗦𝗘𝗧𝗧𝗜𝗡𝗚𝗦 🚦
+
+<blockquote><b>📢 ʀᴇǫᴜᴇsᴛ ᴍᴏᴅᴇ: {req_mode}</b></blockquote>
+
+ᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ᴛᴏ ᴄʜᴀɴɢᴇ sᴇᴛᴛɪɴɢs</b>"""
+
+
+RFSUB_MS_TXT = """<b>🤖 𝗥𝗘𝗤𝗨𝗘𝗦𝗧 𝗙𝗦𝗨𝗕 𝗟𝗜𝗦𝗧 🚥
+
+<blockquote expandable>{reqfsub_list}</blockquote>
+
+ᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ᴛᴏ ᴄʜᴀɴɢᴇ sᴇᴛᴛɪɴɢs</b>"""
+
+
