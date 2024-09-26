@@ -11,15 +11,15 @@ from bot import Bot
 #from helper_func import is_userJoin, is_admin, subscribed
 from database.database import kingdb#get_all_channels, store_req_link, get_req_link, del_req_link, store_reqsent_id, get_reqsent_ids, del_reqsent_id, get_request_forcesub, set_request_forcesub, get_ban_users
 
-from pyrogram.types import ChatMemberUpdated, ChatMemberLeft
+from pyrogram.types import ChatMemberUpdated
 
 # This handler captures membership updates (like when a user leaves)
 @Bot.on_chat_member_updated()
 async def handle_member_leave(client, chat_member_updated: ChatMemberUpdated):
     print("Bot.on_chat_member_updated() Triggred....")
     # Check if the new status of the user is 'left'
-    if isinstance(chat_member_updated.new_chat_member, ChatMemberLeft):
-        user_id = chat_member_updated.from_user.id  # User ID of the person who left
+    if chat_member_updated.new_chat_member.status == "left":
+        user_id = chat_member_updated.new_chat_member.user.id
         chat_id = chat_member_updated.chat.id  # Channel ID from which the user left
         
         print(f"User ID: {user_id} has left Channel ID: {chat_id}")
