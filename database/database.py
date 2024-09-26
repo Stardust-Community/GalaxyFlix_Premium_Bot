@@ -24,6 +24,7 @@ class sidDataBase:
 
         self.rqst_fsub_data = self.database['request_forcesub']
         self.rqst_fsub_Channel_data = self.database['request_forcesub_channel']
+        self.store_reqLink_data = self.database['store_reqLink']
     
     
     async def set_channel_button_link(self, button_name: str, button_link: str):
@@ -263,6 +264,29 @@ class sidDataBase:
         channel_docs = self.rqst_fsub_Channel_data.find()
         channel_ids = [doc['_id'] for doc in channel_docs]
         return channel_ids
+        
+
+    # Get the stored link for a specific channel
+    async def get_stored_reqLink(self, channel_id: int):
+        # Retrieve the stored link for a specific channel_id from store_reqLink_data
+        data = self.store_reqLink_data.find_one({'_id': channel_id})
+        if data:
+            return data.get('link')
+        return None
+
+    # Set (or update) the stored link for a specific channel
+    async def set_stored_reqLink(self, channel_id: int, link: str):
+        # Insert or update the link for the channel_id in store_reqLink_data
+        self.store_reqLink_data.update_one(
+            {'_id': channel_id}, 
+            {'$set': {'link': link}}, 
+            upsert=True
+        )
+
+    # Delete the stored link and the channel from store_reqLink_data
+    async def del_stored_reqLink(self, channel_id: int):
+        # Delete the document with the channel_id in store_reqLink_data
+        self.store_reqLink_data.delete_one({'_id': channel_id})
 
     
     
