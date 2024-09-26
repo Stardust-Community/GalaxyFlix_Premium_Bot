@@ -31,7 +31,7 @@ async def handle_Chatmembers(client, chat_member_updated: ChatMemberUpdated):
         chat_id = chat_member_updated.chat.id
         print(f"A Specified Event Occured between User ID: {user_id} and Channel ID: {chat_id}")
         
-        if await kingdb.reqChannel_exist(chat_id) and kingdb.reqSent_user_exist(chat_id, user_id):
+        if await kingdb.reqChannel_exist(chat_id) and await kingdb.reqSent_user_exist(chat_id, user_id):
             await kingdb.del_reqSent_user(chat_id, user_id)
             print(f'{user_id} successfully removed from {chat_id} Database')  
             
