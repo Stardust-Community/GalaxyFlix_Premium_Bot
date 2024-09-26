@@ -230,4 +230,4 @@ class sidDataBase:
         return user_ids"""
 
 
-kingDB = sidDataBase(DB_URI, DB_NAME)
+kingdb = sidDataBase(DB_URI, DB_NAME)
