@@ -155,7 +155,7 @@ WAIT_MSG = """"<b>Processing ...</b>"""
 @Bot.on_message(filters.command('start') & filters.private & ~banUser)
 async def not_joined(client: Client, message: Message):
     temp = await message.reply(f"<b>??</b>")
-	
+    
     user_id = message.from_user.id
     excl = '! '
                
@@ -171,24 +171,24 @@ async def not_joined(client: Client, message: Message):
                     data = await client.get_chat(id)
                     cname = data.title
                     link = ""
-			
-		    if REQFSUB and await privateChannel(client, id):
-		        link = kingdb.get_stored_reqLink(id)
-			if not link:
-			    invite_link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
-			    await kingdb.store_reqLink(id, invite_link)
-			    link = invite_link
+                    
+                    if REQFSUB and await privateChannel(client, id):
+                        link = kingdb.get_stored_reqLink(id)
+                        if not link:
+                            invite_link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
+                            await kingdb.store_reqLink(id, invite_link)
+                            link = invite_link
                                                 
                     if not link:
-			link = data.invite_link
-			    
-			if not link:
-                            await client.export_chat_invite_link(id)
-                            link = (await client.get_chat(id)).invite_link 
+                        link = data.invite_link
+                        
+                    if not link:
+                        await client.export_chat_invite_link(id)
+                        link = (await client.get_chat(id)).invite_link 
                                                         
                     buttons.append([InlineKeyboardButton(text=cname, url=link)])
                     count += 1
-                    await temp.edit(f'<b>{excl*count}</b>')
+                    await temp.edit(f'<b>{excl * count}</b>')
                                                 
                 except Exception as e:
                     print(f"Can't Export Channel Name and Link..., Please Check If the Bot is admin in the FORCE SUB CHANNELS:\nProvided Force sub Channel:- {id}")
@@ -223,7 +223,7 @@ async def not_joined(client: Client, message: Message):
     except Exception as e:
         print(f"Unable to perform forcesub buttons reason : {e}")
         return await temp.edit(f"<blockquote><b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b></blockquote>\n\n<blockquote><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
-  
+
 
 #=====================================================================================##
 #.........Extra Fetures .......#
