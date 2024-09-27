@@ -10,10 +10,10 @@ from pyrogram.errors import FloodWait
 from bot import Bot
 from config import CUSTOM_CAPTION, OWNER_ID, PICS
 from helper_func import banUser, is_userJoin, is_admin, subscribed, encode, decode, get_messages
-from database.database import kingdb #.* 
+from database.database import kingdb
 import subprocess
 import sys
-from plugins.advance_features import convert_time, auto_del_notification, delete_message
+from plugins.autoDelete import convert_time, auto_del_notification, delete_message
 from plugins.FORMATS import START_MSG, FORCE_MSG, BAN_TXT
 from plugins.request_forcesub import *
 
