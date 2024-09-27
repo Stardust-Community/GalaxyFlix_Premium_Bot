@@ -53,7 +53,8 @@ SETTING_TXT = """<b>⚙️ Cᴏɴғɪɢᴜʀᴀᴛɪᴏɴs</b>
 ◈ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇ ᴍᴏᴅᴇ:  <b>{autodel_mode}</b>
 ◈ ᴘʀᴏᴛᴇᴄᴛ ᴄᴏɴᴛᴇɴᴛ:  <b>{protect_content}</b>
 ◈ ʜɪᴅᴇ ᴄᴀᴘᴛɪᴏɴ:  <b>{hide_caption}</b>
-◈ ᴄʜᴀɴɴᴇʟ ʙᴜᴛᴛᴏɴ:  <b>{chnl_butn}</b></blockquote>"""
+◈ ᴄʜᴀɴɴᴇʟ ʙᴜᴛᴛᴏɴ:  <b>{chnl_butn}</b>
+◈ ʀᴇǫᴜᴇsᴛ ғsᴜʙ ᴍᴏᴅᴇ: <b>{reqfsub}</b></blockquote>"""
 
 on_txt, off_txt = "Eɴᴀʙʟᴇᴅ ✅", "Dɪsᴀʙʟᴇᴅ ❌"
 
@@ -83,6 +84,7 @@ FSUB_CMD_TXT = """<b>🤖 𝗙𝗢𝗥𝗖𝗘 𝗦𝗨𝗕 𝗖𝗢𝗠𝗠𝗔
 
 <b>/del_fsub</b> : ᴅᴇʟᴇᴛᴇ ᴏɴᴇ ᴏʀ ᴍᴜʟᴛɪᴘʟᴇ ғᴏʀᴄᴇ sᴜʙ ᴄʜᴀɴɴᴇʟs (ᴏᴡɴᴇʀ)"""
 
+
 USER_CMD_TXT = """<b>🤖 𝗨𝗦𝗘𝗥 𝗦𝗘𝗧𝗧𝗜𝗡𝗚 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 :</b>
     
 <b>/admin_list</b> : ᴠɪᴇᴡ ᴛʜᴇ ᴀᴠᴀɪʟᴀʙʟᴇ ᴀᴅᴍɪɴ ʟɪsᴛ (ᴏᴡɴᴇʀ)
@@ -101,7 +103,7 @@ USER_CMD_TXT = """<b>🤖 𝗨𝗦𝗘𝗥 𝗦𝗘𝗧𝗧𝗜𝗡𝗚 𝗖𝗢
 
 RFSUB_CMD_TXT = """<b>🤖 𝗥𝗘𝗤𝗨𝗘𝗦𝗧 𝗙𝗦𝗨𝗕 𝗦𝗘𝗧𝗧𝗜𝗡𝗚𝗦 🚦
 
-<blockquote><b>📢 ʀᴇǫᴜᴇsᴛ ᴍᴏᴅᴇ: {req_mode}</b></blockquote>
+<blockquote><b>📢 ʀᴇǫᴜᴇsᴛ ғsᴜʙ ᴍᴏᴅᴇ: {req_mode}</b></blockquote>
 
 ᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ᴛᴏ ᴄʜᴀɴɢᴇ sᴇᴛᴛɪɴɢs</b>"""
 
