@@ -166,7 +166,7 @@ async def not_joined(client: Client, message: Message):
 
     try:
         for id in channels:
-            await message.reply_chat_action(ChatAction.RECORD_AUDIO)
+            await message.reply_chat_action(ChatAction.FIND_LOCATION)
             if not await is_userJoin(client, user_id, id):
                 try:
                     data = await client.get_chat(id)
