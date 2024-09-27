@@ -100,6 +100,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             protect_content = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_protect_content() else 'Dɪsᴀʙʟᴇᴅ'
             hide_caption = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_hide_caption() else 'Dɪsᴀʙʟᴇᴅ'
             chnl_butn = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_channel_button() else 'Dɪsᴀʙʟᴇᴅ'
+            reqfsub = 'Eɴᴀʙʟᴇᴅ' if await kingdb.get_request_forcesub() else 'Dɪsᴀʙʟᴇᴅ'
             
             await query.edit_message_media(
                 InputMediaPhoto(random.choice(PICS),
@@ -110,7 +111,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                                     autodel_mode = autodel_mode,
                                     protect_content = protect_content,
                                     hide_caption = hide_caption,
-                                    chnl_butn = chnl_butn
+                                    chnl_butn = chnl_butn,
+                                    reqfsub = reqfsub
                                 )
                 ),
                 reply_markup=InlineKeyboardMarkup([
