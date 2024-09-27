@@ -9,7 +9,7 @@
 ### 1. FORCE-SUB 📢: 
 <i>You can add one or multiple force-sub channels—there's no limit to the number you can add. You can also empty the list by deleting all force-sub channels. This feature provides versatility, allowing you to create a custom number of force-sub channels according to your preference.</i>
 
-### 1.1 REQUEST FORCE-SUB 📢: 
+### 1.1. REQUEST FORCE-SUB 📢: 
 <i>The most Demanding part is Request force sub fetures. By enbaling request force sub mode the privates Channel link will provided with join request. This feature provides more versatility, allowing you to move more step further in force-sub channels according to your preference. There is more intreactive features vailable in request forcesub which allows more advance and reliable operations</i>
 
 ### 2. ADMINS 👮🏻‍♂️: 
