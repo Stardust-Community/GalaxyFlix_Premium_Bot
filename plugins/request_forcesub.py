@@ -1,14 +1,16 @@
-#adding soon
-import logging
-import os
+# +++ Made By King [telegram user id: @Shidoteshika1] +++
+
 import asyncio
 from pyrogram import Client, filters
-from pyrogram.enums import ParseMode
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery,  ChatMemberUpdated
 
 from bot import Bot
 from database.database import kingdb
 from pyrogram.enums import ChatMemberStatus
+
+#import logging
+#import os
+#from pyrogram.enums import ParseMode
 
 # This handler captures membership updates (like when a user leaves)
 @Bot.on_chat_member_updated()
@@ -47,10 +49,10 @@ async def handle_join_request(client, chat_join_request):
     if await kingdb.reqChannel_exist(chat_id) and not await kingdb.reqSent_user_exist(chat_id, user_id):
         await kingdb.reqSent_user(chat_id, user_id)
         print(f'{user_id} successfully added to SET[{chat_id}] Database')
+        
 
-
+#Check If a channel is private or public
 async def privateChannel(client, channel_id):
-    # Replace 'CHANNEL_ID' with the channel ID you want to check
     try:
         chat = await client.get_chat(channel_id)
         return not bool(chat.username)
