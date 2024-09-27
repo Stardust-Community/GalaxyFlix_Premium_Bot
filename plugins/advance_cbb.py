@@ -239,7 +239,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 print(f"! Error Occured on callback data = 'cb' : {e}")
             
     elif data == "setcb":
-        if await authoUser(query, query.from_user.id) :
+        id = query.from_user.id
+        if await authoUser(query, id) :
             await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
                 
             try:
@@ -314,11 +315,12 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 print(f"! Error Occured on callback data = 'chng_autodel' : {e}")
 
     elif data == 'set_timer':
-        if await authoUser(query, query.from_user.id, owner_only=True) :
+        id = query.from_user.id
+        if await authoUser(query, id, owner_only=True) :
             try:
                 
                 timer = convert_time(await kingdb.get_del_timer())
-                set_msg = await client.ask(chat_id = id, text=f'<b><blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote>\n\nTᴏ ᴄʜᴀɴɢᴇ ᴛɪᴍᴇʀ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ɪɴ sᴇᴄᴏɴᴅs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\n<blockquote>Fᴏʀ ᴇxᴀᴍᴘʟᴇ: <code>300</code>, <code>600</code>, <code>900</code></b></blockquote>', timeout=60)
+                set_msg = await client.ask(chat_id=id, text=f'<b><blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote>\n\nTᴏ ᴄʜᴀɴɢᴇ ᴛɪᴍᴇʀ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ɪɴ sᴇᴄᴏɴᴅs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\n<blockquote>Fᴏʀ ᴇxᴀᴍᴘʟᴇ: <code>300</code>, <code>600</code>, <code>900</code></b></blockquote>', timeout=60)
                 del_timer = set_msg.text.split()
                 
                 if len(del_timer) == 1 and del_timer[0].isdigit():
