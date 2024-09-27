@@ -228,6 +228,8 @@ async def not_joined(client: Client, message: Message):
         print(f"Unable to perform forcesub buttons reason : {e}")
         return await temp.edit(f"<blockquote><b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b></blockquote>\n\n<blockquote><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
 
+
+
 #=====================================================================================##
 #......... RESTART COMMAND FOR RESTART BOT .......#
 #=====================================================================================##
