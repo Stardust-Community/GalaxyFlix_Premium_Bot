@@ -4,7 +4,8 @@
   "keywords": [
     "telegram",
     "file",
-    "sharing"
+    "sharing",
+    "request_fsub"
   ],
   "Sorce repository": "https://github.com/CodeXBotz/File-Sharing-Bot",
   "logo": "https://ibb.co/FgPVtzw",
@@ -15,7 +16,7 @@
     },
     "OWNER_ID": {
       "description": "An integer of consisting of your owner ID",
-      "value": "1250450587"
+      "value": "1234567890"
     },
     "APP_ID":{
       "description": "your app id, take it from my.telegram.org",
@@ -27,7 +28,7 @@
     },
     "DATABASE_NAME":{
       "description": "Enter your DATABASE_NAME ",
-      "value": "filesharexbot"
+      "value": "adrfsxbot"
     },
     "API_HASH":{
       "description": "your api hash, take it from my.telegram.org",
@@ -37,14 +38,7 @@
       "description": "make a channel (database channel), then make the bot as admin in channel, and it's id",
       "value": "-100"
     },
-    "START_MESSAGE": {
-      "description": "Optional: start message of bot, use HTML parsemode format",
-      "value": "Hᴇʟʟᴏ, {first} 👋 <b>I ᴀᴍ Oɴʟʏ Sᴛᴏʀᴇ ғɪʟᴇs ғᴏʀ <a href='https://t.me/chatbox480'>Aɴɪᴍᴇ Cɪʀᴄʟᴇ ™</a></b>"
-    },
-    "FORCE_SUB_MESSAGE": {
-      "description": "Optional: Force Sub message of bot, use HTML parsemode format",
-      "value": "Hello {first} <b>You need to join in my Channel/Group to use me\n\nKindly Please join Channel</b>"
-    },
+    
   "buildpacks": [
     {
       "url": "heroku/python"
