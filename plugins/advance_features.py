@@ -19,9 +19,11 @@ async def add_forcesub(client:Client, message:Message):
     check=0
     channel_ids = await kingdb.get_all_channels()
     fsubs = message.text.split()[1:]
+
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
     
     if not fsubs:
-        await pro.edit("<b>Yᴏᴜ ɴᴇᴇᴅ ᴛᴏ Aᴅᴅ ᴄʜᴀɴɴᴇʟ ɪᴅs\n<blockquote><u>EXAMPLE</u> :\n/add_fsub [channel_ids] :</b> ʏᴏᴜ ᴄᴀɴ ᴀᴅᴅ ᴏɴᴇ ᴏʀ ᴍᴜʟᴛɪᴘʟᴇ ᴄʜᴀɴɴᴇʟ ɪᴅ ᴀᴛ ᴀ ᴛɪᴍᴇ.</blockquote>")
+        await pro.edit("<b>Yᴏᴜ ɴᴇᴇᴅ ᴛᴏ Aᴅᴅ ᴄʜᴀɴɴᴇʟ ɪᴅs\n<blockquote><u>EXAMPLE</u> :\n/add_fsub [channel_ids] :</b> ʏᴏᴜ ᴄᴀɴ ᴀᴅᴅ ᴏɴᴇ ᴏʀ ᴍᴜʟᴛɪᴘʟᴇ ᴄʜᴀɴɴᴇʟ ɪᴅ ᴀᴛ ᴀ ᴛɪᴍᴇ.</blockquote>", reply_markup=reply_markup)
         return
 
     channel_list = ""
@@ -55,8 +57,6 @@ async def add_forcesub(client:Client, message:Message):
         else:
             channel_list += f"<b><blockquote>ɪɴᴠᴀʟɪᴅ ɪᴅ: <code>{id}</code></blockquote></b>\n\n"
             continue
-            
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
     
     if check == len(fsubs):
         for id in fsubs:
