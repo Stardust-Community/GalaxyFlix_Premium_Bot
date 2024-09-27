@@ -6,7 +6,7 @@ from plugins.FORMATS import *
 from config import OWNER_ID, PICS
 from plugins.advance_features import convert_time
 from database.database import kingdb
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto, ReplyKeyboardMarkup, ReplyKeyboardRemove    
     
 async def fileSettings(getfunc, setfunc=None, delfunc=False) :
     btn_mode, txt_mode, pic_mode = '❌', off_txt, off_pic
@@ -49,7 +49,19 @@ def buttonStatus(pc_data: str, hc_data: str, cb_data: str) -> list:
             InlineKeyboardButton('Cʟᴏsᴇ ✖️', callback_data='close')
         ],
     ]
-    return button   
+    return button
+
+async def authoUser(query, id, owner_only=False):
+    if not owner_only:
+        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
+            await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ !", show_alert=True)
+            return False
+        return True
+    else:
+        if id != OWNER_ID:
+            await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ !", show_alert=True)
+            return False
+        return True
 
 @Bot.on_callback_query()
 async def cb_handler(client: Bot, query: CallbackQuery):
@@ -124,320 +136,324 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
         
     elif data == "files_cmd":
-        id = query.from_user.id
+        #id = query.from_user.id
         #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True) 
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
-            
-        try:
-            protect_content, pcd = await fileSettings(kingdb.get_protect_content)
-            hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)
-            channel_button, cbd = await fileSettings(kingdb.get_channel_button)
-            name, link = await kingdb.get_channel_button_link()
-            
-            await query.edit_message_media(
-                InputMediaPhoto(files_cmd_pic,
-                                FILES_CMD_TXT.format(
-                                    protect_content = protect_content,
-                                    hide_caption = hide_caption,
-                                    channel_button = channel_button,
-                                    name = name,
-                                    link = link
-                                )
-                ),
-                reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd)),
-            )                   
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'files_cmd' : {e}")
+        if await authoUser(query, query.from_user.id) : 
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
+                
+            try:
+                protect_content, pcd = await fileSettings(kingdb.get_protect_content)
+                hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)
+                channel_button, cbd = await fileSettings(kingdb.get_channel_button)
+                name, link = await kingdb.get_channel_button_link()
+                
+                await query.edit_message_media(
+                    InputMediaPhoto(files_cmd_pic,
+                                    FILES_CMD_TXT.format(
+                                        protect_content = protect_content,
+                                        hide_caption = hide_caption,
+                                        channel_button = channel_button,
+                                        name = name,
+                                        link = link
+                                    )
+                    ),
+                    reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd)),
+                )                   
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'files_cmd' : {e}")
             
     elif data == "pc":
-        id = query.from_user.id
-        #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
-            
-        try:
-            pic, protect_content, pcd = await fileSettings(kingdb.get_protect_content, kingdb.set_protect_content)
-            hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)   
-            channel_button, cbd = await fileSettings(kingdb.get_channel_button) 
-            name, link = await kingdb.get_channel_button_link()
-            
-            await query.edit_message_media(
-                InputMediaPhoto(pic,
-                                FILES_CMD_TXT.format(
-                                    protect_content = protect_content,
-                                    hide_caption = hide_caption,
-                                    channel_button = channel_button,
-                                    name = name,
-                                    link = link
-                                )
-                ),
-                reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd))
-            )                   
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'pc' : {e}")
-            
+        if await authoUser(query, query.from_user.id) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
+                
+            try:
+                pic, protect_content, pcd = await fileSettings(kingdb.get_protect_content, kingdb.set_protect_content)
+                hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)   
+                channel_button, cbd = await fileSettings(kingdb.get_channel_button) 
+                name, link = await kingdb.get_channel_button_link()
+                
+                await query.edit_message_media(
+                    InputMediaPhoto(pic,
+                                    FILES_CMD_TXT.format(
+                                        protect_content = protect_content,
+                                        hide_caption = hide_caption,
+                                        channel_button = channel_button,
+                                        name = name,
+                                        link = link
+                                    )
+                    ),
+                    reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd))
+                )                   
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'pc' : {e}")
+                
     elif data == "hc":
-        id = query.from_user.id
-        #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
-            
-        try:
-            protect_content, pcd = await fileSettings(kingdb.get_protect_content)
-            pic, hide_caption, hcd = await fileSettings(kingdb.get_hide_caption, kingdb.set_hide_caption)   
-            channel_button, cbd = await fileSettings(kingdb.get_channel_button) 
-            name, link = await kingdb.get_channel_button_link()
-            
-            await query.edit_message_media(
-                InputMediaPhoto(pic,
-                                FILES_CMD_TXT.format(
-                                    protect_content = protect_content,
-                                    hide_caption = hide_caption,
-                                    channel_button = channel_button,
-                                    name = name,
-                                    link = link
-                                )
-                ),
-                reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd))
-            )                   
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'hc' : {e}")
+        if await authoUser(query, query.from_user.id) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
+                
+            try:
+                protect_content, pcd = await fileSettings(kingdb.get_protect_content)
+                pic, hide_caption, hcd = await fileSettings(kingdb.get_hide_caption, kingdb.set_hide_caption)   
+                channel_button, cbd = await fileSettings(kingdb.get_channel_button) 
+                name, link = await kingdb.get_channel_button_link()
+                
+                await query.edit_message_media(
+                    InputMediaPhoto(pic,
+                                    FILES_CMD_TXT.format(
+                                        protect_content = protect_content,
+                                        hide_caption = hide_caption,
+                                        channel_button = channel_button,
+                                        name = name,
+                                        link = link
+                                    )
+                    ),
+                    reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd))
+                )                   
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'hc' : {e}")
             
     elif data == "cb":
-        id = query.from_user.id
-        #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
-            
-        try:
-            protect_content, pcd = await fileSettings(kingdb.get_protect_content)
-            hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)   
-            pic, channel_button, cbd = await fileSettings(kingdb.get_channel_button, kingdb.set_channel_button) 
-            name, link = await kingdb.get_channel_button_link()
-            
-            await query.edit_message_media(
-                InputMediaPhoto(pic,
-                                FILES_CMD_TXT.format(
-                                    protect_content = protect_content,
-                                    hide_caption = hide_caption,
-                                    channel_button = channel_button,
-                                    name = name,
-                                    link = link
-                                )
-                ),
-                reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd))
-            )                   
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'cb' : {e}")
+        if await authoUser(query, query.from_user.id) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
+                
+            try:
+                protect_content, pcd = await fileSettings(kingdb.get_protect_content)
+                hide_caption, hcd = await fileSettings(kingdb.get_hide_caption)   
+                pic, channel_button, cbd = await fileSettings(kingdb.get_channel_button, kingdb.set_channel_button) 
+                name, link = await kingdb.get_channel_button_link()
+                
+                await query.edit_message_media(
+                    InputMediaPhoto(pic,
+                                    FILES_CMD_TXT.format(
+                                        protect_content = protect_content,
+                                        hide_caption = hide_caption,
+                                        channel_button = channel_button,
+                                        name = name,
+                                        link = link
+                                    )
+                    ),
+                    reply_markup = InlineKeyboardMarkup(buttonStatus(pcd, hcd, cbd))
+                )                   
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'cb' : {e}")
             
     elif data == "setcb":
-        id = query.from_user.id
-        #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
-        if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Aᴅᴍɪɴ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
-            
-        try:
-            button_name, button_link = await kingdb.get_channel_button_link()
-        
-            button_preview = [[InlineKeyboardButton(text=button_name, url=button_link)]]  
-            set_msg = await client.ask(chat_id = id, text=f'<b>Tᴏ ᴄʜᴀɴɢᴇ ᴛʜᴇ ʙᴜᴛᴛᴏɴ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ᴀʀɢᴜᴍᴇɴᴛs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\nFᴏʀ ᴇxᴀᴍᴘʟᴇ:\n<blockquote><code>Join Channel - https://t.me/btth480p</code></blockquote>\n\n<i>Bᴇʟᴏᴡ ɪs ʙᴜᴛᴛᴏɴ Pʀᴇᴠɪᴇᴡ ⬇️</i></b>', timeout=60, reply_markup=InlineKeyboardMarkup(button_preview), disable_web_page_preview = True)
-            button = set_msg.text.split(' - ')
-            
-            if len(button) != 2:
-                markup = [[InlineKeyboardButton(f'◈ Sᴇᴛ Cʜᴀɴɴᴇʟ Bᴜᴛᴛᴏɴ ➪', callback_data='setcb')]]
-                return await set_msg.reply("<b>Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ᴀʀɢᴜᴍᴇɴᴛs.\nFᴏʀ ᴇxᴀᴍᴘʟᴇ:\n<blockquote><code>Join Channel - https://t.me/btth480p</code></blockquote>\n\n<i>Tʀʏ ᴀɢᴀɪɴ ʙʏ ᴄʟɪᴄᴋɪɴɢ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ..</i></b>", reply_markup=InlineKeyboardMarkup(markup), disable_web_page_preview = True)
-            
-            button_name = button[0].strip(); button_link = button[1].strip()
-            button_preview = [[InlineKeyboardButton(text=button_name, url=button_link)]]
-            
-            await set_msg.reply("<b><i>Aᴅᴅᴇᴅ Sᴜᴄcᴇssғᴜʟʟʏ ✅</i>\n<blockquote>Sᴇᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴀs Pʀᴇᴠɪᴇᴡ ⬇️</blockquote></b>", reply_markup=InlineKeyboardMarkup(button_preview))
-            await kingdb.set_channel_button_link(button_name, button_link)
-            return
-        except Exception as e:
+        if await authoUser(query, query.from_user.id) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
+                
             try:
-                await set_msg.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
-                print(f"! Error Occured on callback data = 'setcb' : {e}")
-            except:
-                await client.send_message(id, text=f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote><i>Rᴇᴀsᴏɴ: 1 minute Time out ..</i></b></blockquote>", disable_notification=True)
-                print(f"! Error Occured on callback data = 'setcb' -> Rᴇᴀsᴏɴ: 1 minute Time out ..")
+                button_name, button_link = await kingdb.get_channel_button_link()
+            
+                button_preview = [[InlineKeyboardButton(text=button_name, url=button_link)]]  
+                set_msg = await client.ask(chat_id = id, text=f'<b>Tᴏ ᴄʜᴀɴɢᴇ ᴛʜᴇ ʙᴜᴛᴛᴏɴ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ᴀʀɢᴜᴍᴇɴᴛs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\nFᴏʀ ᴇxᴀᴍᴘʟᴇ:\n<blockquote><code>Join Channel - https://t.me/btth480p</code></blockquote>\n\n<i>Bᴇʟᴏᴡ ɪs ʙᴜᴛᴛᴏɴ Pʀᴇᴠɪᴇᴡ ⬇️</i></b>', timeout=60, reply_markup=InlineKeyboardMarkup(button_preview), disable_web_page_preview = True)
+                button = set_msg.text.split(' - ')
+                
+                if len(button) != 2:
+                    markup = [[InlineKeyboardButton(f'◈ Sᴇᴛ Cʜᴀɴɴᴇʟ Bᴜᴛᴛᴏɴ ➪', callback_data='setcb')]]
+                    return await set_msg.reply("<b>Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ᴀʀɢᴜᴍᴇɴᴛs.\nFᴏʀ ᴇxᴀᴍᴘʟᴇ:\n<blockquote><code>Join Channel - https://t.me/btth480p</code></blockquote>\n\n<i>Tʀʏ ᴀɢᴀɪɴ ʙʏ ᴄʟɪᴄᴋɪɴɢ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ..</i></b>", reply_markup=InlineKeyboardMarkup(markup), disable_web_page_preview = True)
+                
+                button_name = button[0].strip(); button_link = button[1].strip()
+                button_preview = [[InlineKeyboardButton(text=button_name, url=button_link)]]
+                
+                await set_msg.reply("<b><i>Aᴅᴅᴇᴅ Sᴜᴄcᴇssғᴜʟʟʏ ✅</i>\n<blockquote>Sᴇᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴀs Pʀᴇᴠɪᴇᴡ ⬇️</blockquote></b>", reply_markup=InlineKeyboardMarkup(button_preview))
+                await kingdb.set_channel_button_link(button_name, button_link)
+                return
+            except Exception as e:
+                try:
+                    await set_msg.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
+                    print(f"! Error Occured on callback data = 'setcb' : {e}")
+                except:
+                    await client.send_message(id, text=f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote><i>Rᴇᴀsᴏɴ: 1 minute Time out ..</i></b></blockquote>", disable_notification=True)
+                    print(f"! Error Occured on callback data = 'setcb' -> Rᴇᴀsᴏɴ: 1 minute Time out ..")
 
     elif data == 'autodel_cmd':
-        id = query.from_user.id
-        
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
-            
-        try:
-            timer = convert_time(await kingdb.get_del_timer())
-            autodel_mode, mode = await fileSettings(kingdb.get_auto_delete, delfunc=True)
-            
-            await query.edit_message_media(
-                InputMediaPhoto(autodel_cmd_pic,
-                                AUTODEL_CMD_TXT.format(
-                                    autodel_mode = autodel_mode,
-                                    timer = timer
-                                )
-                ),
-                reply_markup = InlineKeyboardMarkup([
-                    [InlineKeyboardButton(mode, callback_data='chng_autodel'), InlineKeyboardButton('◈ Sᴇᴛ Tɪᴍᴇʀ ⏱', callback_data='set_timer')],
-                    [InlineKeyboardButton('🔄 Rᴇғʀᴇsʜ', callback_data='autodel_cmd'), InlineKeyboardButton('Cʟᴏsᴇ ✖️', callback_data='close')]
-                ])
-            )
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'autodel_cmd' : {e}")
+        if await authoUser(query, query.from_user.id, owner_only=True) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
+                
+            try:
+                timer = convert_time(await kingdb.get_del_timer())
+                autodel_mode, mode = await fileSettings(kingdb.get_auto_delete, delfunc=True)
+                
+                await query.edit_message_media(
+                    InputMediaPhoto(autodel_cmd_pic,
+                                    AUTODEL_CMD_TXT.format(
+                                        autodel_mode = autodel_mode,
+                                        timer = timer
+                                    )
+                    ),
+                    reply_markup = InlineKeyboardMarkup([
+                        [InlineKeyboardButton(mode, callback_data='chng_autodel'), InlineKeyboardButton('◈ Sᴇᴛ Tɪᴍᴇʀ ⏱', callback_data='set_timer')],
+                        [InlineKeyboardButton('🔄 Rᴇғʀᴇsʜ', callback_data='autodel_cmd'), InlineKeyboardButton('Cʟᴏsᴇ ✖️', callback_data='close')]
+                    ])
+                )
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'autodel_cmd' : {e}")
             
     elif data == 'chng_autodel':
-        id = query.from_user.id
-        
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        if await authoUser(query, query.from_user.id, owner_only=True) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+                
+            try:
+                timer = convert_time(await kingdb.get_del_timer())
+                pic, autodel_mode, mode = await fileSettings(kingdb.get_auto_delete, kingdb.set_auto_delete, delfunc=True)
             
-        try:
-            timer = convert_time(await kingdb.get_del_timer())
-            pic, autodel_mode, mode = await fileSettings(kingdb.get_auto_delete, kingdb.set_auto_delete, delfunc=True)
-        
-            await query.edit_message_media(
-                InputMediaPhoto(pic,
-                                AUTODEL_CMD_TXT.format(
-                                    autodel_mode = autodel_mode,
-                                    timer = timer
-                                )
-                ),
-                reply_markup = InlineKeyboardMarkup([
-                    [InlineKeyboardButton(mode, callback_data='chng_autodel'), InlineKeyboardButton('◈ Sᴇᴛ Tɪᴍᴇʀ ⏱', callback_data='set_timer')],
-                    [InlineKeyboardButton('🔄 Rᴇғʀᴇsʜ', callback_data='autodel_cmd'), InlineKeyboardButton('Cʟᴏsᴇ ✖️', callback_data='close')]
-                ])
-            )
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'chng_autodel' : {e}")
+                await query.edit_message_media(
+                    InputMediaPhoto(pic,
+                                    AUTODEL_CMD_TXT.format(
+                                        autodel_mode = autodel_mode,
+                                        timer = timer
+                                    )
+                    ),
+                    reply_markup = InlineKeyboardMarkup([
+                        [InlineKeyboardButton(mode, callback_data='chng_autodel'), InlineKeyboardButton('◈ Sᴇᴛ Tɪᴍᴇʀ ⏱', callback_data='set_timer')],
+                        [InlineKeyboardButton('🔄 Rᴇғʀᴇsʜ', callback_data='autodel_cmd'), InlineKeyboardButton('Cʟᴏsᴇ ✖️', callback_data='close')]
+                    ])
+                )
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'chng_autodel' : {e}")
 
     elif data == 'set_timer':
-        id = query.from_user.id
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
-        try:
-            
-            timer = convert_time(await kingdb.get_del_timer())
-            set_msg = await client.ask(chat_id = id, text=f'<b><blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote>\n\nTᴏ ᴄʜᴀɴɢᴇ ᴛɪᴍᴇʀ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ɪɴ sᴇᴄᴏɴᴅs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\n<blockquote>Fᴏʀ ᴇxᴀᴍᴘʟᴇ: <code>300</code>, <code>600</code>, <code>900</code></b></blockquote>', timeout=60)
-            del_timer = set_msg.text.split()
-            
-            if len(del_timer) == 1 and del_timer[0].isdigit():
-                DEL_TIMER = int(del_timer[0])
-                await kingdb.set_del_timer(DEL_TIMER)
-                timer = convert_time(DEL_TIMER)
-                await set_msg.reply(f"<b><i>Aᴅᴅᴇᴅ Sᴜᴄcᴇssғᴜʟʟʏ ✅</i>\n<blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote></b>")
-            else:
-                markup = [[InlineKeyboardButton('◈ Sᴇᴛ Dᴇʟᴇᴛᴇ Tɪᴍᴇʀ ⏱', callback_data='set_timer')]]
-                return await set_msg.reply("<b>Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ɪɴ sᴇᴄᴏɴᴅs.\n<blockquote>Fᴏʀ ᴇxᴀᴍᴘʟᴇ: <code>300</code>, <code>600</code>, <code>900</code></blockquote>\n\n<i>Tʀʏ ᴀɢᴀɪɴ ʙʏ ᴄʟɪᴄᴋɪɴɢ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ..</i></b>", reply_markup=InlineKeyboardMarkup(markup))
-
-        except Exception as e:
+        if await authoUser(query, query.from_user.id, owner_only=True) :
             try:
-                await set_msg.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
-                print(f"! Error Occured on callback data = 'set_timer' : {e}")
-            except:
-                await client.send_message(id, text=f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote><i>Rᴇᴀsᴏɴ: 1 minute Time out ..</i></b></blockquote>", disable_notification=True)
-                print(f"! Error Occured on callback data = 'set_timer' -> Rᴇᴀsᴏɴ: 1 minute Time out ..")
+                
+                timer = convert_time(await kingdb.get_del_timer())
+                set_msg = await client.ask(chat_id = id, text=f'<b><blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote>\n\nTᴏ ᴄʜᴀɴɢᴇ ᴛɪᴍᴇʀ, Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ɪɴ sᴇᴄᴏɴᴅs ᴡɪᴛʜɪɴ 1 ᴍɪɴᴜᴛᴇ.\n<blockquote>Fᴏʀ ᴇxᴀᴍᴘʟᴇ: <code>300</code>, <code>600</code>, <code>900</code></b></blockquote>', timeout=60)
+                del_timer = set_msg.text.split()
+                
+                if len(del_timer) == 1 and del_timer[0].isdigit():
+                    DEL_TIMER = int(del_timer[0])
+                    await kingdb.set_del_timer(DEL_TIMER)
+                    timer = convert_time(DEL_TIMER)
+                    await set_msg.reply(f"<b><i>Aᴅᴅᴇᴅ Sᴜᴄcᴇssғᴜʟʟʏ ✅</i>\n<blockquote>⏱ Cᴜʀʀᴇɴᴛ Tɪᴍᴇʀ: {timer}</blockquote></b>")
+                else:
+                    markup = [[InlineKeyboardButton('◈ Sᴇᴛ Dᴇʟᴇᴛᴇ Tɪᴍᴇʀ ⏱', callback_data='set_timer')]]
+                    return await set_msg.reply("<b>Pʟᴇᴀsᴇ sᴇɴᴅ ᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ɪɴ sᴇᴄᴏɴᴅs.\n<blockquote>Fᴏʀ ᴇxᴀᴍᴘʟᴇ: <code>300</code>, <code>600</code>, <code>900</code></blockquote>\n\n<i>Tʀʏ ᴀɢᴀɪɴ ʙʏ ᴄʟɪᴄᴋɪɴɢ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ..</i></b>", reply_markup=InlineKeyboardMarkup(markup))
+    
+            except Exception as e:
+                try:
+                    await set_msg.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
+                    print(f"! Error Occured on callback data = 'set_timer' : {e}")
+                except:
+                    await client.send_message(id, text=f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ..\n<blockquote><i>Rᴇᴀsᴏɴ: 1 minute Time out ..</i></b></blockquote>", disable_notification=True)
+                    print(f"! Error Occured on callback data = 'set_timer' -> Rᴇᴀsᴏɴ: 1 minute Time out ..")
 
     elif data == 'chng_req':
-        id = query.from_user.id
-        
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
-
-        try:
-            on = off = ""
-            if await kingdb.get_request_forcesub():
-                await kingdb.set_request_forcesub(False)
-                off = "🔴"
-                texting = off_txt
-            else:
-                await kingdb.set_request_forcesub(True)
-                on = "🟢"
-                texting = on_txt
-
-            button = [
-                [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
-                [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
-            ]
-            await query.message.edit_text(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button)) #🎉)
-
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'chng_req' : {e}")
+        if await authoUser(query, query.from_user.id, owner_only=True) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+    
+            try:
+                on = off = ""
+                if await kingdb.get_request_forcesub():
+                    await kingdb.set_request_forcesub(False)
+                    off = "🔴"
+                    texting = off_txt
+                else:
+                    await kingdb.set_request_forcesub(True)
+                    on = "🟢"
+                    texting = on_txt
+    
+                button = [
+                    [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
+                    [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
+                ]
+                await query.message.edit_text(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button)) #🎉)
+    
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'chng_req' : {e}")
 
 
     elif data == 'more_settings':
-        id = query.from_user.id
-        
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
-
-        #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
-        await query.message.edit_text("<b>Pʟᴇᴀsᴇ wᴀɪᴛ !\n\n<i>🔄 Rᴇᴛʀɪᴇᴠɪɴɢ ᴀʟʟ Sᴇᴛᴛɪɴɢs...</i></b>")
-        
-        
-        try:
-            pass
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+        if await authoUser(query, query.from_user.id, owner_only=True) :
+            #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+            try:
+                await query.message.edit_text("<b>Pʟᴇᴀsᴇ wᴀɪᴛ !\n\n<i>🔄 Rᴇᴛʀɪᴇᴠɪɴɢ ᴀʟʟ Sᴇᴛᴛɪɴɢs...</i></b>")
+                LISTS = "<b>Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?</b>"
+                
+                REQFSUB_CHNLS = await kingdb.get_reqChannel()
+                if REQFSUB_CHNLS:
+                    LISTS = ""
+                    channel_name = "<b><i>Uɴᴀʙʟᴇ Lᴏᴀᴅ Nᴀᴍᴇ..</i></b>"
+                    for CHNLS in REQFSUB_CHNLS:
+                        try:
+                            name = (await client.get_chat(CHNLS)).title
+                        except:
+                            name = None
+                        channel_name = name if name else channel_name
+                        
+                        user = await kingdb.get_reqSent_user(CHNLS)
+                        channel_users = len(user) if user else 0
+                        
+                        link = await kingdb.get_stored_reqLink(CHNLS)
+                        if link:
+                            channel_name = f"<a href={link}>{channel_name}</a>"
+    
+                        LISTS += f"<b>NAME: {channel_name}\n(ID: <code>{CHNLS}</code>)\nUSERS: {channel_users}</b>\n\n"
+                        
+                buttons = [
+                    [InlineKeyboardButton("Cʟᴇᴀʀ Usᴇʀs", "clear_users"), InlineKeyboardButton("Cʟᴇᴀʀ Cʜᴀɴɴᴇʟs", "clear_chnls")],
+                    [InlineKeyboardButton("Cʟᴇᴀʀ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋs", "clear_links")],
+                    [InlineKeyboardButton("🔄 Rᴇғʀᴇsʜ Sᴛᴀᴛᴜs 🔄", "more_settings")],
+                    [InlineKeyboardButton("⬅️ Bᴀᴄᴋ", "req_fsub"), InlineKeyboardButton("Cʟᴏsᴇ ✖️", "close")]
+                ]
+                await query.message.edit_text(text=RFSUB_MS_TXT.format(reqfsub_list=LISTS), reply_markup=InlineKeyboardMarkup(buttons))
+                        
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
 
     elif data == 'clear_users':
-        id = query.from_user.id
-        
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
-
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
-        
-        try:
-            pass
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+        if await authoUser(query, query.from_user.id, owner_only=True) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+            
+            try:
+                pass
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
 
     elif data == 'clear_links':
-        id = query.from_user.id
-        
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
+        if await authoUser(query, query.from_user.id, owner_only=True) :
 
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
-        
-        try:
-            pass
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+            
+            try:
+                pass
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
 
     elif data == 'clear_chnls':
-        id = query.from_user.id
-        
-        if id != OWNER_ID:
-            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
+        if await authoUser(query, query.from_user.id, owner_only=True) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+            
+            try:
+                pass
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+
+    elif data == 'req_fsub':
+        if await authoUser(query, query.from_user.id, owner_only=True) :
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+    
+            try:
+                on = off = ""
+                if await kingdb.get_request_forcesub():
+                    on = "🟢"
+                    texting = on_txt
+                else:
+                    off = "🔴"
+                    texting = off_txt
+    
+                button = [
+                    [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
+                    [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
+                ]
+                await query.message.edit_text(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button)) #🎉)
+    
+            except Exception as e:
+                print(f"! Error Occured on callback data = 'chng_req' : {e}")
         
-        try:
-            pass
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'more_settings' : {e}")
             
                 
                     
