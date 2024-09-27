@@ -1,3 +1,5 @@
+# +++ Made By King [telegram user id: @Shidoteshika1] +++
+
 
 import base64
 import re
@@ -7,26 +9,20 @@ from pyrogram.enums import ChatMemberStatus
 from config import OWNER_ID
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 from pyrogram.errors import FloodWait
-from database.database import kingdb #get_all_channels, get_all_admins, admin_exist, ban_user_exist
+from database.database import kingdb 
 from plugins.request_forcesub import privateChannel
 
+# used for checking banned user
 async def check_banUser(filter, client, update):
     user_id = update.from_user.id
     return await kingdb.ban_user_exist(user_id)
 
+#used for cheking if a user is admin ~Owner also treated as admin level
 async def check_admin(filter, client, update):
-    #Admin_ids = await get_all_admins()
-
-    user_id = update.from_user.id
-
-    # if Admin_ids:
-    #     if user_id in Admin_ids:
-    #         return True
-    #if user_id == OWNER_ID:
-        #return True
-            
+    user_id = update.from_user.id       
     return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
 
+#Check user subscription in Channels
 async def is_subscribed(filter, client, update):
     Channel_ids = await kingdb.get_all_channels()
     
@@ -60,6 +56,7 @@ async def is_subscribed(filter, client, update):
 
     return True
 
+#Chcek user subscription by specifying channel id and user id
 async def is_userJoin(client, user_id, channel_id):
     REQFSUB = await kingdb.get_request_forcesub()
     
