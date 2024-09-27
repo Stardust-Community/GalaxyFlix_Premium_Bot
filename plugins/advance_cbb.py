@@ -419,14 +419,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL CHANNELS USER'])
 
-            text = """<b>What is the use of Clear Users !?
-<blockquote expandable>Cʟᴇᴀʀ Usᴇʀs ɪs ᴜsᴇᴅ ᴛᴏ ᴄʟᴇᴀʀ ᴛʜᴇ ᴀʟʟ ᴜsᴇʀ ᴅᴀᴛᴀ ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ Cʜᴀɴɴᴇʟ ɪᴅ. Hᴇʀᴇ Oɴʟʏ Usᴇʀ ᴅᴀᴛᴀ ɪs ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ.</blockquote>
+            text = """<blockquote expandable><b>What is the use of Clear Users !?</b>\n\nCʟᴇᴀʀ Usᴇʀs ɪs ᴜsᴇᴅ ᴛᴏ ᴄʟᴇᴀʀ ᴛʜᴇ ᴀʟʟ ᴜsᴇʀ ᴅᴀᴛᴀ ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ cʜᴀɴɴᴇʟ ɪᴅ. Hᴇʀᴇ oɴʟʏ usᴇʀ ᴅᴀᴛᴀ ɪs ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ.</blockquote>
 
-<i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ ᴜsᴇʀ ᴅᴀᴛᴀ:</i></b>"""
+<b><i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ ᴜsᴇʀ ᴅᴀᴛᴀ:</i></b>"""
             user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
-                return await user_reply.reply("<b><i>Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
+                return await user_reply.reply("<b><i>🆑 Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
                 
             elif user_reply.text in REQFSUB_CHNLS:
                 try:
@@ -464,14 +463,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL REQUEST LINKS'])
 
-            text = """<b>What is the use of Clear Links !?
-<blockquote expandable>Cʟᴇᴀʀ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ Lɪɴᴋs ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ. Eᴠᴇɴ ɪғ Cʟᴇᴀʀɪɴɢ Usᴇʀ ᴀɴᴅ Cʜᴀɴɴᴇʟ Dᴀᴛᴀ ᴛʜᴇ Rᴇǫᴜᴇsᴛ Lɪɴᴋ sᴛᴏʀᴇᴅ ᴏɴ ᴅᴀᴛᴀʙᴀsᴇ ғᴏʀ ғᴜᴛᴜʀᴇ ᴜsɪɴɢ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ, Bʏ ᴅᴇʟᴇᴛɪɴɢ Rᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ʜᴀᴠᴇ ᴛᴏ ᴄʀᴇᴀᴛᴇ ᴀɢᴀɪɴ ʀᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ.</blockquote>
+            text = """<blockquote expandable><b>What is the use of Clear Links !?</b>\n\nCʟᴇᴀʀ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ Lɪɴᴋs ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ. Eᴠᴇɴ ɪғ ᴄʟᴇᴀʀɪɴɢ ᴜsᴇʀ ᴀɴᴅ ᴄʜᴀɴɴᴇʟ ᴅᴀᴛᴀ ᴛʜᴇ Rᴇǫᴜᴇsᴛ Lɪɴᴋ sᴛᴏʀᴇᴅ ᴏɴ ᴅᴀᴛᴀʙᴀsᴇ ғᴏʀ ғᴜᴛᴜʀᴇ ᴜsɪɴɢ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ, Bʏ ᴅᴇʟᴇᴛɪɴɢ ʀᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ʜᴀᴠᴇ ᴛᴏ ᴄʀᴇᴀᴛᴇ ᴀɢᴀɪɴ ʀᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ ɪɴ ғᴜᴛᴜʀᴇ ɪғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ ᴀɢᴀɪɴ ᴀᴅᴅᴇᴅ ᴀs ғᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ.</blockquote>
 
-<i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ Rᴇǫᴜᴇsᴛ Lɪɴᴋ:</i></b>"""
+<b><i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ Rᴇǫᴜᴇsᴛ Lɪɴᴋ:</i></b>"""
             user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
-                return await user_reply.reply("<b><i>Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
+                return await user_reply.reply("<b><i>🆑 Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
                 
             elif user_reply.text in REQFSUB_CHNLS:
                 try:
@@ -509,14 +507,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL CHANNEL IDS'])
 
-            text = """<b>What is the use of Clear Channels !?
-<blockquote expandable>Cʟᴇᴀʀ Cʜᴀɴɴᴇʟs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ ᴀʟʟ ᴅᴀᴛᴀ ᴀʟᴏɴɢ ᴡɪᴛʜ Cʜᴀɴɴᴇʟ ɪᴅ ғʀᴏᴍ ᴅᴀᴛᴀʙᴀsᴇ. Hᴇʀᴇ Usᴇʀ ᴅᴀᴛᴀ ɪғ ᴀᴠᴀɪʟᴀʙʟᴇ ᴄʟᴇᴀʀᴇᴅ ᴀɴᴅ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ ɪᴅ ᴀʟsᴏ ᴅᴇʟᴇᴛᴇᴅ.</blockquote>
+            text = """<blockquote expandable><b>What is the use of Clear Channels !?</b>\n\nCʟᴇᴀʀ Cʜᴀɴɴᴇʟs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ ᴀʟʟ ᴜsᴇʀ ᴅᴀᴛᴀ ᴀʟᴏɴɢ ᴡɪᴛʜ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ ɪᴅ ғʀᴏᴍ ᴅᴀᴛᴀʙᴀsᴇ. Hᴇʀᴇ ᴜsᴇʀ ᴅᴀᴛᴀ ɪғ ᴀᴠᴀɪʟᴀʙʟᴇ ᴄʟᴇᴀʀᴇᴅ ᴀɴᴅ ᴛʜᴇ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ ɪᴅ ᴀʟsᴏ ᴅᴇʟᴇᴛᴇᴅ.</blockquote>
 
-<i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ:</i></b>"""
+<b><i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ:</i></b>"""
             user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
-                return await user_reply.reply("<b><i>Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
+                return await user_reply.reply("<b><i>🆑 Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
                 
             elif user_reply.text in REQFSUB_CHNLS:
                 try:
