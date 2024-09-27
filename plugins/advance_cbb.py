@@ -368,12 +368,12 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
             try:
                 await query.message.edit_text("<b>Pʟᴇᴀsᴇ wᴀɪᴛ !\n\n<i>🔄 Rᴇᴛʀɪᴇᴠɪɴɢ ᴀʟʟ Sᴇᴛᴛɪɴɢs...</i></b>")
-                LISTS = "<b>Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?</b>"
+                LISTS = "Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?"
                 
                 REQFSUB_CHNLS = await kingdb.get_reqChannel()
                 if REQFSUB_CHNLS:
                     LISTS = ""
-                    channel_name = "<b><i>Uɴᴀʙʟᴇ Lᴏᴀᴅ Nᴀᴍᴇ..</i></b>"
+                    channel_name = "<i>Uɴᴀʙʟᴇ Lᴏᴀᴅ Nᴀᴍᴇ..</i>"
                     for CHNLS in REQFSUB_CHNLS:
                         await query.message.reply_chat_action(ChatAction.TYPING)
                         try:
@@ -389,7 +389,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         if link:
                             channel_name = f"<a href={link}>{channel_name}</a>"
     
-                        LISTS += f"<b>NAME: {channel_name}\n(ID: <code>{CHNLS}</code>)\nUSERS: {channel_users}</b>\n\n"
+                        LISTS += f"NAME: {channel_name}\n(ID: <code>{CHNLS}</code>)\nUSERS: {channel_users}\n\n"
                         
                 buttons = [
                     [InlineKeyboardButton("Cʟᴇᴀʀ Usᴇʀs", "clear_users"), InlineKeyboardButton("Cʟᴇᴀʀ Cʜᴀɴɴᴇʟs", "clear_chnls")],
