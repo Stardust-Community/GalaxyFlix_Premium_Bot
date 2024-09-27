@@ -1,3 +1,4 @@
+# +++ Made By King [telegram user id: @Shidoteshika1] +++
 
 import os
 import asyncio
@@ -10,7 +11,7 @@ from pyrogram import Client, filters
 from helper_func import is_admin, get_readable_time, banUser
 from plugins.FORMATS import HELP_TEXT, BAN_TXT, CMD_TXT, USER_CMD_TXT, FSUB_CMD_TXT
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
-from database.database import kingdb #.add_user, del_user, full_userbase, present_user, get_ban_users, ban_user_exist
+from database.database import kingdb 
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 REPLY_ERROR = """Usᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴀs ᴀ ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ Tᴇʟᴇɢʀᴀᴍ ᴍᴇssᴀɢᴇ ᴡɪᴛʜᴏᴜᴛ ᴀɴʏ sᴘᴀᴄᴇs."""
@@ -151,7 +152,9 @@ async def bcmd(bot: Bot, message: Message):
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
     await message.reply(text=CMD_TXT, reply_markup = reply_markup, quote= True)
     
-#----------------------------------------------------------------------------------------------------------------------------------------------------------#    
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------#    
+
+#--------------------------------------------------------------[[NORMAL USER ACCESSIBLE COMMANDS]]----------------------------------------------------------------------#
 
 @Bot.on_message(filters.command('forcesub') & filters.private & ~banUser)
 async def fsub_commands(client: Client, message: Message):
