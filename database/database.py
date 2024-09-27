@@ -280,6 +280,14 @@ class sidDataBase:
         return channel_ids
         
 
+    # Get all available channel IDs in store_reqLink_data
+    async def get_reqLink_channels(self):
+        # Retrieve all documents from store_reqLink_data
+        channel_docs = self.store_reqLink_data.find()
+        # Extract the channel IDs from the documents
+        channel_ids = [doc['_id'] for doc in channel_docs]
+        return channel_ids
+
     # Get the stored link for a specific channel
     async def get_stored_reqLink(self, channel_id: int):
         # Retrieve the stored link for a specific channel_id from store_reqLink_data
