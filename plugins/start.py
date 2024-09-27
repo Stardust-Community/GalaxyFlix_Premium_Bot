@@ -1,3 +1,5 @@
+# +++ Made By King [telegram user id: @Shidoteshika1] +++
+
 
 import os
 import asyncio
@@ -145,11 +147,11 @@ async def start_command(client: Client, message: Message):
         return
 
    
-#=====================================================================================##
+##===================================================================================================================##
 
-WAIT_MSG = """"<b>Processing ...</b>"""
+#TRIGGRED START MESSAGE FOR HANDLE FORCE SUB MESSAGE AND FORCE SUB CHANNEL IF A USER NOT JOINED A CHANNEL
 
-#=====================================================================================##   
+##===================================================================================================================##   
 
 
 @Bot.on_message(filters.command('start') & filters.private & ~banUser)
@@ -227,7 +229,7 @@ async def not_joined(client: Client, message: Message):
         return await temp.edit(f"<blockquote><b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b></blockquote>\n\n<blockquote><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
 
 #=====================================================================================##
-#.........Extra Fetures .......#
+#......... RESTART COMMAND FOR RESTART BOT .......#
 #=====================================================================================##
 
 @Bot.on_message(filters.command('restart') & filters.private & filters.user(OWNER_ID))
