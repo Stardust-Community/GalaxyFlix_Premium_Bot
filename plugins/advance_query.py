@@ -413,11 +413,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data == 'clear_users':
         #if await authoUser(query, query.from_user.id, owner_only=True) :
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")    
+        #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")    
         try:
             REQFSUB_CHNLS = await kingdb.get_reqChannel()
             if not REQFSUB_CHNLS:
                 return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?", show_alert=True)
+
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
                 
             REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
             buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
@@ -456,12 +458,14 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data == 'clear_links':
         #if await authoUser(query, query.from_user.id, owner_only=True) :
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
             
         try:
             REQFSUB_CHNLS = await kingdb.get_reqLink_channels()
             if not REQFSUB_CHNLS:
                 return await query.answer("Nᴏ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋ Aᴠᴀɪʟᴀʙʟᴇ !?", show_alert=True)
+
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
                 
             REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
             buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
@@ -499,13 +503,14 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
 
     elif data == 'clear_chnls':
-        #if await authoUser(query, query.from_user.id, owner_only=True) :
-        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        #if await authoUser(query, query.from_user.id, owner_only=True) 
             
         try:
             REQFSUB_CHNLS = await kingdb.get_reqChannel()
             if not REQFSUB_CHNLS:
                 return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?", show_alert=True)
+            
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
                 
             REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
             buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
