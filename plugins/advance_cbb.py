@@ -374,27 +374,27 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 if REQFSUB_CHNLS:
                     LISTS = ""
                     channel_name = "<i>Uɴᴀʙʟᴇ Lᴏᴀᴅ Nᴀᴍᴇ..</i>"
-                    for CHNLS in REQFSUB_CHNLS:
+                    for CHNL in REQFSUB_CHNLS:
                         await query.message.reply_chat_action(ChatAction.TYPING)
                         try:
-                            name = (await client.get_chat(CHNLS)).title
+                            name = (await client.get_chat(CHNL)).title
                         except:
                             name = None
                         channel_name = name if name else channel_name
                         
-                        user = await kingdb.get_reqSent_user(CHNLS)
+                        user = await kingdb.get_reqSent_user(CHNL)
                         channel_users = len(user) if user else 0
                         
-                        link = await kingdb.get_stored_reqLink(CHNLS)
+                        link = await kingdb.get_stored_reqLink(CHNL)
                         if link:
                             channel_name = f"<a href={link}>{channel_name}</a>"
     
-                        LISTS += f"NAME: {channel_name}\n(ID: <code>{CHNLS}</code>)\nUSERS: {channel_users}\n\n"
+                        LISTS += f"NAME: {channel_name}\n(ID: <code>{CHNL}</code>)\nUSERS: {channel_users}\n\n"
                         
                 buttons = [
                     [InlineKeyboardButton("Cʟᴇᴀʀ Usᴇʀs", "clear_users"), InlineKeyboardButton("Cʟᴇᴀʀ Cʜᴀɴɴᴇʟs", "clear_chnls")],
-                    [InlineKeyboardButton("Cʟᴇᴀʀ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋs", "clear_links")],
-                    [InlineKeyboardButton("🔄 Rᴇғʀᴇsʜ Sᴛᴀᴛᴜs 🔄", "more_settings")],
+                    [InlineKeyboardButton("⊗ Cʟᴇᴀʀ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋs ⊗", "clear_links")],
+                    [InlineKeyboardButton("♻️  Rᴇғʀᴇsʜ Sᴛᴀᴛᴜs  ♻️", "more_settings")],
                     [InlineKeyboardButton("⬅️ Bᴀᴄᴋ", "req_fsub"), InlineKeyboardButton("Cʟᴏsᴇ ✖️", "close")]
                 ]
                 await query.message.reply_chat_action(ChatAction.CANCEL)
