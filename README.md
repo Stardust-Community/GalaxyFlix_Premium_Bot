@@ -10,7 +10,7 @@
 <i>You can add one or multiple force-sub channels—there's no limit to the number you can add. You can also empty the list by deleting all force-sub channels. This feature provides versatility, allowing you to create a custom number of force-sub channels according to your preference.</i>
 
 ### 1.1. REQUEST FORCE-SUB 📢: 
-<i>The most Demanding part is Request force sub fetures. By enbaling request force sub mode the privates Channel link will provided with join request. This feature provides more versatility, allowing you to move more step further in force-sub channels according to your preference. There is more intreactive features available in request forcesub settings which allows more advance and reliable operations</i>
+<i>The most demanding aspect is the Request Force-Sub feature. By enabling Request Force-Sub mode, users are provided with a private channel link along with a join request. This feature adds versatility, allowing for greater flexibility in managing Force-Sub channels based on individual preferences. Additionally, the Request Force-Sub settings offer interactive features that enable more advanced and reliable operations.</i>
 
 ### 2. ADMINS 👮🏻‍♂️: 
 <i>You can add one or multiple admins by providing their user IDs, and you can also remove all admins if needed. Admins have access to some useful bot commands but do not have access to all commands.</i>
