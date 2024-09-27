@@ -388,6 +388,50 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         if id != OWNER_ID:
             return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
 
+        #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        await query.message.edit_text("<b>Pʟᴇᴀsᴇ wᴀɪᴛ !\n\n<i>🔄 Rᴇᴛʀɪᴇᴠɪɴɢ ᴀʟʟ Sᴇᴛᴛɪɴɢs...</i></b>")
+        
+        
+        try:
+            pass
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+
+
+    elif data == 'clear_users':
+        id = query.from_user.id
+        
+        if id != OWNER_ID:
+            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
+
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        
+        try:
+            pass
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+
+
+    elif data == 'clear_links':
+        id = query.from_user.id
+        
+        if id != OWNER_ID:
+            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
+
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        
+        try:
+            pass
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+
+
+    elif data == 'clear_chnls':
+        id = query.from_user.id
+        
+        if id != OWNER_ID:
+            return await query.answer("❌ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ Oᴡɴᴇʀ!", show_alert=True)
+
         await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
         
         try:
