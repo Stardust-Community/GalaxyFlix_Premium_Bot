@@ -1,14 +1,15 @@
-#telegram user_id: @Shidoteshika1
+# +++ Made By King [telegram user id: @Shidoteshika1] +++
 
 import random
 from bot import Bot
 from plugins.FORMATS import *
 from config import OWNER_ID, PICS
 from pyrogram.enums import ChatAction
-from plugins.advance_features import convert_time
+from plugins.autoDelete import convert_time
 from database.database import kingdb
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto, ReplyKeyboardMarkup, ReplyKeyboardRemove    
-    
+
+#File setting function for retriveing modes and state of file related setting
 async def fileSettings(getfunc, setfunc=None, delfunc=False) :
     btn_mode, txt_mode, pic_mode = '❌', off_txt, off_pic
     del_btn_mode = 'Eɴᴀʙʟᴇ Mᴏᴅᴇ ✅'
@@ -35,6 +36,7 @@ async def fileSettings(getfunc, setfunc=None, delfunc=False) :
     except Exception as e:
         print(f"Error occured at [fileSettings(getfunc, setfunc=None, delfunc=False)] : {e}")
 
+#Provide or Make Button by takiing required modes and data
 def buttonStatus(pc_data: str, hc_data: str, cb_data: str) -> list:
     button = [
         [
@@ -52,6 +54,7 @@ def buttonStatus(pc_data: str, hc_data: str, cb_data: str) -> list:
     ]
     return button
 
+#Verify user, if he/she is admin or owner
 async def authoUser(query, id, owner_only=False):
     if not owner_only:
         if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
