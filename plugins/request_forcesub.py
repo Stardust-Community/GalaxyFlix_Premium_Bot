@@ -5,7 +5,6 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.enums import ParseMode
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery,  ChatMemberUpdated
-from pyrogram.errors import FloodWait
 
 from bot import Bot
 from database.database import kingdb
