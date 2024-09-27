@@ -421,7 +421,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 <blockquote expandable>Cʟᴇᴀʀ Usᴇʀs ɪs ᴜsᴇᴅ ᴛᴏ ᴄʟᴇᴀʀ ᴛʜᴇ ᴀʟʟ ᴜsᴇʀ ᴅᴀᴛᴀ ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ Cʜᴀɴɴᴇʟ ɪᴅ. Hᴇʀᴇ Oɴʟʏ Usᴇʀ ᴅᴀᴛᴀ ɪs ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ.</blockquote>
 
 <i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ ᴜsᴇʀ ᴅᴀᴛᴀ:</i></b>"""
-            user_reply = await client.ask(query.message.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
+            user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
                 return await user_reply.reply("<b><i>Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
@@ -466,7 +466,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 <blockquote expandable>Cʟᴇᴀʀ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ Lɪɴᴋs ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ. Eᴠᴇɴ ɪғ Cʟᴇᴀʀɪɴɢ Usᴇʀ ᴀɴᴅ Cʜᴀɴɴᴇʟ Dᴀᴛᴀ ᴛʜᴇ Rᴇǫᴜᴇsᴛ Lɪɴᴋ sᴛᴏʀᴇᴅ ᴏɴ ᴅᴀᴛᴀʙᴀsᴇ ғᴏʀ ғᴜᴛᴜʀᴇ ᴜsɪɴɢ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ, Bʏ ᴅᴇʟᴇᴛɪɴɢ Rᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ʜᴀᴠᴇ ᴛᴏ ᴄʀᴇᴀᴛᴇ ᴀɢᴀɪɴ ʀᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ.</blockquote>
 
 <i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ Rᴇǫᴜᴇsᴛ Lɪɴᴋ:</i></b>"""
-            user_reply = await client.ask(query.message.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
+            user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
                 return await user_reply.reply("<b><i>Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
@@ -511,7 +511,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 <blockquote expandable>Cʟᴇᴀʀ Cʜᴀɴɴᴇʟs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ ᴀʟʟ ᴅᴀᴛᴀ ᴀʟᴏɴɢ ᴡɪᴛʜ Cʜᴀɴɴᴇʟ ɪᴅ ғʀᴏᴍ ᴅᴀᴛᴀʙᴀsᴇ. Hᴇʀᴇ Usᴇʀ ᴅᴀᴛᴀ ɪғ ᴀᴠᴀɪʟᴀʙʟᴇ ᴄʟᴇᴀʀᴇᴅ ᴀɴᴅ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ ɪᴅ ᴀʟsᴏ ᴅᴇʟᴇᴛᴇᴅ.</blockquote>
 
 <i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ:</i></b>"""
-            user_reply = await client.ask(query.message.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
+            user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
                 return await user_reply.reply("<b><i>Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
