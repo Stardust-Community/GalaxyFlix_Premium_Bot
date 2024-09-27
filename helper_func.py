@@ -46,12 +46,14 @@ async def is_subscribed(filter, client, update):
             member = await client.get_chat_member(chat_id=id, user_id=user_id)
         except UserNotParticipant:
             if REQFSUB and await privateChannel(client, id):
-                return await kingdb.reqSent_user_exist(id, user_id)
+                if not await kingdb.reqSent_user_exist(id, user_id):
+                    return False
             return False
     
         if member.status not in member_status:
             if REQFSUB and await privateChannel(client, id):
-                return await kingdb.reqSent_user_exist(id, user_id)
+                if not await kingdb.reqSent_user_exist(id, user_id):
+                    return False
             return False
 
     return True
