@@ -4,6 +4,7 @@ import random
 from bot import Bot
 from plugins.FORMATS import *
 from config import OWNER_ID, PICS
+from pyrogram.enums import ChatAction
 from plugins.advance_features import convert_time
 from database.database import kingdb
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto, ReplyKeyboardMarkup, ReplyKeyboardRemove    
@@ -340,7 +341,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     elif data == 'chng_req':
         if await authoUser(query, query.from_user.id, owner_only=True) :
             await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
-    
+        
             try:
                 on = off = ""
                 if await kingdb.get_request_forcesub():
@@ -351,13 +352,13 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                     await kingdb.set_request_forcesub(True)
                     on = "🟢"
                     texting = on_txt
-    
+        
                 button = [
                     [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
                     [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
                 ]
                 await query.message.edit_text(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button)) #🎉)
-    
+        
             except Exception as e:
                 print(f"! Error Occured on callback data = 'chng_req' : {e}")
 
@@ -374,6 +375,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                     LISTS = ""
                     channel_name = "<b><i>Uɴᴀʙʟᴇ Lᴏᴀᴅ Nᴀᴍᴇ..</i></b>"
                     for CHNLS in REQFSUB_CHNLS:
+                        await query.message.reply_chat_action(ChatAction.TYPING)
                         try:
                             name = (await client.get_chat(CHNLS)).title
                         except:
@@ -395,64 +397,65 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                     [InlineKeyboardButton("🔄 Rᴇғʀᴇsʜ Sᴛᴀᴛᴜs 🔄", "more_settings")],
                     [InlineKeyboardButton("⬅️ Bᴀᴄᴋ", "req_fsub"), InlineKeyboardButton("Cʟᴏsᴇ ✖️", "close")]
                 ]
-                await query.message.edit_text(text=RFSUB_MS_TXT.format(reqfsub_list=LISTS), reply_markup=InlineKeyboardMarkup(buttons))
+                await query.message.reply_chat_action(ChatAction.CANCEL)
+                await query.message.edit_text(text=RFSUB_MS_TXT.format(reqfsub_list=LISTS.strip()), reply_markup=InlineKeyboardMarkup(buttons))
                         
             except Exception as e:
                 print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
 
     elif data == 'clear_users':
-        if await authoUser(query, query.from_user.id, owner_only=True) :
-            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        #if await authoUser(query, query.from_user.id, owner_only=True) :
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
             
-            try:
-                pass
-            except Exception as e:
-                print(f"! Error Occured on callback data = 'more_settings' : {e}")
+        try:
+            pass
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
 
     elif data == 'clear_links':
-        if await authoUser(query, query.from_user.id, owner_only=True) :
+        #if await authoUser(query, query.from_user.id, owner_only=True) :
 
-            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
             
-            try:
-                pass
-            except Exception as e:
-                print(f"! Error Occured on callback data = 'more_settings' : {e}")
+        try:
+            pass
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
 
     elif data == 'clear_chnls':
-        if await authoUser(query, query.from_user.id, owner_only=True) :
-            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        #if await authoUser(query, query.from_user.id, owner_only=True) :
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
             
-            try:
-                pass
-            except Exception as e:
-                print(f"! Error Occured on callback data = 'more_settings' : {e}")
+        try:
+            pass
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
 
     elif data == 'req_fsub':
-        if await authoUser(query, query.from_user.id, owner_only=True) :
-            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+        #if await authoUser(query, query.from_user.id, owner_only=True) :
+        await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
     
-            try:
-                on = off = ""
-                if await kingdb.get_request_forcesub():
-                    on = "🟢"
-                    texting = on_txt
-                else:
-                    off = "🔴"
-                    texting = off_txt
+        try:
+            on = off = ""
+            if await kingdb.get_request_forcesub():
+                on = "🟢"
+                texting = on_txt
+            else:
+                off = "🔴"
+                texting = off_txt
     
-                button = [
-                    [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
-                    [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
-                ]
-                await query.message.edit_text(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button)) #🎉)
+            button = [
+                [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
+                [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
+            ]
+            await query.message.edit_text(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button)) #🎉)
     
-            except Exception as e:
-                print(f"! Error Occured on callback data = 'chng_req' : {e}")
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'chng_req' : {e}")
         
             
                 
