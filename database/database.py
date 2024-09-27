@@ -236,6 +236,14 @@ class sidDataBase:
             {'_id': channel_id}, 
             {'$pull': {'user_ids': user_id}}
         )
+        
+    # Clear the user set (user_ids array) for a specific channel
+    async def clear_reqSent_user(self, channel_id: int):
+        if await self.reqChannel_exist(channel_id):
+            self.rqst_fsub_Channel_data.update_one(
+                {'_id': channel_id}, 
+                {'$set': {'user_ids': []}}  # Reset user_ids to an empty array
+            )
 
     # Method 3: Check if a user exists in the channel set
     async def reqSent_user_exist(self, channel_id: int, user_id: int):
