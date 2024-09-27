@@ -109,7 +109,6 @@ RFSUB_CMD_TXT = """<b>🤖 𝗥𝗘𝗤𝗨𝗘𝗦𝗧 𝗙𝗦𝗨𝗕 𝗦�
 RFSUB_MS_TXT = """<b>🤖 𝗥𝗘𝗤𝗨𝗘𝗦𝗧 𝗙𝗦𝗨𝗕 𝗟𝗜𝗦𝗧 🚥
 
 <blockquote expandable>{reqfsub_list}</blockquote>
-
 ᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ᴛᴏ ᴄʜᴀɴɢᴇ sᴇᴛᴛɪɴɢs</b>"""
 
 
