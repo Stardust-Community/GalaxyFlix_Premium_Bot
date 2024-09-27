@@ -412,7 +412,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             if not REQFSUB_CHNLS:
                 return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?", show_alert=True)
                 
-            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS)    
+            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
             buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL CHANNELS USER'])
@@ -457,7 +457,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             if not REQFSUB_CHNLS:
                 return await query.answer("Nᴏ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋ Aᴠᴀɪʟᴀʙʟᴇ !?", show_alert=True)
                 
-            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS)    
+            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
             buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL REQUEST LINKS'])
@@ -502,7 +502,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             if not REQFSUB_CHNLS:
                 return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?", show_alert=True)
                 
-            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS)    
+            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
             buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL CHANNEL IDS'])
