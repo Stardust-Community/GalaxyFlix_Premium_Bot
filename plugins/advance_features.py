@@ -4,11 +4,11 @@ from bot import Bot
 import asyncio
 from pyrogram.enums import ParseMode, ChatAction
 from helper_func import is_admin, banUser
-from plugins.FORMATS import autodel_cmd_pic, files_cmd_pic, on_txt, off_txt, FILES_CMD_TXT, AUTODEL_CMD_TXT, BAN_TXT, RFSUB_CMD_TXT
+from plugins.FORMATS import * #autodel_cmd_pic, files_cmd_pic, on_txt, off_txt, FILES_CMD_TXT, AUTODEL_CMD_TXT, BAN_TXT, RFSUB_CMD_TXT
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from config import OWNER_ID
 from pyrogram import Client, filters
-from database.database import kingdb #add_channel, del_channel, get_all_channels, add_admin, del_admin, get_all_admins, get_del_timer, get_auto_delete, get_hide_caption, get_protect_content, get_channel_button, get_channel_button_link, add_ban_user, del_ban_user, get_ban_users
+from database.database import kingdb 
 from datetime import datetime, timedelta
 
 #Time conversion for auto delete
@@ -424,7 +424,7 @@ async def autoDelete_settings(client, message):
                     [InlineKeyboardButton(mode, callback_data='chng_autodel'), InlineKeyboardButton('◈ Sᴇᴛ Tɪᴍᴇʀ ⏱', callback_data='set_timer')],
                     [InlineKeyboardButton('🔄 Rᴇғʀᴇsʜ', callback_data='autodel_cmd'), InlineKeyboardButton('Cʟᴏsᴇ ✖️', callback_data='close')]
                 ]),
-                #message_effect_id = 5104841245755180586 #🔥
+                message_effect_id = 5107584321108051014 #👍
             )
     except Exception as e:
             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
@@ -507,7 +507,7 @@ async def files_commands(client: Client, message: Message):
                 [InlineKeyboardButton(f'Cʜᴀɴɴᴇʟ Bᴜᴛᴛᴏɴ: {cbd}', callback_data='cb'), InlineKeyboardButton(f'◈ Sᴇᴛ Bᴜᴛᴛᴏɴ ➪', callback_data='setcb')],
                 [InlineKeyboardButton('🔄 Rᴇғʀᴇsʜ', callback_data='files_cmd'), InlineKeyboardButton('Cʟᴏsᴇ ✖️', callback_data='close')]
             ]),
-            #message_effect_id = 5104841245755180586 #🔥
+            message_effect_id = 5107584321108051014 #👍
         )
     except Exception as e:
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
@@ -531,7 +531,7 @@ async def handle_reqFsub(client: Client, message: Message):
             [InlineKeyboardButton(f"{on} ON", "chng_req"), InlineKeyboardButton(f"{off} OFF", "chng_req")],
             [InlineKeyboardButton("⚙️ Mᴏʀᴇ Sᴇᴛᴛɪɴɢs ⚙️", "more_settings")]
         ]
-        await message.reply(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button), message_effect_id=5046509860389126442) #🎉)
+        await message.reply(text=RFSUB_CMD_TXT.format(req_mode=texting), reply_markup=InlineKeyboardMarkup(button), message_effect_id=5046509860389126442)
         
     except Exception as e:
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
