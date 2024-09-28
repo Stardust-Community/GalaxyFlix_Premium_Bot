@@ -179,14 +179,19 @@ async def user_setting_commands(client: Client, message: Message):
 HELP = "https://graph.org//file/10f310dd6a7cb56ad7c0b.jpg"
 @Bot.on_message(filters.command('help') & filters.private & ~banUser)
 async def help(client: Client, message: Message):
-        #id = message.from_user.id
-        #banned_users = await get_ban_users()
-        #if await ban_user_exist(id):
-            #return await message.reply(text=BAN_TXT, message_effect_id=5046589136895476101)
-            
-        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('𝘚𝘵𝘪𝘭𝘭 𝘩𝘢𝘷𝘦 𝘥𝘰𝘶𝘣𝘵𝘴, 𝘊𝘰𝘯𝘵𝘢𝘤𝘵 𝘈𝘥𝘮𝘪𝘯', url='https://t.me/Shidoteshika1')]]) 
+    buttons = [
+        [
+            InlineKeyboardButton("🤖 Oᴡɴᴇʀ", url=""), 
+            InlineKeyboardButton("🧑‍💻 Dᴇᴠᴇʟᴏᴘᴇʀ", url="")
+        ]
+    ]
+    if SUPPORT_GROUP:
+        buttons.insert(0, [InlineKeyboardButton("🌐 Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ Gʀᴏᴜᴘ", url=SUPPORT_GROUP)]
+
+    try:
+        reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_photo(
-            photo= HELP,
+            photo = HELP,
             caption = HELP_TEXT.format(
                 first = message.from_user.first_name,
                 last = message.from_user.last_name,
@@ -195,5 +200,8 @@ async def help(client: Client, message: Message):
                 id = message.from_user.id
             ),
             reply_markup = reply_markup,
-            #quote = True
+            message_effect_id = 5046509860389126442 #🎉
         )
+    except Exception as e:
+        return await message.reply(f"<b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b>\n<blockquote expandable><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
+   
