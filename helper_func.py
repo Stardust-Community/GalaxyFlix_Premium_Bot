@@ -23,7 +23,7 @@ async def check_admin(filter, client, update):
     return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
 
 #Check user subscription in Channels
-async def is_subscribed(filter, client, update):
+"""async def is_subscribed(filter, client, update):
     Channel_ids = await kingdb.get_all_channels()
     
     if not Channel_ids:
@@ -60,19 +60,41 @@ async def is_subscribed(filter, client, update):
                 else:
                     return False
 
+    return True"""
+
+async def is_subscribed(filter, client, update):
+    Channel_ids = await kingdb.get_all_channels()
+    
+    if not Channel_ids:
+        return True
+
+    user_id = update.from_user.id
+
+    if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
+        return True
+
+    for ids in Channel_ids:
+        if not ids:
+            continue
+            
+        if not is_userJoin(client, user_id, ids):
+            return False
+            
     return True
 
 #Chcek user subscription by specifying channel id and user id
 async def is_userJoin(client, user_id, channel_id):
-    REQFSUB = await kingdb.get_request_forcesub()
-    
+    #REQFSUB = await kingdb.get_request_forcesub()
     try:
         member = await client.get_chat_member(chat_id=channel_id, user_id=user_id)
         return member.status in {ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER}
+        
     except UserNotParticipant:
-        if REQFSUB and await privateChannel(client, channel_id):
+        if await kingdb.get_request_forcesub() and await privateChannel(client, channel_id):
                 return await kingdb.reqSent_user_exist(channel_id, user_id)
+            
         return False
+        
     except Exception as e:
         print(f"An error occurred on is_userJoin(): {e}")
         return False
