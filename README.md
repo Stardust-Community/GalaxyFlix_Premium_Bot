@@ -51,7 +51,7 @@ restart - ⚠️ ғᴏʀᴄᴇғᴜʟʟʏ ʀᴇsᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ (�
 ```
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
-<h2>🧑‍💻 CONTACT DEVELOPER : <a href="https://t.me/Shidoteshika1">Shidoteshika (King 王)</a></h2>
+<h2>🧑‍💻 DEVELOPER : <a href="https://t.me/Shidoteshika1">Shidoteshika (King 王)</a></h2>
 
 
 
