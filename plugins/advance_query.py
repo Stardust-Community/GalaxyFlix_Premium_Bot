@@ -417,7 +417,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         try:
             REQFSUB_CHNLS = await kingdb.get_reqChannel()
             if not REQFSUB_CHNLS:
-                return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?", show_alert=True)
+                return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ !?", show_alert=True)
 
             await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
                 
@@ -426,10 +426,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL CHANNELS USER'])
 
-            text = """<blockquote expandable><b>What is the use of Clear Users !?</b>\n\nCʟᴇᴀʀ Usᴇʀs ɪs ᴜsᴇᴅ ᴛᴏ ᴄʟᴇᴀʀ ᴛʜᴇ ᴀʟʟ ᴜsᴇʀ ᴅᴀᴛᴀ ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ cʜᴀɴɴᴇʟ ɪᴅ. Hᴇʀᴇ oɴʟʏ usᴇʀ ᴅᴀᴛᴀ ɪs ᴅᴇʟᴇᴛᴇᴅ ғʀᴏᴍ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ.</blockquote>
-
-<b><i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ ᴜsᴇʀ ᴅᴀᴛᴀ:</i></b>"""
-            user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
+            user_reply = await client.ask(query.from_user.id, text=CLEAR_USERS_TXT, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
                 return await user_reply.reply("<b><i>🆑 Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
@@ -454,61 +451,15 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             
         except Exception as e:
             print(f"! Error Occured on callback data = 'clear_users' : {e}")
-
-
-    elif data == 'clear_links':
-        #if await authoUser(query, query.from_user.id, owner_only=True) :
-        #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
             
-        try:
-            REQFSUB_CHNLS = await kingdb.get_reqLink_channels()
-            if not REQFSUB_CHNLS:
-                return await query.answer("Nᴏ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋ Aᴠᴀɪʟᴀʙʟᴇ !?", show_alert=True)
 
-            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
-                
-            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
-            buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
-            buttons.insert(0, ['CANCEL'])
-            buttons.append(['DELETE ALL REQUEST LINKS'])
-
-            text = """<blockquote expandable><b>What is the use of Clear Links !?</b>\n\nCʟᴇᴀʀ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ Lɪɴᴋs ᴏғ ᴀ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ. Eᴠᴇɴ ɪғ ᴄʟᴇᴀʀɪɴɢ ᴜsᴇʀ ᴀɴᴅ ᴄʜᴀɴɴᴇʟ ᴅᴀᴛᴀ ᴛʜᴇ Rᴇǫᴜᴇsᴛ Lɪɴᴋ sᴛᴏʀᴇᴅ ᴏɴ ᴅᴀᴛᴀʙᴀsᴇ ғᴏʀ ғᴜᴛᴜʀᴇ ᴜsɪɴɢ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ, Bʏ ᴅᴇʟᴇᴛɪɴɢ ʀᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ʜᴀᴠᴇ ᴛᴏ ᴄʀᴇᴀᴛᴇ ᴀɢᴀɪɴ ʀᴇǫᴜᴇsᴛ ʟɪɴᴋ ᴏғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ ɪɴ ғᴜᴛᴜʀᴇ ɪғ ᴛʜᴀᴛ ᴄʜᴀɴɴᴇʟ ᴀɢᴀɪɴ ᴀᴅᴅᴇᴅ ᴀs ғᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ.</blockquote>
-
-<b><i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ Rᴇǫᴜᴇsᴛ Lɪɴᴋ:</i></b>"""
-            user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
-            
-            if user_reply.text == 'CANCEL':
-                return await user_reply.reply("<b><i>🆑 Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
-                
-            elif user_reply.text in REQFSUB_CHNLS:
-                try:
-                    await kingdb.del_stored_reqLink(int(user_reply.text))
-                    return await user_reply.reply(f"<b><blockquote><code>{user_reply.text}</code> Cʜᴀɴɴᴇʟ Iᴅs Rᴇǫᴜᴇsᴛ Lɪɴᴋ Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ✅</blockquote></b>", reply_markup=ReplyKeyboardRemove())
-                except Exception as e:
-                    return await user_reply.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ...\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>", reply_markup=ReplyKeyboardRemove())
-                    
-            elif user_reply.text == 'DELETE ALL REQUEST LINKS':
-                try:
-                    for CHNL in REQFSUB_CHNLS:
-                        await kingdb.del_stored_reqLink(int(CHNL))
-                    return await user_reply.reply(f"<b><blockquote>Aʟʟ Cʜᴀɴɴᴇʟ Iᴅs Rᴇǫᴜᴇsᴛ Lɪɴᴋ Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ✅</blockquote></b>", reply_markup=ReplyKeyboardRemove())
-                except Exception as e:
-                    return await user_reply.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ...\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>", reply_markup=ReplyKeyboardRemove())
-                    
-            else:
-                return await user_reply.reply(f"<b><blockquote>INVALID SELECTIONS</blockquote></b>", reply_markup=ReplyKeyboardRemove())
-            
-        except Exception as e:
-            print(f"! Error Occured on callback data = 'more_settings' : {e}")
-
-
-    elif data == 'clear_chnls':
+     elif data == 'clear_chnls':
         #if await authoUser(query, query.from_user.id, owner_only=True) 
             
         try:
             REQFSUB_CHNLS = await kingdb.get_reqChannel()
             if not REQFSUB_CHNLS:
-                return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ Lɪsᴛ !?", show_alert=True)
+                return await query.answer("Eᴍᴘᴛʏ Rᴇǫᴜᴇsᴛ FᴏʀᴄᴇSᴜʙ Cʜᴀɴɴᴇʟ !?", show_alert=True)
             
             await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
                 
@@ -517,10 +468,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             buttons.insert(0, ['CANCEL'])
             buttons.append(['DELETE ALL CHANNEL IDS'])
 
-            text = """<blockquote expandable><b>What is the use of Clear Channels !?</b>\n\nCʟᴇᴀʀ Cʜᴀɴɴᴇʟs ᴜsᴇᴅ ᴛᴏ Dᴇʟᴇᴛᴇ ᴀʟʟ ᴜsᴇʀ ᴅᴀᴛᴀ ᴀʟᴏɴɢ ᴡɪᴛʜ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ ɪᴅ ғʀᴏᴍ ᴅᴀᴛᴀʙᴀsᴇ. Hᴇʀᴇ ᴜsᴇʀ ᴅᴀᴛᴀ ɪғ ᴀᴠᴀɪʟᴀʙʟᴇ ᴄʟᴇᴀʀᴇᴅ ᴀɴᴅ ᴛʜᴇ Rᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ ᴄʜᴀɴɴᴇʟ ɪᴅ ᴀʟsᴏ ᴅᴇʟᴇᴛᴇᴅ.</blockquote>
-
-<b><i>Cʜᴏᴏsᴇ ᴛʜᴇ Cʜᴀɴɴᴇʟ ɪᴅ ғᴏʀ ᴅᴇʟᴇᴛɪɴɢ:</i></b>"""
-            user_reply = await client.ask(query.from_user.id, text=text, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
+            user_reply = await client.ask(query.from_user.id, text=CLEAR_CHNLS_TXT, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
             
             if user_reply.text == 'CANCEL':
                 return await user_reply.reply("<b><i>🆑 Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
@@ -546,6 +494,70 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         except Exception as e:
             print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
+
+
+    elif data == 'clear_links':
+        #if await authoUser(query, query.from_user.id, owner_only=True) :
+        #await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+            
+        try:
+            REQFSUB_CHNLS = await kingdb.get_reqLink_channels()
+            if not REQFSUB_CHNLS:
+                return await query.answer("Nᴏ Sᴛᴏʀᴇᴅ Rᴇǫᴜᴇsᴛ Lɪɴᴋ Aᴠᴀɪʟᴀʙʟᴇ !?", show_alert=True)
+
+            await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....")
+                
+            REQFSUB_CHNLS = list(map(str, REQFSUB_CHNLS))    
+            buttons = [REQFSUB_CHNLS[i:i+2] for i in range(0, len(REQFSUB_CHNLS), 2)]
+            buttons.insert(0, ['CANCEL'])
+            buttons.append(['DELETE ALL REQUEST LINKS'])
+
+            user_reply = await client.ask(query.from_user.id, text=CLEAR_LINKS_TXT, reply_markup=ReplyKeyboardMarkup(buttons, one_time_keyboard=True, resize_keyboard=True))
+            
+            if user_reply.text == 'CANCEL':
+                return await user_reply.reply("<b><i>🆑 Cᴀɴᴄᴇʟʟᴇᴅ...</i></b>", reply_markup=ReplyKeyboardRemove())
+                
+            elif user_reply.text in REQFSUB_CHNLS:
+                channel_id = int(user_reply.text)
+                try:
+                    try:
+                        await client.revoke_chat_invite_link(channel_id, await kingdb.get_stored_reqLink(channel_id))
+                    except:
+                        text = """❌ Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ʟɪɴᴋ !
+<blockquote expandable><b>ɪᴅ: <code>{}</code>
+<i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs</i></b></blockquote>"""
+                        return await user_reply.reply(text=text.format(channel_id), reply_markup=ReplyKeyboardRemove())
+                        
+                    await kingdb.del_stored_reqLink(channel_id)
+                    return await user_reply.reply(f"<b><blockquote><code>{channel_id}</code> Cʜᴀɴɴᴇʟs Lɪɴᴋ Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ✅</blockquote></b>", reply_markup=ReplyKeyboardRemove())
+                
+                except Exception as e:
+                    return await user_reply.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ...\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>", reply_markup=ReplyKeyboardRemove())
+                    
+            elif user_reply.text == 'DELETE ALL REQUEST LINKS':
+                try:
+                    result = ""
+                    for CHNL in REQFSUB_CHNLS:
+                        channel_id = int(CHNL)
+                        try:
+                            await client.revoke_chat_invite_link(channel_id, await kingdb.get_stored_reqLink(channel_id))
+                        except:
+                            result += f"<blockquote expandable><b><code>{channel_id}</code> Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ❌\n<i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs Oʀ ᴍᴀʏ ʙᴇ sᴏᴍᴇ ᴏᴛʜᴇʀ ᴄᴀᴜsᴇ.</i></b></blockquote>"
+                            continue
+                        await kingdb.del_stored_reqLink(channel_id)
+                        result += f"<blockquote><b><code>{channel_id}</code> Cʜᴀɴɴᴇʟs Lɪɴᴋ Dᴇʟᴇᴛᴇᴅ ✅</b></blockquote>\n"
+                        
+                    return await user_reply.reply(f"<b>⁉️ Oᴘᴇʀᴀᴛɪᴏɴ Rᴇsᴜʟᴛ:</b>\n{result.strip()}", reply_markup=ReplyKeyboardRemove())
+ 
+                except Exception as e:
+                    return await user_reply.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ...\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>", reply_markup=ReplyKeyboardRemove())
+                    
+            else:
+                return await user_reply.reply(f"<b><blockquote>INVALID SELECTIONS</blockquote></b>", reply_markup=ReplyKeyboardRemove())
+            
+        except Exception as e:
+            print(f"! Error Occured on callback data = 'more_settings' : {e}")
+            
 
     elif data == 'req_fsub':
         #if await authoUser(query, query.from_user.id, owner_only=True) :
