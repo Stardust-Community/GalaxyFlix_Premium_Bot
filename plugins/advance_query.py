@@ -524,7 +524,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         await client.revoke_chat_invite_link(channel_id, await kingdb.get_stored_reqLink(channel_id))
                     except:
                         text = """<b>❌ Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ʟɪɴᴋ !
-<blockquote expandable><b>ɪᴅ: <code>{}</code></b>
+<blockquote expandable>ɪᴅ: <code>{}</code></b>
 <i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs</i></blockquote>"""
                         return await user_reply.reply(text=text.format(channel_id), reply_markup=ReplyKeyboardRemove())
                         
