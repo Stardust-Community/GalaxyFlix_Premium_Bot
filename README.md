@@ -4,7 +4,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
-### <h2> 🌟 BOT FEATURES: </h2>
+### <h2> 🌟 BOT FEATURES 1.1: </h2>
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"><br>
 ### 1. FORCE-SUB 📢: 
 <i>You can add one or multiple force-sub channels—there's no limit to the number you can add. You can also empty the list by deleting all force-sub channels. This feature provides versatility, allowing you to create a custom number of force-sub channels according to your preference.</i>
