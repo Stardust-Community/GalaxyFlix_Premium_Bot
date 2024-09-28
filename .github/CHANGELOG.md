@@ -1,6 +1,8 @@
-# Changelog
+## Changelog
 
 ## [v3.0.0] - 2024-09-29
+
+---
 
 ### Enhancements
 - **Enhanced Features**: All existing features from v1 and v2 have been enhanced by approximately 30%.
@@ -19,8 +21,8 @@
 
 ---
 
-### Updated by
-(@Shidoteshika1)[https://t.me/Shidoteshika1]
+### Updated by King
+[Contact: King (Shidoteshika)](https://t.me/Shidoteshika1)
 
 ### Next Update
 - The next update will be made after thoroughly checking the features in the bot and will be implemented regularly if changes are needed or based on user demands.
