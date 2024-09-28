@@ -1,4 +1,4 @@
-## Changelog
+# Changelog
 
 ## [v3.0.0] - 2024-09-29
 
