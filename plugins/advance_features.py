@@ -239,7 +239,7 @@ async def get_admin_list(client:Client, message: Message):
             await message.reply_chat_action(ChatAction.TYPING)
             try:
                 user = await client.get_users(id)
-                user_link = f"tg://user?id={id}"
+                user_link = f"tg://openmessage?user_id={id}"
                 first_name = user.first_name if user.first_name else "No first name !"
                     
                 admin_list += f"<b><blockquote>NAME: <a href = {user_link}>{first_name}</a>\n(ID: <code>{id}</code>)</blockquote></b>\n\n"
@@ -355,7 +355,7 @@ async def get_banuser_list(client:Client, message: Message):
             await message.reply_chat_action(ChatAction.TYPING)
             try:
                 user = await client.get_users(id)
-                user_link = f"tg://user?id={id}"
+                user_link = f"tg://openmessage?user_id={id}"
                 first_name = user.first_name if user.first_name else "No first name !"
                     
                 banuser_list += f"<b><blockquote>NAME: <a href = {user_link}>{first_name}</a>\n(ID: <code>{id}</code>)</blockquote></b>\n\n"
