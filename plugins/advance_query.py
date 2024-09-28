@@ -523,9 +523,9 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                     try:
                         await client.revoke_chat_invite_link(channel_id, await kingdb.get_stored_reqLink(channel_id))
                     except:
-                        text = """❌ Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ʟɪɴᴋ !
-<blockquote expandable><b>ɪᴅ: <code>{}</code>
-<i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs</i></b></blockquote>"""
+                        text = """<b>❌ Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ʟɪɴᴋ !
+<blockquote expandable><b>ɪᴅ: <code>{}</code></b>
+<i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs</i></blockquote>"""
                         return await user_reply.reply(text=text.format(channel_id), reply_markup=ReplyKeyboardRemove())
                         
                     await kingdb.del_stored_reqLink(channel_id)
@@ -542,7 +542,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         try:
                             await client.revoke_chat_invite_link(channel_id, await kingdb.get_stored_reqLink(channel_id))
                         except:
-                            result += f"<blockquote expandable><b><code>{channel_id}</code> Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ❌\n<i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs Oʀ ᴍᴀʏ ʙᴇ sᴏᴍᴇ ᴏᴛʜᴇʀ ᴄᴀᴜsᴇ.</i></b></blockquote>"
+                            result += f"<blockquote expandable><b><code>{channel_id}</code> Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ❌</b>\n<i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs Oʀ ᴍᴀʏ ʙᴇ sᴏᴍᴇ ᴏᴛʜᴇʀ ᴄᴀᴜsᴇ.</i></blockquote>\n"
                             continue
                         await kingdb.del_stored_reqLink(channel_id)
                         result += f"<blockquote><b><code>{channel_id}</code> IDs Lɪɴᴋ Dᴇʟᴇᴛᴇᴅ ✅</b></blockquote>\n"
