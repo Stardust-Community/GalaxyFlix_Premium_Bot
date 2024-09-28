@@ -451,9 +451,9 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             
         except Exception as e:
             print(f"! Error Occured on callback data = 'clear_users' : {e}")
-            
 
-     elif data == 'clear_chnls':
+
+    elif data == 'clear_chnls':
         #if await authoUser(query, query.from_user.id, owner_only=True) 
             
         try:
