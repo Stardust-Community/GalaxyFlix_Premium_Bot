@@ -77,7 +77,7 @@ async def is_subscribed(filter, client, update):
         if not ids:
             continue
             
-        if not is_userJoin(client, user_id, ids):
+        if not await is_userJoin(client, user_id, ids):
             return False
             
     return True
