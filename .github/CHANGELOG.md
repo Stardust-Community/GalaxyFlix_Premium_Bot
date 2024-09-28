@@ -24,5 +24,5 @@
 ### 🧑‍💻 Updated by King
 > Contact: [King (Shidoteshika)](https://t.me/Shidoteshika1)
 
-### > Next Update
-- The next update will be made after thoroughly checking the features in the bot and will be implemented regularly if changes are needed or based on user demands.
+### Next Update
+> The next update will be made after thoroughly checking the features in the bot and will be implemented regularly if changes are needed or based on user demands.
