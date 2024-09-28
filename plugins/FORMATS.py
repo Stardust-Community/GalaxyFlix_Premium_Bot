@@ -41,7 +41,7 @@ I ᴀᴍ ᴀ ғɪʟᴇ sᴜᴘᴘʟɪᴇʀ ʙᴏᴛ ᴀɴᴅ ᴍᴇᴀɴᴛ ᴛ�
 <blockquote>Yᴏᴜ ᴄᴀɴ ᴜsᴇ ᴀʙᴏᴠᴇ ᴄᴏᴍᴍᴀɴᴅs ᴡɪᴛʜᴏᴜᴛ ᴊᴏɪɴɪɴɢ ғᴏʀᴄᴇ-sᴜʙ ᴄʜᴀɴɴᴇʟs</blockquote>"""
 
 ABOUT_TXT = """<b>🤖 ᴍʏ ɴᴀᴍᴇ: {botname}
-<blockquote expandable>◈ ᴀᴅᴠᴀɴᴄᴇ ғᴇᴀᴛᴜʀᴇs: <a href='https://telegra.ph/BOT-FEATURES-08-11'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>
+<blockquote expandable>◈ ᴀᴅᴠᴀɴᴄᴇ ғᴇᴀᴛᴜʀᴇs: <a href='https://telegra.ph/BOT-FEATURES-11-09-28'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>
 ◈ ᴏᴡɴᴇʀ: {ownername}
 ◈ ʟᴀɴɢᴜᴀɢᴇ: <a href='https://docs.python.org/3/'>Pʏᴛʜᴏɴ 3</a>
 ◈ ʟɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ ᴠ2</a>
