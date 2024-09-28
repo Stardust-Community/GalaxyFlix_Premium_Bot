@@ -231,7 +231,7 @@ async def not_joined(client: Client, message: Message):
 
 
 #=====================================================================================##
-#......... RESTART COMMAND FOR RESTART BOT .......#
+#......... RESTART COMMAND FOR RESTARTING BOT .......#
 #=====================================================================================##
 
 @Bot.on_message(filters.command('restart') & filters.private & filters.user(OWNER_ID))
