@@ -38,6 +38,10 @@
       "description": "make a channel (database channel), then make the bot as admin in channel, and it's id",
       "value": "-100"
     },
+    "SUPPORT_GROUP":{
+      "description": "Support Group is used for normal users to getting help if they don't understand how to use the bot --OPTIONAL--",
+      "value": "https://t.me/support_group"
+    },
     
   "buildpacks": [
     {
