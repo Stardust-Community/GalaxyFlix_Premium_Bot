@@ -4,7 +4,7 @@ import os
 import asyncio
 from asyncio import Lock
 from bot import Bot
-from config import OWNER_ID
+from config import OWNER_ID, SUPPORT_GROUP
 import time
 from datetime import datetime 
 from pyrogram import Client, filters
@@ -181,8 +181,8 @@ HELP = "https://graph.org//file/10f310dd6a7cb56ad7c0b.jpg"
 async def help(client: Client, message: Message):
     buttons = [
         [
-            InlineKeyboardButton("🤖 Oᴡɴᴇʀ", url=""), 
-            InlineKeyboardButton("🧑‍💻 Dᴇᴠᴇʟᴏᴘᴇʀ", url="")
+            InlineKeyboardButton("🤖 Oᴡɴᴇʀ", url=f"tg://user?id={OWNER_ID}"), 
+            InlineKeyboardButton("🧑‍💻 Dᴇᴠᴇʟᴏᴘᴇʀ", url="https://t.me/Shidoteshika1")
         ]
     ]
     if SUPPORT_GROUP:
