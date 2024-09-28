@@ -4,7 +4,7 @@
 
 ---
 
-### > Enhancements
+### Enhancements
 - **Enhanced Features**: All existing features from v1 and v2 have been enhanced by approximately 30%.
 - **Database Operations**: Drastically changed database operations for improved performance and reliability.
 - **Helper Function Updates**: Made minor changes in the helper function file.
@@ -12,12 +12,12 @@
   - `autoDelete.py`: Created for better readability and management of deletion operations.
   - `request_forcesub.py`: Implemented to handle force subscription requests more efficiently.
 
-### > Formatting Improvements
+### Formatting Improvements
 - **Requirements**: Added `pyrofork` in `requirements.txt` for better formatting and support.
-- **Text Formatting**: Enhanced text formatting in the existing `FORMATS` file, improving clarity and usability.
+- **Text Formatting**: Enhanced text formatting in the existing `FORMATS.py` file, improving clarity and usability.
 
-### > New Features
-- **Force Subscription**: Introduced the highly requested feature to handle force subscriptions in version 3.
+### New Features
+- **Request Force Subscription**: Introduced the highly demanding feature to handle request force subscriptions in version 3.
 
 ---
 
