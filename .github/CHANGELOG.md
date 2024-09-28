@@ -1,6 +1,6 @@
 # CHANGELOG
 
-<b> Version: 3.0.0 | 2024-09-29 (Sunday) </b>
+## Version: 3.0.0 | 2024-09-29 (Sunday)
 ---
 
 ### Enhancements
@@ -19,7 +19,6 @@
 - **Request Force Subscription**: Introduced the highly demanding feature to handle request force subscriptions in version 3.
 
 ---
-
 ### 🧑‍💻 Updated by King
 > Contact: [King (Shidoteshika)](https://t.me/Shidoteshika1)
 
