@@ -545,7 +545,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                             result += f"<blockquote expandable><b><code>{channel_id}</code> Uɴᴀʙʟᴇ ᴛᴏ Rᴇᴠᴏᴋᴇ ❌\n<i>Eɪᴛʜᴇʀ ᴛʜᴇ ʙᴏᴛ ɪs ɴᴏᴛ ɪɴ ᴀʙᴏᴠᴇ ᴄʜᴀɴɴᴇʟ Oʀ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘʀᴏᴘᴇʀ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs Oʀ ᴍᴀʏ ʙᴇ sᴏᴍᴇ ᴏᴛʜᴇʀ ᴄᴀᴜsᴇ.</i></b></blockquote>"
                             continue
                         await kingdb.del_stored_reqLink(channel_id)
-                        result += f"<blockquote><b><code>{channel_id}</code> Cʜᴀɴɴᴇʟs Lɪɴᴋ Dᴇʟᴇᴛᴇᴅ ✅</b></blockquote>\n"
+                        result += f"<blockquote><b><code>{channel_id}</code> IDs Lɪɴᴋ Dᴇʟᴇᴛᴇᴅ ✅</b></blockquote>\n"
                         
                     return await user_reply.reply(f"<b>⁉️ Oᴘᴇʀᴀᴛɪᴏɴ Rᴇsᴜʟᴛ:</b>\n{result.strip()}", reply_markup=ReplyKeyboardRemove())
  
