@@ -33,7 +33,7 @@
 ### 8. DATABASE 💾:
 <i>All the features mentioned above are stored permanently in the database, meaning the data will remain unchanged until you decide to modify it.</i>
 
-### <i>🚀 In addition to the above, more user-friendly and advanced interaction features have been added.</i>
+### <i>🚀 In addition to the above, more user-friendly and advanced interaction features have been added. It is upgraded version of previous bot features, So more interactive then previous.</i>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
