@@ -10,7 +10,7 @@ from config import OWNER_ID
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 from pyrogram.errors import FloodWait
 from database.database import kingdb 
-from plugins.request_forcesub import privateChannel
+#from plugins.request_forcesub import privateChannel
 
 # used for checking banned user
 async def check_banUser(filter, client, update):
