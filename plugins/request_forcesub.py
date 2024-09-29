@@ -52,12 +52,12 @@ async def handle_join_request(client, chat_join_request):
         
 
 #Check If a channel is private or public
-async def privateChannel(client, channel_id):
+"""async def privateChannel(client, channel_id):
     try:
         chat = await client.get_chat(channel_id)
         return not bool(chat.username)
     except Exception as e:
         print(f"Unexcpected error in privateChannel(): {e}")
-        return False
+        return False"""
   
 
