@@ -37,6 +37,10 @@ async def is_subscribed(filter, client, update):
     if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
         return True
 
+    # Handle the case for a single channel directly (no need for gather)
+    if len(Channel_ids) == 1:
+        return await is_userJoin(client, user_id, Channel_ids[0])
+
     # Use asyncio gather to check multiple channels concurrently
     tasks = [is_userJoin(client, user_id, ids) for ids in Channel_ids if ids]
     results = await asyncio.gather(*tasks)
