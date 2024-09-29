@@ -63,7 +63,7 @@ async def check_admin(filter, client, update):
     return True"""
 
 #Check user subscription in Channels in More Simpler way
-async def is_subscribed(filter, client, update):
+"""async def is_subscribed(filter, client, update):
     Channel_ids = await kingdb.get_all_channels()
     
     if not Channel_ids:
@@ -81,7 +81,26 @@ async def is_subscribed(filter, client, update):
         if not await is_userJoin(client, user_id, ids):
             return False
             
-    return True
+    return True"""
+
+# Check user subscription in Channels in a more optimized way
+async def is_subscribed(filter, client, update):
+    Channel_ids = await kingdb.get_all_channels()
+    
+    if not Channel_ids:
+        return True
+
+    user_id = update.from_user.id
+
+    if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
+        return True
+
+    # Use asyncio gather to check multiple channels concurrently
+    tasks = [is_userJoin(client, user_id, ids) for ids in Channel_ids if ids]
+    results = await asyncio.gather(*tasks)
+
+    # If any result is False, return False; else return True
+    return all(results)
 
 #Chcek user subscription by specifying channel id and user id
 async def is_userJoin(client, user_id, channel_id):
