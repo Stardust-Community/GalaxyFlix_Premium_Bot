@@ -17,7 +17,7 @@ import subprocess
 import sys
 from plugins.autoDelete import convert_time, auto_del_notification, delete_message
 from plugins.FORMATS import START_MSG, FORCE_MSG, BAN_TXT
-from plugins.request_forcesub import *
+#from plugins.request_forcesub import *
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed & ~banUser)
 async def start_command(client: Client, message: Message): 
@@ -174,7 +174,7 @@ async def not_joined(client: Client, message: Message):
                     data = await client.get_chat(id)
                     cname = data.title
                     
-                    if REQFSUB and await privateChannel(client, id):
+                    if REQFSUB and not bool(data.username): #await privateChannel(client, id):
                         link = await kingdb.get_stored_reqLink(id); await kingdb.add_reqChannel(id)
                         if not link:
                             link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
