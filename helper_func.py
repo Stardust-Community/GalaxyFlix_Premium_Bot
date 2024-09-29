@@ -44,6 +44,7 @@ async def is_subscribed(filter, client, update):
     # If any result is False, return False; else return True
     return all(results)
 
+
 #Chcek user subscription by specifying channel id and user id
 async def is_userJoin(client, user_id, channel_id):
     #REQFSUB = await kingdb.get_request_forcesub()
