@@ -1,6 +1,5 @@
 # +++ Made By King [telegram user id: @Shidoteshika1] +++
 
-
 import base64
 import re
 import asyncio
@@ -10,7 +9,10 @@ from config import OWNER_ID
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 from pyrogram.errors import FloodWait
 from database.database import kingdb 
-#from plugins.request_forcesub import privateChannel
+
+#=============================================================================================================================================================================
+# -------------------- HELPER FUNCTIONS FOR USER VERIFICATION IN DIFFERENT CASES -------------------- 
+#=============================================================================================================================================================================
 
 # used for checking banned user
 async def check_banUser(filter, client, update):
@@ -22,66 +24,6 @@ async def check_admin(filter, client, update):
     user_id = update.from_user.id       
     return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
 
-#Check user subscription in Channels
-"""async def is_subscribed(filter, client, update):
-    Channel_ids = await kingdb.get_all_channels()
-    
-    if not Channel_ids:
-        return True
-
-    user_id = update.from_user.id
-
-    if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
-        return True
-        
-    member_status = ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER
-    
-    REQFSUB = await kingdb.get_request_forcesub()
-                    
-    for id in Channel_ids:
-        if not id:
-            continue
-            
-        try:
-            member = await client.get_chat_member(chat_id=id, user_id=user_id)
-        except UserNotParticipant:
-            member = None
-            if REQFSUB and await privateChannel(client, id):
-                if not await kingdb.reqSent_user_exist(id, user_id):
-                    return False
-            else:
-                return False
-                
-        if member:
-            if member.status not in member_status:
-                if REQFSUB and await privateChannel(client, id):
-                    if not await kingdb.reqSent_user_exist(id, user_id):
-                        return False
-                else:
-                    return False
-
-    return True"""
-
-#Check user subscription in Channels in More Simpler way
-"""async def is_subscribed(filter, client, update):
-    Channel_ids = await kingdb.get_all_channels()
-    
-    if not Channel_ids:
-        return True
-
-    user_id = update.from_user.id
-
-    if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
-        return True
-
-    for ids in Channel_ids:
-        if not ids:
-            continue
-            
-        if not await is_userJoin(client, user_id, ids):
-            return False
-            
-    return True"""
 
 # Check user subscription in Channels in a more optimized way
 async def is_subscribed(filter, client, update):
@@ -118,6 +60,8 @@ async def is_userJoin(client, user_id, channel_id):
     except Exception as e:
         print(f"An error occurred on is_userJoin(): {e}")
         return False
+#=============================================================================================================================================================================
+#=============================================================================================================================================================================
     
 async def encode(string):
     try:
@@ -208,6 +152,69 @@ def get_readable_time(seconds: int) -> str:
     time_list.reverse()
     up_time += ":".join(time_list)
     return up_time
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Check user subscription in Channels
+"""async def is_subscribed(filter, client, update):
+    Channel_ids = await kingdb.get_all_channels()
+    
+    if not Channel_ids:
+        return True
+
+    user_id = update.from_user.id
+
+    if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
+        return True
+        
+    member_status = ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER
+    
+    REQFSUB = await kingdb.get_request_forcesub()
+                    
+    for id in Channel_ids:
+        if not id:
+            continue
+            
+        try:
+            member = await client.get_chat_member(chat_id=id, user_id=user_id)
+        except UserNotParticipant:
+            member = None
+            if REQFSUB and await privateChannel(client, id):
+                if not await kingdb.reqSent_user_exist(id, user_id):
+                    return False
+            else:
+                return False
+                
+        if member:
+            if member.status not in member_status:
+                if REQFSUB and await privateChannel(client, id):
+                    if not await kingdb.reqSent_user_exist(id, user_id):
+                        return False
+                else:
+                    return False
+
+    return True"""
+
+#Check user subscription in Channels in More Simpler way
+"""async def is_subscribed(filter, client, update):
+    Channel_ids = await kingdb.get_all_channels()
+    
+    if not Channel_ids:
+        return True
+
+    user_id = update.from_user.id
+
+    if any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)]):
+        return True
+
+    for ids in Channel_ids:
+        if not ids:
+            continue
+            
+        if not await is_userJoin(client, user_id, ids):
+            return False
+            
+    return True"""
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 subscribed = filters.create(is_subscribed)
