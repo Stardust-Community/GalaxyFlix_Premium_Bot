@@ -26,26 +26,8 @@ class sid:
     }
     
     @classmethod
-    def convertFont(cls, text: str, convert_to: str, font_name=None):
-        if convert_to == 'normal' and font_name:
-            font = cls.font_family.get(font_name)
-            if not font:
-                print(f"{convert_to} Doesn't Exist in Font family....")
-                return text
-            try:
-                specific_font = str.maketrans(font, cls.normal_font)
-                return text.translate(specific_font)
-            except Exception as e:
-                print(f"Text Font Conversion Failed, Reason: {e}")
-                return text
-            
-        font = cls.font_family.get(convert_to)
-        
-        if not font:
-            print(f"{convert_to} Doesn't Exist in Font family....")
-            return text
-        
-        # Use str.maketrans() to create a translation map and apply it with str.translate()
+    def _translate_text(cls, text: str, font: str) -> str:
+        """Translate the text using the specified font."""
         try:
             specific_font = str.maketrans(cls.normal_font, font)
             return text.translate(specific_font)
@@ -53,6 +35,75 @@ class sid:
             print(f"Text Font Conversion Failed, Reason: {e}")
             return text
 
+    @classmethod
+    def convertFont(cls, text: str, convert_to: str, font_name=None) -> str:
+        """Convert the font of the given text to the specified font."""
+        if convert_to == 'normal' and font_name:
+            font = cls.font_family.get(font_name)
+            if not font:
+                print(f"{convert_to} doesn't exist in Font family....")
+                return text
+            return cls._translate_text(text, font)
+        
+        font = cls.font_family.get(convert_to)
+        if not font:
+            print(f"{convert_to} doesn't exist in Font family....")
+            return text
+        
+        return cls._translate_text(text, font)
+
+    @classmethod
+    def small_caps(cls, text: str) -> str:
+        """Convert text to small caps."""
+        return cls._translate_text(text, cls.font_family['small_caps'])
+
+    @classmethod
+    def sans(cls, text: str) -> str:
+        """Convert text to sans-serif."""
+        return cls._translate_text(text, cls.font_family['sans'])
+
+    @classmethod
+    def sans_italic(cls, text: str) -> str:
+        """Convert text to italic sans-serif."""
+        return cls._translate_text(text, cls.font_family['sans_italic'])
+
+    @classmethod
+    def sans_bold(cls, text: str) -> str:
+        """Convert text to bold sans-serif."""
+        return cls._translate_text(text, cls.font_family['sans_bold'])
+
+    @classmethod
+    def sans_bold_italic(cls, text: str) -> str:
+        """Convert text to bold italic sans-serif."""
+        return cls._translate_text(text, cls.font_family['sans_bold_italic'])
+
+    @classmethod
+    def serif_bold(cls, text: str) -> str:
+        """Convert text to bold serif."""
+        return cls._translate_text(text, cls.font_family['serif_bold'])
+
+    @classmethod
+    def serif_bold_italic(cls, text: str) -> str:
+        """Convert text to bold italic serif."""
+        return cls._translate_text(text, cls.font_family['serif_bold_italic'])
+
+    @classmethod
+    def serif_italic(cls, text: str) -> str:
+        """Convert text to italic serif."""
+        return cls._translate_text(text, cls.font_family['serif_italic'])
+
+    @classmethod
+    def outline(cls, text: str) -> str:
+        """Convert text to outline font."""
+        return cls._translate_text(text, cls.font_family['outline'])
+
+    @classmethod
+    def typewriter(cls, text: str) -> str:
+        """Convert text to typewriter font."""
+        return cls._translate_text(text, cls.font_family['typewriter'])
+
+# Example usage
 if __name__ == '__main__':
-    print(sid.convertFont("FONT: Extra Features Demo...", "small_caps"))
+    # Example demonstration of font conversion
+    print(sid.small_caps("FONT: Extra Features Demo..."))
   
