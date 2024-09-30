@@ -10,6 +10,7 @@ import sys
 from datetime import datetime
 
 from config import API_HASH, APP_ID, LOGGER, TG_BOT_TOKEN, TG_BOT_WORKERS, CHANNEL_ID, PORT, OWNER_ID
+from Extras.text_font import sid
 
 class Bot(Client):
     def __init__(self):
@@ -39,8 +40,8 @@ class Bot(Client):
             await test.delete()
         except Exception as e:
             self.LOGGER(__name__).warning(e)
-            self.LOGGER(__name__).warning(f"Make Sure bot is Admin in DB Channel, and Double check the CHANNEL_ID Value, Current Value {CHANNEL_ID}")
-            self.LOGGER(__name__).info("Bot Stopped..")
+            self.LOGGER(__name__).warning(f"{sid.convertFont('Make Sure bot is Admin in DB Channel, and Double check the CHANNEL_ID Value, Current Value', 'small_caps')} {CHANNEL_ID}")
+            self.LOGGER(__name__).info(sid.convertFont('Bot Stopped..', 'small_caps'))
             sys.exit()
 
         self.set_parse_mode(ParseMode.HTML)
