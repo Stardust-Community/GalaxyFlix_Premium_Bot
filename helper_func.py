@@ -16,13 +16,22 @@ from database.database import kingdb
 
 # used for checking banned user
 async def check_banUser(filter, client, update):
-    user_id = update.from_user.id
-    return await kingdb.ban_user_exist(user_id)
+    try:
+        user_id = update.from_user.id
+        return await kingdb.ban_user_exist(user_id)
+    except Exception as e:
+        print(f"!Error on check_banUser: {e}")
+        return False
+
 
 #used for cheking if a user is admin ~Owner also treated as admin level
 async def check_admin(filter, client, update):
-    user_id = update.from_user.id       
-    return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
+    try:
+        user_id = update.from_user.id       
+        return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
+    except Exception as e:
+        print(f"!Error on check_admin: {e}")
+        return False
 
 
 # Check user subscription in Channels in a more optimized way
