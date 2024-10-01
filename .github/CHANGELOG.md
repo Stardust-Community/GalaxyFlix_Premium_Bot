@@ -7,7 +7,7 @@
 - **Enhanced Features**: All existing features from v1 and v2 have been enhanced by approximately 30%. Unlike the previous version, admins now have permissions to handle banned user commands.
 - **Database Operations**: Drastically changed database operations for improved performance and reliability.
 - **Existing File Updates**: Made minor changes in `helper_func.py`, `start.py`, `advance_query.py`, `advance_features.py`, and `bot_cmd.py` files to optimize the code. Included all other `files` where decorator parameters are aligned in an optimal way for faster response and less resource consumption.
-- **New Files Added**:
+- **New Files Added in plugins**:
   - `autoDelete.py`: Created for better readability and management of deletion operations.
   - `request_forcesub.py`: Implemented to handle force subscription requests more efficiently.
 
