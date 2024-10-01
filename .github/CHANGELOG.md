@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Version: 3.0.0 | 01-10-2024 (Tuesday)
+## Version: 3.0.0 | 02-10-2024 (Wednesday)
 ---
 
 ### Enhancements
