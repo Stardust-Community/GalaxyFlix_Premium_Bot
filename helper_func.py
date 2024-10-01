@@ -20,7 +20,7 @@ async def check_banUser(filter, client, update):
         user_id = update.from_user.id
         return await kingdb.ban_user_exist(user_id)
     except Exception as e:
-        print(f"!Error on check_banUser: {e}")
+        print(f"!Error on check_banUser(): {e}")
         return False
 
 
@@ -30,7 +30,7 @@ async def check_admin(filter, client, update):
         user_id = update.from_user.id       
         return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
     except Exception as e:
-        print(f"!Error on check_admin: {e}")
+        print(f"!Error on check_admin(): {e}")
         return False
 
 
@@ -72,7 +72,7 @@ async def is_userJoin(client, user_id, channel_id):
         return False
         
     except Exception as e:
-        print(f"An error occurred on is_userJoin(): {e}")
+        print(f"!Error on is_userJoin(): {e}")
         return False
 #=============================================================================================================================================================================
 #=============================================================================================================================================================================
