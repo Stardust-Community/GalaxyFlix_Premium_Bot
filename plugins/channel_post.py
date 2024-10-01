@@ -9,7 +9,7 @@ from config import CHANNEL_ID
 from helper_func import encode, is_admin
 command_list = ['start', 'users', 'broadcast', 'batch', 'genlink', 'help', 'cmd', 'info', 'add_fsub', 'fsub_chnl', 'restart', 'del_fsub', 'add_admins', 'del_admins', 'admin_list', 'cancel', 'auto_del', 'forcesub', 'files', 'add_banuser', 'del_banuser', 'banuser_list', 'status', 'req_fsub']
 
-@Bot.on_message(filters.private & is_admin & ~filters.command(command_list))
+@Bot.on_message(is_admin & filters.private & ~filters.command(command_list))
 async def channel_post(client: Client, message: Message):
         
     reply_text = await message.reply_text("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
