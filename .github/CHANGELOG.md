@@ -6,7 +6,7 @@
 ### Enhancements
 - **Enhanced Features**: All existing features from v1 and v2 have been enhanced by approximately 30%.
 - **Database Operations**: Drastically changed database operations for improved performance and reliability.
-- **Existing File Updates**: Made minor changes in `helper_func.py`, `start.py`, `advance_query.py`, `advance_features.py`, `bot_cmd.py` files to optimise the code.
+- **Existing File Updates**: Made minor changes in `helper_func.py`, `start.py`, `advance_query.py`, `advance_features.py`, and `bot_cmd.py` files to optimize the code. Included all other `files` where decorator parameters are aligned in an optimal way for faster response and less resource consumption.
 - **New Files Added**:
   - `autoDelete.py`: Created for better readability and management of deletion operations.
   - `request_forcesub.py`: Implemented to handle force subscription requests more efficiently.
