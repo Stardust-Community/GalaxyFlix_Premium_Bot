@@ -13,7 +13,7 @@ from database.database import kingdb
 #from datetime import datetime, timedelta
 
 #Advance commands for adding force sub....
-@Bot.on_message(filters.command('add_fsub') & filters.private & filters.user(OWNER_ID))
+@Bot.on_message(filters.user(OWNER_ID) & filters.private & filters.command('add_fsub'))
 async def add_forcesub(client:Client, message:Message):
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     check=0
@@ -67,7 +67,7 @@ async def add_forcesub(client:Client, message:Message):
         await pro.edit(f'<b>❌ Eʀʀᴏʀ ᴏᴄᴄᴜʀᴇᴅ ᴡʜɪʟᴇ Aᴅᴅɪɴɢ Fᴏʀᴄᴇ-Sᴜʙ Cʜᴀɴɴᴇʟs</b>\n\n{channel_list.strip()}\n\n<b><i>Pʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ...</i></b>', reply_markup=reply_markup, disable_web_page_preview = True)
 
 
-@Bot.on_message(filters.command('del_fsub') & filters.private & filters.user(OWNER_ID))
+@Bot.on_message(filters.user(OWNER_ID) & filters.private & filters.command('del_fsub'))
 async def delete_all_forcesub(client:Client, message:Message):
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     channels = await kingdb.get_all_channels()
@@ -115,7 +115,7 @@ async def delete_all_forcesub(client:Client, message:Message):
         await pro.edit("<b><blockquote>⁉️ Nᴏ Cʜᴀɴɴᴇʟ ɪᴅ ᴀᴠᴀɪʟᴀʙʟᴇ ᴛᴏ Dᴇʟᴇᴛᴇ</blockquote></b>", reply_markup=reply_markup)
       
 
-@Bot.on_message(filters.command('fsub_chnl') & filters.private & is_admin)
+@Bot.on_message(is_admin & filters.private & filters.command('fsub_chnl'))
 async def get_forcesub(client:Client, message: Message):
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     channels = await kingdb.get_all_channels()
@@ -143,8 +143,7 @@ async def get_forcesub(client:Client, message: Message):
 
 
 #Commands for adding Admins by Owner
-
-@Bot.on_message(filters.command('add_admins') & filters.private & filters.user(OWNER_ID))
+@Bot.on_message(filters.user(OWNER_ID) & filters.private & filters.command('add_admins'))
 async def add_admins(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     check = 0
@@ -186,7 +185,7 @@ async def add_admins(client:Client, message:Message):
     #await update_fsub(1)
 
 
-@Bot.on_message(filters.command('del_admins') & filters.private & filters.user(OWNER_ID))
+@Bot.on_message(filters.user(OWNER_ID) & filters.private & filters.command('del_admins'))
 async def delete_admins(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     admin_ids = await kingdb.get_all_admins()
@@ -227,7 +226,7 @@ async def delete_admins(client:Client, message:Message):
         await pro.edit("<b><blockquote>⁉️ Nᴏ Aᴅᴍɪɴ Lɪsᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ᴛᴏ Dᴇʟᴇᴛᴇ</blockquote></b>", reply_markup=reply_markup)
 
 
-@Bot.on_message(filters.command('admin_list') & filters.private & filters.user([OWNER_ID, 6525825813]))
+@Bot.on_message(filters.user(OWNER_ID) & filters.private & filters.command('admin_list'))
 async def get_admin_list(client:Client, message: Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     admin_ids = await kingdb.get_all_admins()
@@ -254,7 +253,7 @@ async def get_admin_list(client:Client, message: Message):
 
 #Commands for banned user function............
 
-@Bot.on_message(filters.command('add_banuser') & filters.private & filters.user(OWNER_ID))
+@Bot.on_message(is_admin & filters.private & filters.command('add_banuser'))
 async def add_banuser(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     check, autho_users = 0, []
@@ -301,7 +300,7 @@ async def add_banuser(client:Client, message:Message):
     #await update_fsub(1)
 
 
-@Bot.on_message(filters.command('del_banuser') & filters.private & filters.user(OWNER_ID))
+@Bot.on_message(is_admin & filters.private & filters.command('del_banuser'))
 async def delete_banuser(client:Client, message:Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     banuser_ids = await kingdb.get_ban_users()
@@ -342,7 +341,7 @@ async def delete_banuser(client:Client, message:Message):
         await pro.edit("<b><blockquote>⁉️ Nᴏ Bᴀɴɴᴇᴅ Usᴇʀ ɪᴅ Lɪsᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ᴛᴏ Dᴇʟᴇᴛᴇ</blockquote></b>", reply_markup=reply_markup)
 
 
-@Bot.on_message(filters.command('banuser_list') & filters.private & filters.user(OWNER_ID))
+@Bot.on_message(is_admin & filters.private & filters.command('banuser_list'))
 async def get_banuser_list(client:Client, message: Message):        
     pro = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)
     
@@ -373,7 +372,7 @@ async def get_banuser_list(client:Client, message: Message):
 #=====================================================================================##
 
 # Auto Delete Setting Commands
-@Bot.on_message(~banUser & filters.command('auto_del') & filters.private)
+@Bot.on_message(~banUser & filters.private & filters.command('auto_del'))
 async def autoDelete_settings(client, message):
     await message.reply_chat_action(ChatAction.TYPING)
     
@@ -407,7 +406,7 @@ async def autoDelete_settings(client, message):
             
 
 #Files related settings command
-@Bot.on_message(~banUser & filters.command('files') & filters.private)
+@Bot.on_message(~banUser & filters.private & filters.command('files'))
 async def files_commands(client: Client, message: Message):
     await message.reply_chat_action(ChatAction.TYPING)
     
@@ -453,7 +452,7 @@ async def files_commands(client: Client, message: Message):
 
 
 #Request force sub mode commad,,,,,,
-@Bot.on_message(~banUser & filters.command('req_fsub') & filters.private)
+@Bot.on_message(~banUser & filters.private & filters.command('req_fsub'))
 async def handle_reqFsub(client: Client, message: Message):
     await message.reply_chat_action(ChatAction.TYPING)
     try:
