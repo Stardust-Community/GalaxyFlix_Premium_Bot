@@ -20,19 +20,19 @@ is_canceled = False
 cancel_lock = Lock()
 
 #Settings for banned users..
-@Bot.on_message(filters.private & banUser & filters.command(['start', 'help']))
+@Bot.on_message(banUser & filters.private & filters.command(['start', 'help']))
 async def handle_banuser(client, message):
     return await message.reply(text=BAN_TXT, message_effect_id=5046589136895476101,)#💩)
 
 #--------------------------------------------------------------[[ADMIN COMMANDS]]---------------------------------------------------------------------------#
 # Handler for the /cancel command
-@Bot.on_message(filters.private & filters.command('cancel') & is_admin)
+@Bot.on_message(is_admin & filters.private & filters.command('cancel'))
 async def cancel_broadcast(client: Bot, message: Message):
     global is_canceled
     async with cancel_lock:
         is_canceled = True
 
-@Bot.on_message(filters.private & filters.command('broadcast') & is_admin)
+@Bot.on_message(is_admin & filters.private & filters.command('broadcast'))
 async def send_text(client: Bot, message: Message):
     global is_canceled
     async with cancel_lock:
@@ -128,7 +128,7 @@ async def send_text(client: Bot, message: Message):
         await msg.delete()
 
 
-@Bot.on_message(filters.command('status') & filters.private & is_admin)
+@Bot.on_message(is_admin & filters.private & filters.command('status'))
 async def info(client: Bot, message: Message):   
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
     #msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
@@ -147,7 +147,7 @@ async def info(client: Bot, message: Message):
     await temp_msg.edit(f"🚻 : <b>{len(users)} USERS\n\n🤖 UPTIME » {bottime}\n\n📡 PING » {ping_time:.2f} ms</b>", reply_markup = reply_markup,)
 
 
-@Bot.on_message(filters.command('cmd') & is_admin)
+@Bot.on_message(is_admin & filters.private & filters.command('cmd'))
 async def bcmd(bot: Bot, message: Message):        
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
     await message.reply(text=CMD_TXT, reply_markup = reply_markup, quote= True)
@@ -156,7 +156,7 @@ async def bcmd(bot: Bot, message: Message):
 
 #--------------------------------------------------------------[[NORMAL USER ACCESSIBLE COMMANDS]]----------------------------------------------------------------------#
 
-@Bot.on_message(filters.command('forcesub') & filters.private & ~banUser)
+@Bot.on_message(~banUser & filters.private & filters.command('forcesub'))
 async def fsub_commands(client: Client, message: Message):
     #@id = message.from_user.id
     #@if await ban_user_exist(id):
@@ -177,7 +177,7 @@ async def user_setting_commands(client: Client, message: Message):
 
     
 HELP = "https://graph.org//file/10f310dd6a7cb56ad7c0b.jpg"
-@Bot.on_message(filters.command('help') & filters.private & ~banUser)
+@Bot.on_message(~banUser & filters.command('help'))
 async def help(client: Client, message: Message):
     buttons = [
         [
