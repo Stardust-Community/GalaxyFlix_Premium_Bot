@@ -33,23 +33,23 @@ class Bot(Client):
         self.uptime = datetime.now()
                 
         try:
-            print(f"Adding Database channel ({CHANNEL_ID}) !!!")
+            #print(f"Adding Database channel ({CHANNEL_ID}) !!!")
             db_channel = await self.get_chat(CHANNEL_ID)
-            print(f"Database channel ({CHANNEL_ID}) initialized....")
+            #print(f"Database channel ({CHANNEL_ID}) initialized....")
             self.db_channel = db_channel
 
-            print(f"Exporting Database channel ({CHANNEL_ID}) link...")
+            #print(f"Exporting Database channel ({CHANNEL_ID}) link...")
             self.db_channel_link = db_channel.invite_link 
             
             if not self.db_channel_link:
                 await self.export_chat_invite_link(CHANNEL_ID)
                 self.db_channel_link = (await self.get_chat(CHANNEL_ID)).invite_link
-            print(f"Successfull in Exporting....")
+            #print(f"Successfull in Exporting....")
             
-            print(f"Sending Messages in Database channel ({CHANNEL_ID})...")   
+            #print(f"Sending Messages in Database channel ({CHANNEL_ID})...")   
             test = await self.send_message(chat_id = db_channel.id, text = "Testing")
             await test.delete()
-            print(f"All Test Passed in Database channel ({CHANNEL_ID}) ✅")
+            #print(f"All Test Passed in Database channel ({CHANNEL_ID}) ✅")
         except Exception as e:
             self.LOGGER(__name__).warning(e)
             self.LOGGER(__name__).warning(f"Make Sure bot is Admin in DB Channel and have proper Permissions, So Double check the CHANNEL_ID Value, Current Value {CHANNEL_ID}")
