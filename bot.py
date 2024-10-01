@@ -41,7 +41,7 @@ class Bot(Client):
             print(f"Exporting Database channel ({CHANNEL_ID}) link...")
             self.db_channel_link = db_channel.invite_link 
             
-            if not slef.db_channel_link:
+            if not self.db_channel_link:
                 await client.export_chat_invite_link(CHANNEL_ID)
                 self.db_channel_link = (await client.get_chat(CHANNEL_ID)).invite_link
             print(f"Successfull in Exporting....")
