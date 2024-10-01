@@ -29,7 +29,7 @@ CMD_TXT = """<b>🤖 𝗕𝗔𝗦𝗜𝗖 𝗔𝗗𝗠𝗜𝗡 𝗖𝗢𝗠𝗠�
 
 <code>/broadcast silent</code> : sɪʟᴇɴᴛ ʙʀᴏᴀᴅᴄᴀsᴛ ᴍᴇssᴀɢᴇ
 
-<b>/status :</b> ᴠɪᴇᴡ ʙᴏᴛ sᴛᴀᴛɪsᴛɪᴄs + ᴜᴘᴛɪᴍᴇ + ᴘɪɴɢ"""
+<b>/status :</b> ᴠɪᴇᴡ ʙᴏᴛ sᴛᴀᴛɪsᴛɪᴄs"""
 
 BAN_TXT = "<b><blockquote>Sᴏʀʀʏ, ʏᴏᴜ ᴀʀᴇ ʙᴀɴɴᴇᴅ 🚫</blockquote></b>"
 
