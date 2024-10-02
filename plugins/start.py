@@ -154,12 +154,14 @@ async def start_command(client: Client, message: Message):
 ##===================================================================================================================##   
 
 
+# Create a global dictionary to store chat data
+chat_data_cache = {}
+
 @Bot.on_message(filters.command('start') & filters.private & ~banUser)
 async def not_joined(client: Client, message: Message):
     temp = await message.reply(f"<b>??</b>")
     
     user_id = message.from_user.id
-    excl = '! '
                
     channels = await kingdb.get_all_channels()
     REQFSUB = await kingdb.get_request_forcesub()
@@ -169,28 +171,35 @@ async def not_joined(client: Client, message: Message):
     try:
         for id in channels:
             await message.reply_chat_action(ChatAction.PLAYING)
+            
+            # Check if the user is already joined
             if not await is_userJoin(client, user_id, id):
                 try:
-                    data = await client.get_chat(id)
+                    # Check if chat data is in cache
+                    if id in chat_data_cache:
+                        data = chat_data_cache[id]  # Get data from cache
+                    else:
+                        data = await client.get_chat(id)  # Fetch from API
+                        chat_data_cache[id] = data  # Store in cache
+                    
                     cname = data.title
                     
-                    if REQFSUB and not bool(data.username): #await privateChannel(client, id):
-                        link = await kingdb.get_stored_reqLink(id); await kingdb.add_reqChannel(id)
+                    # Handle private channels and links
+                    if REQFSUB and not bool(data.username): 
+                        link = await kingdb.get_stored_reqLink(id)
+                        await kingdb.add_reqChannel(id)
+                        
                         if not link:
                             link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
                             await kingdb.store_reqLink(id, link)
-                            #link = invite_link                          
                     else:
                         link = data.invite_link
-                        
-                        if not link:
-                            await client.export_chat_invite_link(id)
-                            link = (await client.get_chat(id)).invite_link 
-                                                        
+
+                    # Add button for the chat
                     buttons.append([InlineKeyboardButton(text=cname, url=link)])
                     count += 1
-                    await temp.edit(f'<b>{excl * count}</b>')
-                                                
+                    await temp.edit(f"<b>{'! ' * count}</b>")
+                                                            
                 except Exception as e:
                     print(f"Can't Export Channel Name and Link..., Please Check If the Bot is admin in the FORCE SUB CHANNELS:\nProvided Force sub Channel:- {id}")
                     return await temp.edit(f"<b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b>\n<blockquote expandable><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
@@ -202,7 +211,6 @@ async def not_joined(client: Client, message: Message):
 
         await message.reply_chat_action(ChatAction.CANCEL)
         await temp.edit(
-            #photo = random.choice(PICS),   
             text=FORCE_MSG.format(
                 first=message.from_user.first_name,
                 last=message.from_user.last_name,
@@ -212,9 +220,6 @@ async def not_joined(client: Client, message: Message):
                 count=count
             ),
             reply_markup=InlineKeyboardMarkup(buttons),
-            #message_effect_id=5107584321108051014, # 👍
-            #quote=True,
-            #disable_web_page_preview=True
         )
                 
         try:
@@ -225,7 +230,6 @@ async def not_joined(client: Client, message: Message):
     except Exception as e:
         print(f"Unable to perform forcesub buttons reason : {e}")
         return await temp.edit(f"<b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b>\n<blockquote expandable><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
-
 
 
 #=====================================================================================##
