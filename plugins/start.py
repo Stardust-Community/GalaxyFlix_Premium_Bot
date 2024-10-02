@@ -19,7 +19,7 @@ from plugins.autoDelete import convert_time, auto_del_notification, delete_messa
 from plugins.FORMATS import START_MSG, FORCE_MSG, BAN_TXT
 #from plugins.request_forcesub import *
 
-@Bot.on_message(~banUser & subscribed & filters.private & filters.command('start'))
+@Bot.on_message(filters.command('start') & filters.private & ~banUser & subscribed)
 async def start_command(client: Client, message: Message): 
     await message.reply_chat_action(ChatAction.CHOOSE_STICKER)
     id = message.from_user.id  
@@ -154,7 +154,7 @@ async def start_command(client: Client, message: Message):
 ##===================================================================================================================##   
 
 
-@Bot.on_message(~banUser & filters.private & filters.command('start'))
+@Bot.on_message(filters.command('start') & filters.private & ~banUser)
 async def not_joined(client: Client, message: Message):
     temp = await message.reply(f"<b>??</b>")
     
@@ -232,7 +232,7 @@ async def not_joined(client: Client, message: Message):
 #......... RESTART COMMAND FOR RESTARTING BOT .......#
 #=====================================================================================##
 
-@Bot.on_message(filters.user(OWNER_ID) & filters.private & filters.command('restart'))
+@Bot.on_message(filters.command('restart') & filters.private & filters.user(OWNER_ID))
 async def restart_bot(client: Client, message: Message):
     print("Restarting bot...")
     #name = (await client.get_me()).first_name
