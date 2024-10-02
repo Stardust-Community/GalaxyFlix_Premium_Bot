@@ -84,9 +84,6 @@ async def start_command(client: Client, message: Message):
         if CHNL_BTN:
             button_name, button_link = await kingdb.get_channel_button_link()
             
-        # temp_msg = await message.reply("<b>. . . </b>")
-        # await temp_msg.delete()
-        
         for idx, msg in enumerate(messages):
             if bool(CUSTOM_CAPTION) & bool(msg.document):
                 caption = CUSTOM_CAPTION.format(previouscaption = "" if not msg.caption else msg.caption.html, filename = msg.document.file_name)
@@ -120,13 +117,11 @@ async def start_command(client: Client, message: Message):
         if AUTO_DEL and last_message:
                 asyncio.create_task(auto_del_notification(client, last_message, DEL_TIMER, transfer))
                 
-        return
             
     else:
-        # temp_msg = await message.reply("<b>. . .</b>")
-        # await temp_msg.delete()
             
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('🤖 Aʙᴏᴜᴛ ᴍᴇ', callback_data= 'about'), InlineKeyboardButton('Sᴇᴛᴛɪɴɢs ⚙️', callback_data='setting')]])
+
         await message.reply_photo(
             photo = random.choice(PICS),
             caption = START_MSG.format(
@@ -137,14 +132,11 @@ async def start_command(client: Client, message: Message):
                 id = message.from_user.id
             ),
             reply_markup = reply_markup,
-	    message_effect_id=5104841245755180586 #🔥
+	        message_effect_id=5104841245755180586 #🔥
             #quote = True
         )
-        try:
-            await message.delete()
-        except:
-            pass
-        return
+        try: await message.delete()
+        except: pass
 
    
 ##===================================================================================================================##
@@ -222,10 +214,8 @@ async def not_joined(client: Client, message: Message):
             reply_markup=InlineKeyboardMarkup(buttons),
         )
                 
-        try:
-            await message.delete()
-        except:
-            pass
+        try: await message.delete()
+        except: pass
                         
     except Exception as e:
         print(f"Unable to perform forcesub buttons reason : {e}")
