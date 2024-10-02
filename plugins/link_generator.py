@@ -6,7 +6,7 @@ from helper_func import encode, get_message_id, is_admin
 
 cancel_operation = False
 
-@Bot.on_message(is_admin & filters.private & filters.command('batch'))
+@Bot.on_message(filters.command('batch') & filters.private & is_admin)
 async def batch(client: Client, message: Message):
     channel = f"<a href={client.db_channel_link}>ᴅʙ ᴄʜᴀɴɴᴇʟ</a>" 
     while True:
@@ -43,7 +43,7 @@ async def batch(client: Client, message: Message):
     await second_message.reply_text(f"<b>Bᴇʟᴏᴡ ɪs ʏᴏᴜʀ ʟɪɴᴋ:</b>\n<blockquote>{link}</blockquote>", quote=True, reply_markup=reply_markup, disable_web_page_preview=True)
 
 
-@Bot.on_message(is_admin & filters.private & filters.command('genlink'))
+@Bot.on_message(filters.command('genlink') & filters.private & is_admin)
 async def link_generator(client: Client, message: Message):
     channel = f"<a href={client.db_channel_link}>ᴅʙ ᴄʜᴀɴɴᴇʟ</a>"
     while True:
