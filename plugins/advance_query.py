@@ -399,8 +399,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         LISTS += f"NAME: {channel_name}\n(ID: <code>{CHNL}</code>)\nUSERS: {channel_users}\n\n"
                         
                 buttons = [
-                    [InlineKeyboardButton("cʟᴇᴀʀ ᴜsᴇʀs", "clear_users"), InlineKeyboardButton("cʟᴇᴀʀ cʜᴀɴɴᴇʟs", "clear_chnls")],
-                    [InlineKeyboardButton("cʟᴇᴀʀ sᴛᴏʀᴇᴅ ʀᴇǫᴜᴇsᴛ ʟɪɴᴋs", "clear_links")],
+                    [InlineKeyboardButton("cʟᴇᴀʀ cʜᴀɴɴᴇʟs", "clear_chnls"), InlineKeyboardButton("cʟᴇᴀʀ ʟɪɴᴋs", "clear_links")],
                     [InlineKeyboardButton("♻️  Rᴇғʀᴇsʜ Sᴛᴀᴛᴜs  ♻️", "more_settings")],
                     [InlineKeyboardButton("⬅️ Bᴀᴄᴋ", "req_fsub"), InlineKeyboardButton("Cʟᴏsᴇ ✖️", "close")]
                 ]
