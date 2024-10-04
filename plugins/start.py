@@ -24,24 +24,17 @@ async def start_command(client: Client, message: Message):
     await message.reply_chat_action(ChatAction.CHOOSE_STICKER)
     id = message.from_user.id  
     
-    #banned_users = await get_ban_users()
-    #if await ban_user_exist(id):
-        #return await message.reply(text=BAN_TXT, message_effect_id=5046589136895476101)
-    
     if not await kingdb.present_user(id):
-        try:
-            await kingdb.add_user(id)
-        except:
-            pass
+        try: await kingdb.add_user(id)
+        except: pass
                 
     text = message.text        
     if len(text)>7:
-        transfer = message.command[1]
+        #transfer = message.command[1]
         await message.delete()
-        try:
-            base64_string = text.split(" ", 1)[1]
-        except:
-            return
+
+        try: base64_string = text.split(" ", 1)[1]
+        except: return
                 
         string = await decode(base64_string)
         argument = string.split("-")
@@ -65,33 +58,28 @@ async def start_command(client: Client, message: Message):
                         break
                             
         elif len(argument) == 2:
-            try:
-                ids = [int(int(argument[1]) / abs(client.db_channel.id))]
-            except:
-                return
+            try: ids = [int(int(argument[1]) / abs(client.db_channel.id))]
+            except: return
                     
         last_message = None
         await message.reply_chat_action(ChatAction.UPLOAD_DOCUMENT)  
         
-        try:
-            messages = await get_messages(client, ids)
-        except:
-            return await message.reply("<b><i>Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ ᴡʀᴏɴɢ..!</i></b>")
+        try: messages = await get_messages(client, ids)
+        except: return await message.reply("<b><i>Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ ᴡʀᴏɴɢ..!</i></b>")
             
         AUTO_DEL = await kingdb.get_auto_delete(); DEL_TIMER = await kingdb.get_del_timer()
         HIDE_CAPTION = await kingdb.get_hide_caption(); CHNL_BTN = await kingdb.get_channel_button(); PROTECT_MODE = await kingdb.get_protect_content()   
             
-        if CHNL_BTN:
-            button_name, button_link = await kingdb.get_channel_button_link()
+        if CHNL_BTN: button_name, button_link = await kingdb.get_channel_button_link()
             
         for idx, msg in enumerate(messages):
             if bool(CUSTOM_CAPTION) & bool(msg.document):
                 caption = CUSTOM_CAPTION.format(previouscaption = "" if not msg.caption else msg.caption.html, filename = msg.document.file_name)
+
             elif HIDE_CAPTION:
-                if msg.document or msg.audio:
-                    caption = ""
-                else:
-                    caption = "" if not msg.caption else msg.caption.html
+                if msg.document or msg.audio: caption = ""
+                else: caption = "" if not msg.caption else msg.caption.html
+
             else:
                 caption = "" if not msg.caption else msg.caption.html
 
@@ -103,21 +91,23 @@ async def start_command(client: Client, message: Message):
             try:
                 copied_msg = await msg.copy(chat_id=id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_MODE)
                 await asyncio.sleep(0.1)
-                asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
-                if idx == len(messages) - 1 and AUTO_DEL: 
-                        last_message = copied_msg
+
+                if AUTO_DEL:
+                    asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
+                    if idx == len(messages) - 1: last_message = copied_msg
+
             except FloodWait as e:
                 await asyncio.sleep(e.x)
                 copied_msg = await msg.copy(chat_id=id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_MODE)
                 await asyncio.sleep(0.1)
-                asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
-                if idx == len(messages) - 1 and AUTO_DEL:
-                    last_message = copied_msg
+                
+                if AUTO_DEL:
+                    asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
+                    if idx == len(messages) - 1: last_message = copied_msg
                         
         if AUTO_DEL and last_message:
-                asyncio.create_task(auto_del_notification(client, last_message, DEL_TIMER, transfer))
-                
-            
+                asyncio.create_task(auto_del_notification(client, last_message, DEL_TIMER, message.command[1]))
+                        
     else:
             
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('🤖 Aʙᴏᴜᴛ ᴍᴇ', callback_data= 'about'), InlineKeyboardButton('Sᴇᴛᴛɪɴɢs ⚙️', callback_data='setting')]])
@@ -155,35 +145,34 @@ async def not_joined(client: Client, message: Message):
     
     user_id = message.from_user.id
                
-    channels = await kingdb.get_all_channels()
     REQFSUB = await kingdb.get_request_forcesub()
     buttons = []
     count = 0
 
     try:
-        for id in channels:
+        for chat_id in await kingdb.get_all_channels():
             await message.reply_chat_action(ChatAction.PLAYING)
             
             # Check if the user is already joined
-            if not await is_userJoin(client, user_id, id):
+            if not await is_userJoin(client, user_id, chat_id):
                 try:
                     # Check if chat data is in cache
-                    if id in chat_data_cache:
-                        data = chat_data_cache[id]  # Get data from cache
+                    if chat_id in chat_data_cache:
+                        data = chat_data_cache[chat_id]  # Get data from cache
                     else:
-                        data = await client.get_chat(id)  # Fetch from API
-                        chat_data_cache[id] = data  # Store in cache
+                        data = await client.get_chat(chat_id)  # Fetch from API
+                        chat_data_cache[chat_id] = data  # Store in cache
                     
                     cname = data.title
                     
                     # Handle private channels and links
                     if REQFSUB and not bool(data.username): 
-                        link = await kingdb.get_stored_reqLink(id)
-                        await kingdb.add_reqChannel(id)
+                        link = await kingdb.get_stored_reqLink(chat_id)
+                        await kingdb.add_reqChannel(chat_id)
                         
                         if not link:
-                            link = (await client.create_chat_invite_link(chat_id=id, creates_join_request=True)).invite_link
-                            await kingdb.store_reqLink(id, link)
+                            link = (await client.create_chat_invite_link(chat_id=chat_id, creates_join_request=True)).invite_link
+                            await kingdb.store_reqLink(chat_id, link)
                     else:
                         link = data.invite_link
 
@@ -193,7 +182,7 @@ async def not_joined(client: Client, message: Message):
                     await temp.edit(f"<b>{'! ' * count}</b>")
                                                             
                 except Exception as e:
-                    print(f"Can't Export Channel Name and Link..., Please Check If the Bot is admin in the FORCE SUB CHANNELS:\nProvided Force sub Channel:- {id}")
+                    print(f"Can't Export Channel Name and Link..., Please Check If the Bot is admin in the FORCE SUB CHANNELS:\nProvided Force sub Channel:- {chat_id}")
                     return await temp.edit(f"<b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b>\n<blockquote expandable><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
 
         try:
