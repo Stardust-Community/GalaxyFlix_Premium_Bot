@@ -1,10 +1,10 @@
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from bot import Bot
 from helper_func import encode, get_message_id, is_admin
 
-cancel_operation = False
 
 @Bot.on_message(filters.command('batch') & filters.private & is_admin)
 async def batch(client: Client, message: Message):

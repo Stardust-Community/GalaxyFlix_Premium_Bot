@@ -1,4 +1,4 @@
-# +++ Made By King [telegram user id: @Shidoteshika1] +++
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
 #text formatting....
 

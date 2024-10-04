@@ -1,4 +1,4 @@
-# +++ Made By King [telegram user id: @Shidoteshika1] +++
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
 from bot import Bot
 import asyncio
@@ -82,12 +82,9 @@ async def delete_all_forcesub(client:Client, message:Message):
         if channels:
             for id in channels:
                 await kingdb.del_channel(id)
-                
-                #if await kingdb.reqChannel_exist(id):
-                    #await kingdb.del_reqChannel(id)
                     
-            ids = "\n".join([f"<code>{channel}</code> ✅" for channel in channels])
-            return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Cʜᴀɴɴᴇʟ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n<blockquote>{ids}</blockquote></b>", reply_markup=reply_markup)
+            ids = "\n".join(f"<blockquote><code>{channel}</code> ✅</blockquote>" for channel in channels)
+            return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Cʜᴀɴɴᴇʟ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n{ids}</b>", reply_markup=reply_markup)
         else:
             return await pro.edit("<b><blockquote>⁉️ Nᴏ Cʜᴀɴɴᴇʟ ɪᴅ ᴀᴠᴀɪʟᴀʙʟᴇ ᴛᴏ Dᴇʟᴇᴛᴇ</blockquote></b>", reply_markup=reply_markup)
             
@@ -101,9 +98,6 @@ async def delete_all_forcesub(client:Client, message:Message):
                 continue
             if id in channels:
                 await kingdb.del_channel(id)
-                
-                #if await kingdb.reqChannel_exist(id):
-                    #await kingdb.del_reqChannel(id)
                     
                 passed += f"<blockquote><code>{id}</code> ✅</blockquote>\n"
             else:
@@ -200,8 +194,8 @@ async def delete_admins(client:Client, message:Message):
         if admin_ids:
             for id in admin_ids:
                 await kingdb.del_admin(id)
-            ids = "\n".join([f"<code>{admin}</code> ✅" for admin in admin_ids])
-            return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Aᴅᴍɪɴ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n<blockquote>{ids}</blockquote></b>", reply_markup=reply_markup)
+            ids = "\n".join(f"<blockquote><code>{admin}</code> ✅</blockquote>" for admin in admin_ids)
+            return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Aᴅᴍɪɴ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n{ids}</b>", reply_markup=reply_markup)
         else:
             return await pro.edit("<b><blockquote>⁉️ Nᴏ Aᴅᴍɪɴ Lɪsᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ᴛᴏ Dᴇʟᴇᴛᴇ</blockquote></b>", reply_markup=reply_markup)
   
@@ -314,8 +308,8 @@ async def delete_banuser(client:Client, message:Message):
         if banuser_ids:
             for id in banuser_ids:
                 await kingdb.del_ban_user(id)
-            ids = "\n".join([f"<code>{user}</code> ✅" for user in banuser_ids])
-            return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Bᴀɴɴᴇᴅ Usᴇʀ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n<blockquote>{ids}</blockquote></b>", reply_markup=reply_markup)
+            ids = "\n".join(f"<blockquote><code>{user}</code> ✅</blockquote>" for user in banuser_ids)
+            return await pro.edit(f"<b>⛔️ Aʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ Bᴀɴɴᴇᴅ Usᴇʀ ɪᴅ ᴀʀᴇ Dᴇʟᴇᴛᴇᴅ :\n{ids}</b>", reply_markup=reply_markup)
         else:
             return await pro.edit("<b><blockquote>⁉️ Nᴏ Bᴀɴɴᴇᴅ Usᴇʀ ɪᴅ Lɪsᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ᴛᴏ Dᴇʟᴇᴛᴇ</blockquote></b>", reply_markup=reply_markup)
   
@@ -374,12 +368,6 @@ async def get_banuser_list(client:Client, message: Message):
 @Bot.on_message(filters.command('auto_del') & filters.private & ~banUser)
 async def autoDelete_settings(client, message):
     await message.reply_chat_action(ChatAction.TYPING)
-    
-    #id = message.from_user.id
-        
-    #banned_users = await get_ban_users()
-    #if id in banned_users:
-            #return await message.reply(BAN_TXT)
 
     try:
             timer = convert_time(await kingdb.get_del_timer())
@@ -408,12 +396,6 @@ async def autoDelete_settings(client, message):
 @Bot.on_message(filters.command('files') & filters.private & ~banUser)
 async def files_commands(client: Client, message: Message):
     await message.reply_chat_action(ChatAction.TYPING)
-    
-    #id = message.from_user.id
-        
-    #banned_users = await get_ban_users()
-    #if id in banned_users:
-        #return await message.reply(BAN_TXT)
         
     try:
         protect_content = hide_caption = channel_button = off_txt

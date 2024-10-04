@@ -1,4 +1,4 @@
-# +++ Made By King [telegram user id: @Shidoteshika1] +++
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
 import random
 from bot import Bot
@@ -54,7 +54,7 @@ def buttonStatus(pc_data: str, hc_data: str, cb_data: str) -> list:
     ]
     return button
 
-#Verify user, if he/she is admin or owner
+#Verify user, if he/she is admin or owner before processing the query...
 async def authoUser(query, id, owner_only=False):
     if not owner_only:
         if not any([id == OWNER_ID, await kingdb.admin_exist(id)]):
@@ -142,8 +142,6 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
         
     elif data == "files_cmd":
-        #id = query.from_user.id
-        #admin_list = await get_all_admins(); admin_list.append(OWNER_ID)
         if await authoUser(query, query.from_user.id) : 
             await query.answer("♻️ Qᴜᴇʀʏ Pʀᴏᴄᴇssɪɴɢ....") 
                 

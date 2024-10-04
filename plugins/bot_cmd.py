@@ -1,4 +1,4 @@
-# +++ Made By King [telegram user id: @Shidoteshika1] +++
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
 import os
 import asyncio
@@ -158,20 +158,12 @@ async def bcmd(bot: Bot, message: Message):
 
 @Bot.on_message(filters.command('forcesub') & filters.private & ~banUser)
 async def fsub_commands(client: Client, message: Message):
-    #@id = message.from_user.id
-    #@if await ban_user_exist(id):
-        #return #await message.reply(BAN_TXT)
-    
     button = [[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data="close")]]
     await message.reply(text=FSUB_CMD_TXT, reply_markup=InlineKeyboardMarkup(button), quote=True)
 
 
 @Bot.on_message(filters.command('users') & filters.private & ~banUser)
 async def user_setting_commands(client: Client, message: Message):
-    #id = message.from_user.id
-    #if await ban_user_exist(id):
-        #return #await message.reply(text=BAN_TXT, message_effect_id=5046589136895476101)
-
     button = [[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data="close")]]
     await message.reply(text=USER_CMD_TXT, reply_markup=InlineKeyboardMarkup(button), quote=True)
 

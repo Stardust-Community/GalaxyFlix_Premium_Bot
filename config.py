@@ -1,3 +1,4 @@
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
 import asyncio
 import os

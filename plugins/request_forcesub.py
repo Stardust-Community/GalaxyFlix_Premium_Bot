@@ -1,16 +1,17 @@
-# +++ Made By King [telegram user id: @Shidoteshika1] +++
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
-import asyncio
-from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery,  ChatMemberUpdated
+#import asyncio
+#from pyrogram import Client, filters
+#from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+#import logging
+#import os
+#from pyrogram.enums import ParseMode
+
 
 from bot import Bot
 from database.database import kingdb
 from pyrogram.enums import ChatMemberStatus
-
-#import logging
-#import os
-#from pyrogram.enums import ParseMode
+from pyrogram.types import ChatMemberUpdated
 
 # This handler captures membership updates (like when a user leaves)
 @Bot.on_chat_member_updated()

@@ -1,22 +1,20 @@
-# +++ Made By King [telegram user id: @Shidoteshika1] +++
-
+# +++ Made By King [telegram username: @Shidoteshika1] +++
 
 import os
-import asyncio
-import random
-from pyrogram import Client, filters
-from pyrogram.enums import ParseMode, ChatAction
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram.errors import FloodWait
-
-from bot import Bot
-from config import CUSTOM_CAPTION, OWNER_ID, PICS
-from helper_func import banUser, is_userJoin, is_admin, subscribed, encode, decode, get_messages
-from database.database import kingdb
-import subprocess
 import sys
-from plugins.autoDelete import convert_time, auto_del_notification, delete_message
-from plugins.FORMATS import START_MSG, FORCE_MSG, BAN_TXT
+import random
+import asyncio
+import subprocess
+from bot import Bot
+from database.database import kingdb
+from pyrogram import Client, filters
+from pyrogram.errors import FloodWait
+from plugins.FORMATS import START_MSG, FORCE_MSG
+from pyrogram.enums import ParseMode, ChatAction
+from config import CUSTOM_CAPTION, OWNER_ID, PICS
+from plugins.autoDelete import auto_del_notification, delete_message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from helper_func import banUser, is_userJoin, is_admin, subscribed, encode, decode, get_messages
 #from plugins.request_forcesub import *
 
 @Bot.on_message(filters.command('start') & filters.private & ~banUser & subscribed)
@@ -30,7 +28,6 @@ async def start_command(client: Client, message: Message):
                 
     text = message.text        
     if len(text)>7:
-        #transfer = message.command[1]
         await message.delete()
 
         try: base64_string = text.split(" ", 1)[1]
@@ -108,8 +105,7 @@ async def start_command(client: Client, message: Message):
         if AUTO_DEL and last_message:
                 asyncio.create_task(auto_del_notification(client.username, last_message, DEL_TIMER, message.command[1]))
                         
-    else:
-            
+    else:   
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('🤖 Aʙᴏᴜᴛ ᴍᴇ', callback_data= 'about'), InlineKeyboardButton('Sᴇᴛᴛɪɴɢs ⚙️', callback_data='setting')]])
 
         await message.reply_photo(
@@ -153,7 +149,7 @@ async def not_joined(client: Client, message: Message):
         for chat_id in await kingdb.get_all_channels():
             await message.reply_chat_action(ChatAction.PLAYING)
             
-            # Check if the user is already joined
+            # Show the join button of non-subscribed Channels.....
             if not await is_userJoin(client, user_id, chat_id):
                 try:
                     # Check if chat data is in cache

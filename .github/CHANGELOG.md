@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Version: 3.0.0 | 02-10-2024 (Wednesday)
+## Version: 3.0.0 | 04-10-2024 (Friday)
 ---
 
 ### Enhancements
@@ -9,10 +9,10 @@
    - Unlike the previous version, admins now have permissions to handle banned user commands.
    - Provided a hyperlink to the database channel in messages while executing the `/genlink` and `/batch` commands for easy access.
 - **Database Operations**: Drastically changed database operations for improved performance and reliability.
-- **Existing File Updates**: Made minor changes in `helper_func.py`, `start.py`, `advance_query.py`, `advance_features.py`, and `bot_cmd.py` files to optimize the code. Included all other `files` where decorator parameters are aligned in an optimal way for faster response and less resource consumption.
 - **New Files Added in plugins**:
   - `autoDelete.py`: Created for better readability and management of deletion operations.
   - `request_forcesub.py`: Implemented to handle force subscription requests more efficiently.
+- **File Updates**: Made minor changes in `helper_func.py`, `start.py`, `advance_query.py`, `advance_features.py`, and `bot_cmd.py` files to optimize the code. Included all other `files` where decorator parameters are aligned in an optimal way for faster response and less resource consumption.
 
 ### Formatting Improvements
 - **Requirements**: Added `pyrofork` in `requirements.txt` for better formatting and support.
