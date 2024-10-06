@@ -1,11 +1,11 @@
 
-import pymongo, os
+import motor.motor_asyncio
 from config import DB_URI, DB_NAME
 
 class sidDataBase:
 
     def __init__(self, DB_URI, DB_NAME):
-        self.dbclient = pymongo.MongoClient(DB_URI)
+        self.dbclient = motor.motor_asyncio.AsyncIOMotorClient(DB_URI)
         self.database = self.dbclient[DB_NAME]
         
         self.user_data = self.database['users']
@@ -28,119 +28,105 @@ class sidDataBase:
     
     
     async def set_channel_button_link(self, button_name: str, button_link: str):
-        channel_button_link_data = self.channel_button_link_data
-        
-        channel_button_link_data.delete_many({})  # Remove all existing documents
-        channel_button_link_data.insert_one({'button_name': button_name, 'button_link': button_link}) # Insert the new document
+        await self.channel_button_link_data.delete_many({})  # Remove all existing documents
+        await self.channel_button_link_data.insert_one({'button_name': button_name, 'button_link': button_link}) # Insert the new document
     
     async def get_channel_button_link(self):
-        data = self.channel_button_link_data.find_one({})
+        data = await self.channel_button_link_data.find_one({})
         if data:
             return data.get('button_name'), data.get('button_link')
         return 'Join Channel', 'https://t.me/btth480p'
     
     
-    async def set_del_timer(self, value: int):
-        del_timer_data = self.del_timer_data
-        
-        existing = del_timer_data.find_one({})
+    async def set_del_timer(self, value: int):        
+        existing = await self.del_timer_data.find_one({})
         if existing:
-            del_timer_data.update_one({}, {'$set': {'value': value}})
+            await self.del_timer_data.update_one({}, {'$set': {'value': value}})
         else:
-            del_timer_data.insert_one({'value': value})
+            await self.del_timer_data.insert_one({'value': value})
     
     async def get_del_timer(self):
-        data = self.del_timer_data.find_one({})
+        data = await self.del_timer_data.find_one({})
         if data:
             return data.get('value', 600)
         return 600
     
     
     async def set_auto_delete(self, value: bool):
-        auto_delete_data = self.auto_delete_data
-        
-        existing = auto_delete_data.find_one({})
+        existing = await self.auto_delete_data.find_one({})
         if existing:
-            auto_delete_data.update_one({}, {'$set': {'value': value}})
+            await self.auto_delete_data.update_one({}, {'$set': {'value': value}})
         else:
-            auto_delete_data.insert_one({'value': value})
+            await self.auto_delete_data.insert_one({'value': value})
     
     async def set_hide_caption(self, value: bool):
-        hide_caption_data = self.hide_caption_data
-        
-        existing = hide_caption_data.find_one({})
+        existing = await self.hide_caption_data.find_one({})
         if existing:
-            hide_caption_data.update_one({}, {'$set': {'value': value}})
+            await self.hide_caption_data.update_one({}, {'$set': {'value': value}})
         else:
-            hide_caption_data.insert_one({'value': value})
+            await self.hide_caption_data.insert_one({'value': value})
     
     async def set_protect_content(self, value: bool):
-        protect_content_data = self.protect_content_data
-
-        existing = protect_content_data.find_one({})
+        existing = await self.protect_content_data.find_one({})
         if existing:
-            protect_content_data.update_one({}, {'$set': {'value': value}})
+            await self.protect_content_data.update_one({}, {'$set': {'value': value}})
         else:
-            protect_content_data.insert_one({'value': value})
+            await self.protect_content_data.insert_one({'value': value})
     
     async def set_channel_button(self, value: bool):
-        channel_button_data = self.channel_button_data
-        
-        existing = channel_button_data.find_one({})
+        existing = await self.channel_button_data.find_one({})
         if existing:
-            channel_button_data.update_one({}, {'$set': {'value': value}})
+            await self.channel_button_data.update_one({}, {'$set': {'value': value}})
         else:
-            channel_button_data.insert_one({'value': value})
+            await self.channel_button_data.insert_one({'value': value})
     
     async def set_request_forcesub(self, value: bool):
-        request_forcesub_data = self.rqst_fsub_data
-        
-        existing = request_forcesub_data.find_one({})
+        existing = await self.request_forcesub_data.find_one({})
         if existing:
-            request_forcesub_data.update_one({}, {'$set': {'value': value}})
+            await self.request_forcesub_data.update_one({}, {'$set': {'value': value}})
         else:
-            request_forcesub_data.insert_one({'value': value})
+            await self.request_forcesub_data.insert_one({'value': value})
     
     async def get_auto_delete(self):
-        data = self.auto_delete_data.find_one({})
+        data = await self.auto_delete_data.find_one({})
         if data:
             return data.get('value', False)
         return False
     
     async def get_hide_caption(self):
-        data = self.hide_caption_data.find_one({})
+        data = await self.hide_caption_data.find_one({})
         if data:
             return data.get('value', False)
         return False
     
     async def get_protect_content(self):
-        data = self.protect_content_data.find_one({})
+        data = await self.protect_content_data.find_one({})
         if data:
             return data.get('value', False)
         return False
     
     async def get_channel_button(self):
-        data = self.channel_button_data.find_one({})
+        data = await self.channel_button_data.find_one({})
         if data:
             return data.get('value', False)
         return False
     
     async def get_request_forcesub(self):
-        data = self.rqst_fsub_data.find_one({})
+        data = await self.rqst_fsub_data.find_one({})
         if data:
             return data.get('value', False)
         return False
     
     async def present_user(self, user_id : int):
-        found = self.user_data.find_one({'_id': user_id})
+        found = await self.user_data.find_one({'_id': user_id})
         return bool(found)
     
     async def add_user(self, user_id: int):
-        self.user_data.insert_one({'_id': user_id})
+        await self.user_data.insert_one({'_id': user_id})
         return
     
     async def full_userbase(self):
-        user_docs = self.user_data.find()
+        user_docs = await self.user_data.find().to_list(length=None)
         user_ids = []
         for doc in user_docs:
             user_ids.append(doc['_id'])
@@ -148,73 +134,73 @@ class sidDataBase:
         return user_ids
     
     async def del_user(self, user_id: int):
-        self.user_data.delete_one({'_id': user_id})
+        await self.user_data.delete_one({'_id': user_id})
         return
     
     # New channel functions
     async def channel_exist(self, channel_id: int):
-        found = self.channel_data.find_one({'_id': channel_id})
+        found = await self.channel_data.find_one({'_id': channel_id})
         return bool(found)
         
     async def add_channel(self, channel_id: int):
         if not await self.channel_exist(channel_id):
-            self.channel_data.insert_one({'_id': channel_id})
+            await self.channel_data.insert_one({'_id': channel_id})
             return
     
     async def del_channel(self, channel_id: int):
         if await self.channel_exist(channel_id):
-            self.channel_data.delete_one({'_id': channel_id})
+            await self.channel_data.delete_one({'_id': channel_id})
             return
     
     async def get_all_channels(self):
-        channel_docs = self.channel_data.find()
+        channel_docs = await self.channel_data.find().to_list(length=None)
         channel_ids = [doc['_id'] for doc in channel_docs]
         return channel_ids
     
     # New Admin adding functions
     async def admin_exist(self, admin_id: int):
-        found = self.admins_data.find_one({'_id': admin_id})
+        found = await self.admins_data.find_one({'_id': admin_id})
         return bool(found)
         
     async def add_admin(self, admin_id: int):
         if not await self.admin_exist(admin_id):
-            self.admins_data.insert_one({'_id': admin_id})
+            await self.admins_data.insert_one({'_id': admin_id})
             return
     
     async def del_admin(self, admin_id: int):
         if await self.admin_exist(admin_id):
-            self.admins_data.delete_one({'_id': admin_id})
+            await self.admins_data.delete_one({'_id': admin_id})
             return
     
     async def get_all_admins(self):
-        users_docs = self.admins_data.find()
+        users_docs = await self.admins_data.find().to_list(length=None)
         user_ids = [doc['_id'] for doc in users_docs]
         return user_ids
     
     
     # Banned User functions
     async def ban_user_exist(self, user_id: int):
-        found = self.banned_user_data.find_one({'_id': user_id})
+        found = await self.banned_user_data.find_one({'_id': user_id})
         return bool(found)
         
     async def add_ban_user(self, user_id: int):
         if not await self.ban_user_exist(user_id):
-            self.banned_user_data.insert_one({'_id': user_id})
+            await self.banned_user_data.insert_one({'_id': user_id})
             return
     
     async def del_ban_user(self, user_id: int):
         if await self.ban_user_exist(user_id):
-            self.banned_user_data.delete_one({'_id': user_id})
+            await self.banned_user_data.delete_one({'_id': user_id})
             return
     
     async def get_ban_users(self):
-        users_docs = self.banned_user_data.find()
+        users_docs = await self.banned_user_data.find().to_list(length=None)
         user_ids = [doc['_id'] for doc in users_docs]
         return user_ids
         
     # Initialize a channel with an empty user_ids array (acting as a set)
     async def add_reqChannel(self, channel_id: int):
-        self.rqst_fsub_Channel_data.update_one(
+        await self.rqst_fsub_Channel_data.update_one(
             {'_id': channel_id}, 
             {'$setOnInsert': {'user_ids': []}},  # Start with an empty array to represent the set
             upsert=True  # Insert the document if it doesn't exist
@@ -223,7 +209,7 @@ class sidDataBase:
     # Method 1: Add user to the channel set
     async def reqSent_user(self, channel_id: int, user_id: int):
         # Add the user to the set of users for a specific channel
-        self.rqst_fsub_Channel_data.update_one(
+        await self.rqst_fsub_Channel_data.update_one(
             {'_id': channel_id}, 
             {'$addToSet': {'user_ids': user_id}}, 
             upsert=True
@@ -232,7 +218,7 @@ class sidDataBase:
     # Method 2: Remove a user from the channel set
     async def del_reqSent_user(self, channel_id: int, user_id: int):
         # Remove the user from the set of users for the channel
-        self.rqst_fsub_Channel_data.update_one(
+        await self.rqst_fsub_Channel_data.update_one(
             {'_id': channel_id}, 
             {'$pull': {'user_ids': user_id}}
         )
@@ -240,7 +226,7 @@ class sidDataBase:
     # Clear the user set (user_ids array) for a specific channel
     async def clear_reqSent_user(self, channel_id: int):
         if await self.reqChannel_exist(channel_id):
-            self.rqst_fsub_Channel_data.update_one(
+            await self.rqst_fsub_Channel_data.update_one(
                 {'_id': channel_id}, 
                 {'$set': {'user_ids': []}}  # Reset user_ids to an empty array
             )
@@ -248,7 +234,7 @@ class sidDataBase:
     # Method 3: Check if a user exists in the channel set
     async def reqSent_user_exist(self, channel_id: int, user_id: int):
         # Check if the user exists in the set of the channel's users
-        found = self.rqst_fsub_Channel_data.find_one(
+        found = await self.rqst_fsub_Channel_data.find_one(
             {'_id': channel_id, 'user_ids': user_id}
         )
         return bool(found)
@@ -256,18 +242,18 @@ class sidDataBase:
     # Method 4: Remove a channel and its set of users
     async def del_reqChannel(self, channel_id: int):
         # Delete the entire channel's user set
-        self.rqst_fsub_Channel_data.delete_one({'_id': channel_id})
+        await self.rqst_fsub_Channel_data.delete_one({'_id': channel_id})
 
     # Method 5: Check if a channel exists
     async def reqChannel_exist(self, channel_id: int):
         # Check if the channel exists
-        found = self.rqst_fsub_Channel_data.find_one({'_id': channel_id})
+        found = await self.rqst_fsub_Channel_data.find_one({'_id': channel_id})
         return bool(found)
 
     # Method 6: Get all users from a channel's set
     async def get_reqSent_user(self, channel_id: int):
         # Retrieve the list of users for a specific channel
-        data = self.rqst_fsub_Channel_data.find_one({'_id': channel_id})
+        data = await self.rqst_fsub_Channel_data.find_one({'_id': channel_id})
         if data:
             return data.get('user_ids', [])
         return []
@@ -275,7 +261,7 @@ class sidDataBase:
     # Method 7: Get all available channel IDs
     async def get_reqChannel(self):
         # Retrieve all channel IDs
-        channel_docs = self.rqst_fsub_Channel_data.find()
+        channel_docs = await self.rqst_fsub_Channel_data.find().to_list(length=None)
         channel_ids = [doc['_id'] for doc in channel_docs]
         return channel_ids
         
@@ -283,7 +269,7 @@ class sidDataBase:
     # Get all available channel IDs in store_reqLink_data
     async def get_reqLink_channels(self):
         # Retrieve all documents from store_reqLink_data
-        channel_docs = self.store_reqLink_data.find()
+        channel_docs = await self.store_reqLink_data.find().to_list(length=None)
         # Extract the channel IDs from the documents
         channel_ids = [doc['_id'] for doc in channel_docs]
         return channel_ids
@@ -291,7 +277,7 @@ class sidDataBase:
     # Get the stored link for a specific channel
     async def get_stored_reqLink(self, channel_id: int):
         # Retrieve the stored link for a specific channel_id from store_reqLink_data
-        data = self.store_reqLink_data.find_one({'_id': channel_id})
+        data = await self.store_reqLink_data.find_one({'_id': channel_id})
         if data:
             return data.get('link')
         return None
@@ -299,7 +285,7 @@ class sidDataBase:
     # Set (or update) the stored link for a specific channel
     async def store_reqLink(self, channel_id: int, link: str):
         # Insert or update the link for the channel_id in store_reqLink_data
-        self.store_reqLink_data.update_one(
+        await self.store_reqLink_data.update_one(
             {'_id': channel_id}, 
             {'$set': {'link': link}}, 
             upsert=True
@@ -308,30 +294,7 @@ class sidDataBase:
     # Delete the stored link and the channel from store_reqLink_data
     async def del_stored_reqLink(self, channel_id: int):
         # Delete the document with the channel_id in store_reqLink_data
-        self.store_reqLink_data.delete_one({'_id': channel_id})
-
-    
-    
-    
-    """# autho User functions
-    async def ban_user_exist(user_id: int):
-        found = banned_user_data.find_one({'_id': user_id})
-        return bool(found)
-        
-    async def add_ban_user(user_id: int):
-        if not await ban_user_exist(user_id):
-            banned_user_data.insert_one({'_id': user_id})
-            return
-    
-    async def del_ban_user(user_id: int):
-        if await ban_user_exist(user_id):
-            banned_user_data.delete_one({'_id': user_id})
-            return
-    
-    async def get_ban_users():
-        users_docs = banned_user_data.find()
-        user_ids = [doc['_id'] for doc in users_docs]
-        return user_ids"""
+        await self.store_reqLink_data.delete_one({'_id': channel_id})
 
 
 kingdb = sidDataBase(DB_URI, DB_NAME)
