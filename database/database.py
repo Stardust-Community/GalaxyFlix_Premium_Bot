@@ -81,11 +81,11 @@ class sidDataBase:
             await self.channel_button_data.insert_one({'value': value})
     
     async def set_request_forcesub(self, value: bool):
-        existing = await self.rqst_forcesub_data.find_one({})
+        existing = await self.rqst_fsub_data.find_one({})
         if existing:
-            await self.rqst_forcesub_data.update_one({}, {'$set': {'value': value}})
+            await self.rqst_fsub_data.update_one({}, {'$set': {'value': value}})
         else:
-            await self.rqst_forcesub_data.insert_one({'value': value})
+            await self.rqst_fsub_data.insert_one({'value': value})
     
     async def get_auto_delete(self):
         data = await self.auto_delete_data.find_one({})
