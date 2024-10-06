@@ -25,7 +25,7 @@ OWNER_ID = int(os.environ.get("OWNER_ID", "1536699044"))
 SUPPORT_GROUP = os.environ.get("SUPPORT_GROUP", "https://t.me/Yan_Alliance")
 
 #Port
-PORT = os.environ.get("PORT", "8080")
+PORT = os.environ.get("PORT", "8000")
 
 #Database --⚠️ REQUIRED--
 DB_URI = os.environ.get("DATABASE_URL", "mongodb+srv://telegrambot2024:bot2024@cluster0.kspizla.mongodb.net/?retryWrites=true&w=majority")
