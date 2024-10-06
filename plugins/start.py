@@ -64,8 +64,8 @@ async def start_command(client: Client, message: Message):
         try: messages = await get_messages(client, ids)
         except: return await message.reply("<b><i>Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ ᴡʀᴏɴɢ..!</i></b>")
             
-        AUTO_DEL = await kingdb.get_auto_delete(); DEL_TIMER = await kingdb.get_del_timer()
-        HIDE_CAPTION = await kingdb.get_hide_caption(); CHNL_BTN = await kingdb.get_channel_button(); PROTECT_MODE = await kingdb.get_protect_content()   
+        settings = await asyncio.gather(get_auto_delete(), get_del_timer(), get_hide_caption(), get_channel_button(), get_protect_content())
+        AUTO_DEL, DEL_TIMER, HIDE_CAPTION, CHNL_BTN, PROTECT_MODE = settings   
             
         if CHNL_BTN: button_name, button_link = await kingdb.get_channel_button_link()
             
