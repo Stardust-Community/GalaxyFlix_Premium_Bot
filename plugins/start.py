@@ -87,7 +87,7 @@ async def start_command(client: Client, message: Message):
                     
             try:
                 copied_msg = await msg.copy(chat_id=id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_MODE)
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.5)
 
                 if AUTO_DEL:
                     asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
@@ -96,7 +96,7 @@ async def start_command(client: Client, message: Message):
             except FloodWait as e:
                 await asyncio.sleep(e.x)
                 copied_msg = await msg.copy(chat_id=id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_MODE)
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0.5)
                 
                 if AUTO_DEL:
                     asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
