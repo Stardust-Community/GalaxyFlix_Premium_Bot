@@ -30,7 +30,7 @@ PORT = os.environ.get("PORT", "8080")
 #Database --⚠️ REQUIRED--
 DB_URI = os.environ.get("DATABASE_URL", "mongodb+srv://telegrambot2024:bot2024@cluster0.kspizla.mongodb.net/?retryWrites=true&w=majority")
 
-DB_NAME = os.environ.get("DATABASE_NAME", "adrfsxbot")
+DB_NAME = os.environ.get("DATABASE_NAME", "adbotv3Xlight")
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
