@@ -27,6 +27,7 @@ class sidDataBase:
         self.store_reqLink_data = self.database['store_reqLink']
     
     
+    # CHANNEL BUTTON SETTINGS
     async def set_channel_button_link(self, button_name: str, button_link: str):
         await self.channel_button_link_data.delete_many({})  # Remove all existing documents
         await self.channel_button_link_data.insert_one({'button_name': button_name, 'button_link': button_link}) # Insert the new document
@@ -38,6 +39,7 @@ class sidDataBase:
         return 'Join Channel', 'https://t.me/btth480p'
     
     
+    # DELETE TIMER SETTINGS
     async def set_del_timer(self, value: int):        
         existing = await self.del_timer_data.find_one({})
         if existing:
@@ -51,7 +53,8 @@ class sidDataBase:
             return data.get('value', 600)
         return 600
     
-    
+    # SET BOOLEAN VALUES FOR DIFFERENT SETTINGS
+
     async def set_auto_delete(self, value: bool):
         existing = await self.auto_delete_data.find_one({})
         if existing:
@@ -86,6 +89,9 @@ class sidDataBase:
             await self.rqst_fsub_data.update_one({}, {'$set': {'value': value}})
         else:
             await self.rqst_fsub_data.insert_one({'value': value})
+
+
+    # GET BOOLEAN VALUES FOR DIFFERENT SETTINGS        
     
     async def get_auto_delete(self):
         data = await self.auto_delete_data.find_one({})
@@ -117,6 +123,8 @@ class sidDataBase:
             return data.get('value', False)
         return False
     
+    
+    # USER MANAGEMNT
     async def present_user(self, user_id : int):
         found = await self.user_data.find_one({'_id': user_id})
         return bool(found)
@@ -137,7 +145,7 @@ class sidDataBase:
         await self.user_data.delete_one({'_id': user_id})
         return
     
-    # New channel functions
+    # CHANNEL MANAGEMENT
     async def channel_exist(self, channel_id: int):
         found = await self.channel_data.find_one({'_id': channel_id})
         return bool(found)
@@ -157,7 +165,7 @@ class sidDataBase:
         channel_ids = [doc['_id'] for doc in channel_docs]
         return channel_ids
     
-    # New Admin adding functions
+    # ADMIN USER MANAGEMENT
     async def admin_exist(self, admin_id: int):
         found = await self.admins_data.find_one({'_id': admin_id})
         return bool(found)
@@ -178,7 +186,7 @@ class sidDataBase:
         return user_ids
     
     
-    # Banned User functions
+    # BAN USER MANAGEMENT
     async def ban_user_exist(self, user_id: int):
         found = await self.banned_user_data.find_one({'_id': user_id})
         return bool(found)
@@ -197,6 +205,9 @@ class sidDataBase:
         users_docs = await self.banned_user_data.find().to_list(length=None)
         user_ids = [doc['_id'] for doc in users_docs]
         return user_ids
+    
+    
+    # REQUEST FORCE-SUB MANAGEMENT
         
     # Initialize a channel with an empty user_ids array (acting as a set)
     async def add_reqChannel(self, channel_id: int):
