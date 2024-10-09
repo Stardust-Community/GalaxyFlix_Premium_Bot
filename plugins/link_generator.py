@@ -16,7 +16,6 @@ async def batch(client: Client, message: Message):
             return
         f_msg_id = await get_message_id(client, first_message)
         if f_msg_id:
-            #await message.delete()
             break
         else:
             await first_message.reply(f"<b>❌ Eʀʀᴏʀ..\n<blockquote>Tʜɪs Fᴏʀᴡᴀʀᴅᴇᴅ ᴘᴏsᴛ ᴏʀ ᴍᴇssᴀɢᴇ ʟɪɴᴋ ɪs ɴᴏᴛ ғʀᴏᴍ ᴍʏ {channel}</blockquote></b>", quote = True)
@@ -29,7 +28,6 @@ async def batch(client: Client, message: Message):
             return
         s_msg_id = await get_message_id(client, second_message)
         if s_msg_id:
-            #await message.delete()
             break
         else:
             await second_message.reply(f"<b>❌ Eʀʀᴏʀ..\n<blockquote>Tʜɪs Fᴏʀᴡᴀʀᴅᴇᴅ ᴘᴏsᴛ ᴏʀ ᴍᴇssᴀɢᴇ ʟɪɴᴋ ɪs ɴᴏᴛ ғʀᴏᴍ ᴍʏ {channel}</blockquote></b>", quote = True, reply_markup=reply_markup)
@@ -53,7 +51,6 @@ async def link_generator(client: Client, message: Message):
             return
         msg_id = await get_message_id(client, channel_message)
         if msg_id:
-            #await message.delete()
             break
         else:
             await channel_message.reply(f"<b>❌ Eʀʀᴏʀ..\n<blockquote>Tʜɪs Fᴏʀᴡᴀʀᴅᴇᴅ ᴘᴏsᴛ ᴏʀ ᴍᴇssᴀɢᴇ ʟɪɴᴋ ɪs ɴᴏᴛ ғʀᴏᴍ ᴍʏ {channel}</blockquote></b>", quote = True)

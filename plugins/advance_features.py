@@ -10,7 +10,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from config import OWNER_ID
 from pyrogram import Client, filters
 from database.database import kingdb 
-#from datetime import datetime, timedelta
+
 
 #Advance commands for adding force sub....
 @Bot.on_message(filters.command('add_fsub') & filters.private & filters.user(OWNER_ID))

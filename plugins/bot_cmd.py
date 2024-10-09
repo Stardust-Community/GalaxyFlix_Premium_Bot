@@ -12,7 +12,7 @@ from helper_func import is_admin, get_readable_time, banUser
 from plugins.FORMATS import HELP_TEXT, BAN_TXT, CMD_TXT, USER_CMD_TXT, FSUB_CMD_TXT
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 from database.database import kingdb 
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 REPLY_ERROR = """Usᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴀs ᴀ ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ Tᴇʟᴇɢʀᴀᴍ ᴍᴇssᴀɢᴇ ᴡɪᴛʜᴏᴜᴛ ᴀɴʏ sᴘᴀᴄᴇs."""
 # Define a global variable to store the cancel state
@@ -131,11 +131,11 @@ async def send_text(client: Bot, message: Message):
 @Bot.on_message(filters.command('status') & filters.private & is_admin)
 async def info(client: Bot, message: Message):   
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Cʟᴏsᴇ ✖️", callback_data = "close")]])
-    #msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     
     start_time = time.time()
     temp_msg = await message.reply("<b><i>Pʀᴏᴄᴇssɪɴɢ....</i></b>", quote=True)  # Temporary message
     end_time = time.time()
+    
     # Calculate ping time in milliseconds
     ping_time = (end_time - start_time) * 1000
     

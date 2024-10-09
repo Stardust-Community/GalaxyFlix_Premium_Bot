@@ -2,15 +2,8 @@
 
 #from bot import Bot
 import asyncio
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram import Client, filters
-from database.database import kingdb 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton 
 from datetime import datetime, timedelta
-
-#from config import OWNER_ID
-#from pyrogram.enums import ParseMode, ChatAction
-#from helper_func import is_admin, banUser
-#from plugins.FORMATS import * #autodel_cmd_pic, files_cmd_pic, on_txt, off_txt, FILES_CMD_TXT, AUTODEL_CMD_TXT, BAN_TXT, RFSUB_CMD_TXT
 
 #Time conversion for auto delete timer
 def convert_time(duration_seconds: int) -> str:
@@ -45,9 +38,7 @@ DEL_MSG = """<b>⚠️ Dᴜᴇ ᴛᴏ Cᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs....
 <blockquote>Yᴏᴜʀ ғɪʟᴇs ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴡɪᴛʜɪɴ <a href="https://t.me/{username}">{time}</a>. Sᴏ ᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜᴇᴍ ᴛᴏ ᴀɴʏ ᴏᴛʜᴇʀ ᴘʟᴀᴄᴇ ғᴏʀ ғᴜᴛᴜʀᴇ ᴀᴠᴀɪʟᴀʙɪʟɪᴛʏ.</blockquote></b>"""
 
 #Function for provide auto delete notification message
-async def auto_del_notification(bot_username, msg, delay_time, transfer):
-    #AUTO_DEL = await get_auto_delete() #; DEL_TIMER = await get_del_timer()
-    #if AUTO_DEL: 
+async def auto_del_notification(bot_username, msg, delay_time, transfer): 
     temp = await msg.reply_text(DEL_MSG.format(username=bot_username, time=convert_time(delay_time)), disable_web_page_preview = True) 
 
     await asyncio.sleep(delay_time)
@@ -75,9 +66,8 @@ async def auto_del_notification(bot_username, msg, delay_time, transfer):
 
 
 #Function for deleteing files/Messages.....
-async def delete_message(msg, delay_time):
-    #AUTO_DEL = await get_auto_delete()
-    #if AUTO_DEL: 
+async def delete_message(msg, delay_time): 
     await asyncio.sleep(delay_time)
+    
     try: await msg.delete()
     except Exception as e: print(f"Error occurred on delete_message() : {e}")

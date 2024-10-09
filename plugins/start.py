@@ -15,7 +15,7 @@ from config import CUSTOM_CAPTION, OWNER_ID, PICS
 from plugins.autoDelete import auto_del_notification, delete_message
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from helper_func import banUser, is_userJoin, is_admin, subscribed, encode, decode, get_messages
-#from plugins.request_forcesub import *
+
 
 @Bot.on_message(filters.command('start') & filters.private & ~banUser & subscribed)
 async def start_command(client: Client, message: Message): 
@@ -64,7 +64,7 @@ async def start_command(client: Client, message: Message):
         try: messages = await get_messages(client, ids)
         except: return await message.reply("<b><i>Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ ᴡʀᴏɴɢ..!</i></b>")
             
-        settings = await asyncio.gather(get_auto_delete(), get_del_timer(), get_hide_caption(), get_channel_button(), get_protect_content())
+        settings = await asyncio.gather(kingdb.get_auto_delete(), kingdb.get_del_timer(), kingdb.get_hide_caption(), kingdb.get_channel_button(), kingdb.get_protect_content())
         AUTO_DEL, DEL_TIMER, HIDE_CAPTION, CHNL_BTN, PROTECT_MODE = settings   
             
         if CHNL_BTN: button_name, button_link = await kingdb.get_channel_button_link()
@@ -73,9 +73,8 @@ async def start_command(client: Client, message: Message):
             if bool(CUSTOM_CAPTION) & bool(msg.document):
                 caption = CUSTOM_CAPTION.format(previouscaption = "" if not msg.caption else msg.caption.html, filename = msg.document.file_name)
 
-            elif HIDE_CAPTION:
-                if msg.document or msg.audio: caption = ""
-                else: caption = "" if not msg.caption else msg.caption.html
+            elif HIDE_CAPTION and (msg.document or msg.audio):
+                caption = ""
 
             else:
                 caption = "" if not msg.caption else msg.caption.html
@@ -86,8 +85,8 @@ async def start_command(client: Client, message: Message):
                 reply_markup = msg.reply_markup   
                     
             try:
-                copied_msg = await msg.copy(chat_id=id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_MODE)
-                await asyncio.sleep(0.5)
+                copied_msg = await msg.copy(chat_id=id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_MODE)
+                await asyncio.sleep(0.1)
 
                 if AUTO_DEL:
                     asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
@@ -95,8 +94,8 @@ async def start_command(client: Client, message: Message):
 
             except FloodWait as e:
                 await asyncio.sleep(e.x)
-                copied_msg = await msg.copy(chat_id=id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_MODE)
-                await asyncio.sleep(0.5)
+                copied_msg = await msg.copy(chat_id=id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_MODE)
+                await asyncio.sleep(0.1)
                 
                 if AUTO_DEL:
                     asyncio.create_task(delete_message(copied_msg, DEL_TIMER))
@@ -119,7 +118,6 @@ async def start_command(client: Client, message: Message):
             ),
             reply_markup = reply_markup,
 	        message_effect_id=5104841245755180586 #🔥
-            #quote = True
         )
         try: await message.delete()
         except: pass
@@ -146,7 +144,7 @@ async def not_joined(client: Client, message: Message):
     count = 0
 
     try:
-        for chat_id in await kingdb.get_all_channels():
+        for total, chat_id in enumerate(await kingdb.get_all_channels(), start=1):
             await message.reply_chat_action(ChatAction.PLAYING)
             
             # Show the join button of non-subscribed Channels.....
@@ -194,7 +192,8 @@ async def not_joined(client: Client, message: Message):
                 username=None if not message.from_user.username else '@' + message.from_user.username,
                 mention=message.from_user.mention,
                 id=message.from_user.id,
-                count=count
+                count=count,
+                total=total
             ),
             reply_markup=InlineKeyboardMarkup(buttons),
         )
@@ -214,10 +213,9 @@ async def not_joined(client: Client, message: Message):
 @Bot.on_message(filters.command('restart') & filters.private & filters.user(OWNER_ID))
 async def restart_bot(client: Client, message: Message):
     print("Restarting bot...")
-    #name = (await client.get_me()).first_name
     msg = await message.reply(text=f"<b><i><blockquote>⚠️ {client.name} ɢᴏɪɴɢ ᴛᴏ Rᴇsᴛᴀʀᴛ...</blockquote></i></b>")
     try:
-        await asyncio.sleep(6)  # Wait for 4 seconds before restarting
+        await asyncio.sleep(6)  # Wait for 6 seconds before restarting
         await msg.delete()
         args = [sys.executable, "main.py"]  # Adjust this if your start file is named differently
         os.execl(sys.executable, *args)
