@@ -2,7 +2,7 @@
 import motor.motor_asyncio
 from config import DB_URI, DB_NAME
 
-class sidDataBase:
+class SidDataBase:
 
     def __init__(self, DB_URI, DB_NAME):
         self.dbclient = motor.motor_asyncio.AsyncIOMotorClient(DB_URI)
@@ -123,7 +123,7 @@ class sidDataBase:
             return data.get('value', False)
         return False
     
-    
+
     # USER MANAGEMNT
     async def present_user(self, user_id : int):
         found = await self.user_data.find_one({'_id': user_id})
@@ -308,4 +308,4 @@ class sidDataBase:
         await self.store_reqLink_data.delete_one({'_id': channel_id})
 
 
-kingdb = sidDataBase(DB_URI, DB_NAME)
+kingdb = SidDataBase(DB_URI, DB_NAME)
