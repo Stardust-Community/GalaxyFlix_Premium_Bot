@@ -5,20 +5,16 @@ from database.database import kingdb
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.types import ChatMemberUpdated
 
-# This handler captures membership updates (like when a user leaves)
+# This handler captures membership updates (like when a user leaves, banned)
 @Bot.on_chat_member_updated()
 async def handle_Chatmembers(client, chat_member_updated: ChatMemberUpdated):    
-    new_member = chat_member_updated.new_chat_member
     old_member = chat_member_updated.old_chat_member
-    if any([new_member, old_member]):
-        member = new_member if new_member else old_member
-    else:
+
+    if not old_member:
         return
     
-    member_status = ChatMemberStatus.MEMBER, ChatMemberStatus.LEFT, ChatMemberStatus.BANNED
-    
-    if member.status in member_status:
-        user_id = member.user.id
+    if old_member.status == ChatMemberStatus.MEMBER:
+        user_id = old_member.user.id
         chat_id = chat_member_updated.chat.id
         
         if await kingdb.reqChannel_exist(chat_id) and await kingdb.reqSent_user_exist(chat_id, user_id):
