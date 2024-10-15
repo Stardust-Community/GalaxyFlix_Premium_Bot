@@ -158,7 +158,7 @@ async def not_joined(client: Client, message: Message):
                     cname = data.title
                     
                     # Handle private channels and links
-                    if REQFSUB and not bool(data.username): 
+                    if REQFSUB and not data.username: 
                         link = await kingdb.get_stored_reqLink(chat_id)
                         await kingdb.add_reqChannel(chat_id)
                         
