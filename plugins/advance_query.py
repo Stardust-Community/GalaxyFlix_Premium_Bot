@@ -397,7 +397,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         LISTS += f"NAME: {channel_name}\n(ID: <code>{CHNL}</code>)\nUSERS: {channel_users}\n\n"
                         
                 buttons = [
-                    [InlineKeyboardButton("cʟᴇᴀʀ cʜᴀɴɴᴇʟs", "clear_chnls"), InlineKeyboardButton("cʟᴇᴀʀ ʟɪɴᴋs", "clear_links")],
+                    [InlineKeyboardButton("ᴄʟᴇᴀʀ ᴜsᴇʀs", "clear_users"), InlineKeyboardButton("cʟᴇᴀʀ cʜᴀɴɴᴇʟs", "clear_chnls")],
                     [InlineKeyboardButton("♻️  Rᴇғʀᴇsʜ Sᴛᴀᴛᴜs  ♻️", "more_settings")],
                     [InlineKeyboardButton("⬅️ Bᴀᴄᴋ", "req_fsub"), InlineKeyboardButton("Cʟᴏsᴇ ✖️", "close")]
                 ]
@@ -472,22 +472,39 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 
             elif user_reply.text in REQFSUB_CHNLS:
                 try:
-                    await kingdb.del_reqChannel(int(user_reply.text))
-                    return await user_reply.reply(f"<b><blockquote><code>{user_reply.text}</code> Cʜᴀɴɴᴇʟ Iᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ✅</blockquote></b>", reply_markup=ReplyKeyboardRemove())
+                    chnl_id = int(user_reply.text)
+
+                    await kingdb.del_reqChannel(chnl_id)
+
+                    try: await client.revoke_chat_invite_link(chnl_id, await kingdb.get_stored_reqLink(chnl_id))
+                    except: pass
+
+                    await kingdb.del_stored_reqLink(chnl_id)
+
+                    return await user_reply.reply(f"<b><blockquote><code>{user_reply.text}</code> Cʜᴀɴɴᴇʟ ɪᴅ ᴀʟᴏɴɢ ᴡɪᴛʜ ɪᴛs ᴅᴀᴛᴀ sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ✅</blockquote></b>", reply_markup=ReplyKeyboardRemove())
                 except Exception as e:
                     return await user_reply.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ...\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>", reply_markup=ReplyKeyboardRemove())
                     
             elif user_reply.text == 'DELETE ALL CHANNEL IDS':
                 try:
                     for CHNL in REQFSUB_CHNLS:
-                        await kingdb.del_reqChannel(int(CHNL))
-                    return await user_reply.reply(f"<b><blockquote>Aʟʟ Cʜᴀɴɴᴇʟ Iᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ✅</blockquote></b>", reply_markup=ReplyKeyboardRemove())
+                        chnl = int(CHNL)
+
+                        await kingdb.del_reqChannel(chnl)
+
+                        try: await client.revoke_chat_invite_link(chnl, await kingdb.get_stored_reqLink(chnl))
+                        except: pass
+
+                        await kingdb.del_stored_reqLink(chnl)
+
+                    return await user_reply.reply(f"<b><blockquote>Aʟʟ Cʜᴀɴɴᴇʟ ɪᴅs ᴀʟᴏɴɢ ᴡɪᴛʜ ɪᴛs ᴅᴀᴛᴀ sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ✅</blockquote></b>", reply_markup=ReplyKeyboardRemove())
+                
                 except Exception as e:
                     return await user_reply.reply(f"<b>! Eʀʀᴏʀ Oᴄᴄᴜʀᴇᴅ...\n<blockquote>Rᴇᴀsᴏɴ:</b> {e}</blockquote>", reply_markup=ReplyKeyboardRemove())
                     
             else:
                 return await user_reply.reply(f"<b><blockquote>INVALID SELECTIONS</blockquote></b>", reply_markup=ReplyKeyboardRemove())
-            
+        
         except Exception as e:
             print(f"! Error Occured on callback data = 'more_settings' : {e}")
 
