@@ -41,12 +41,12 @@ async def add_forcesub(client:Client, message:Message):
         id = str(id)
         if id.startswith('-') and id[1:].isdigit() and len(id)==14:
             try:
-                link = (await client.get_chat(id)).invite_link
-                cname = (await client.get_chat(id)).title
+                data = await client.get_chat(id)
+                link = data.invite_link
+                cname = data.title
 
                 if not link:
-                    await client.export_chat_invite_link(id)
-                    link = (await client.get_chat(id)).invite_link
+                    link = await client.export_chat_invite_link(id)
                     
                 channel_list += f"<b><blockquote>NAME: <a href = {link}>{cname}</a> (ID: <code>{id}</code>)</blockquote></b>\n\n"
                 check+=1
@@ -119,12 +119,12 @@ async def get_forcesub(client:Client, message: Message):
         for id in channels:
             await message.reply_chat_action(ChatAction.TYPING)
             try:
-                link = (await client.get_chat(id)).invite_link
-                cname = (await client.get_chat(id)).title
+                data = await client.get_chat(id)
+                link = data.invite_link
+                cname = data.title
 
                 if not link:
-                    await client.export_chat_invite_link(id)
-                    link = (await client.get_chat(id)).invite_link
+                    link = await client.export_chat_invite_link(id)
                     
                 channel_list += f"<b><blockquote>NAME: <a href = {link}>{cname}</a>\n(ID: <code>{id}</code>)</blockquote></b>\n\n"
                 
