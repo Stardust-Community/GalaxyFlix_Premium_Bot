@@ -19,8 +19,8 @@ async def check_banUser(filter, client, update):
     try:
         user_id = update.from_user.id
         return await kingdb.ban_user_exist(user_id)
-    except Exception as e:
-        print(f"!Error on check_banUser(): {e}")
+    except: #Exception as e:
+        #print(f"!Error on check_banUser(): {e}")
         return False
 
 
@@ -30,7 +30,7 @@ async def check_admin(filter, client, update):
         user_id = update.from_user.id       
         return any([user_id == OWNER_ID, await kingdb.admin_exist(user_id)])
     except Exception as e:
-        print(f"!Error on check_admin(): {e}")
+        print(f"! Exception in check_admin: {e}")
         return False
 
 
