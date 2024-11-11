@@ -84,8 +84,6 @@ async def send_text(client: Bot, message: Message):
                 deleted += 1
             except:
                 unsuccessful += 1
-                await kingdb.del_user(chat_id)
-                pass
 
             # Calculate percentage complete
             percent_complete = i / total
