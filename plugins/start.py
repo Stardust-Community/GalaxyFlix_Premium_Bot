@@ -13,7 +13,7 @@ from plugins.FORMATS import START_MSG, FORCE_MSG
 from pyrogram.enums import ParseMode, ChatAction
 from config import CUSTOM_CAPTION, OWNER_ID, PICS
 from plugins.autoDelete import auto_del_notification, delete_message
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 from helper_func import banUser, is_userJoin, is_admin, subscribed, encode, decode, get_messages
 
 
