@@ -44,13 +44,13 @@ HELP_TEXT = """<b>⁉️ Hᴇʟʟᴏ {mention} ~
 ‣ /help -</b> Oᴘᴇɴ ᴛʜɪs ʜᴇʟᴘ ᴍᴇssᴀɢᴇ !</blockquote>
 <b><i>◈ Sᴛɪʟʟ ʜᴀᴠᴇ ᴅᴏᴜʙᴛs, ᴄᴏɴᴛᴀᴄᴛ ʙᴇʟᴏᴡ ᴘᴇʀsᴏɴs/ɢʀᴏᴜᴘ ᴀs ᴘᴇʀ ʏᴏᴜʀ ɴᴇᴇᴅ !</i></b>"""
 
-ABOUT_TXT = """<b>🤖 ᴍʏ ɴᴀᴍᴇ: {botname}
-<blockquote expandable>◈ ᴀᴅᴠᴀɴᴄᴇ ғᴇᴀᴛᴜʀᴇs: <a href='https://telegra.ph/BOT-FEATURES-11-09-28'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>
-◈ ᴏᴡɴᴇʀ: {ownername}
-◈ ʟᴀɴɢᴜᴀɢᴇ: <a href='https://docs.python.org/3/'>Pʏᴛʜᴏɴ 3</a>
-◈ ʟɪʙʀᴀʀʏ: <a href='https://docs.pyrogram.org/'>Pʏʀᴏɢʀᴀᴍ ᴠ2</a>
-◈ ᴅᴀᴛᴀʙᴀsᴇ: <a href='https://www.mongodb.com/docs/'>Mᴏɴɢᴏ ᴅʙ</a>
-🧑‍💻 ᴅᴇᴠᴇʟᴏᴘᴇʀ: @shidoteshika1</b></blockquote>"""
+ABOUT_TXT = """<b>❤️ ᴍʏ ɴᴀᴍᴇ: {botname}
+<blockquote expandable>◈ Oᴡɴᴇʀ: {ownername}
+◈ Dᴇᴠᴇʟᴏᴘᴇʀ: <a href='https://t.me/JeffySama'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
+◈ Mᴀɪɴ Cʜᴀɴɴᴇʟ: <a href='https://t.me/Anime_Stardust'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
+◈ Mᴏᴠɪᴇ Cʜᴀɴɴᴇʟ: <a href='@Movies_Stardust'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
+◈ Rᴇǫᴜᴇsᴛ Sᴛᴀʀᴅᴜsᴛ: <a href='https://t.me/Request_Stardust'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
+◈ Bᴏᴛ Uᴘᴅᴀᴛᴇs: <a href='https://t.me/GalaxyFlix_Botz'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a></b></blockquote>"""
 
 SETTING_TXT = """<b>⚙️ Cᴏɴғɪɢᴜʀᴀᴛɪᴏɴs</b>
 <blockquote expandable>◈ ᴛᴏᴛᴀʟ ғᴏʀᴄᴇ sᴜʙ ᴄʜᴀɴɴᴇʟ:  <b>{total_fsub}</b>
