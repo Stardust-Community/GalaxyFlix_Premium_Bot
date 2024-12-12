@@ -48,7 +48,7 @@ ABOUT_TXT = """<b>❤️ ᴍʏ ɴᴀᴍᴇ: {botname}
 <blockquote expandable>◈ Oᴡɴᴇʀ: {ownername}
 ◈ Dᴇᴠᴇʟᴏᴘᴇʀ: <a href='https://t.me/JeffySama'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
 ◈ Mᴀɪɴ Cʜᴀɴɴᴇʟ: <a href='https://t.me/Anime_Stardust'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
-◈ Mᴏᴠɪᴇ Cʜᴀɴɴᴇʟ: <a href='@Movies_Stardust'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
+◈ Mᴏᴠɪᴇ Cʜᴀɴɴᴇʟ: <a href='https://t.me/Movies_Stardust'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
 ◈ Rᴇǫᴜᴇsᴛ Sᴛᴀʀᴅᴜsᴛ: <a href='https://t.me/Request_Stardust'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a>
 ◈ Bᴏᴛ Uᴘᴅᴀᴛᴇs: <a href='https://t.me/GalaxyFlix_Botz'>ᴄʟɪᴄᴋ ʜᴇʀᴇ</a></b></blockquote>"""
 
