@@ -115,7 +115,7 @@ async def start_command(client: Client, message: Message):
                 id = message.from_user.id
             ),
             reply_markup = reply_markup,
-	        message_effect_id=5104841245755180586 #🔥
+	        message_effect_id=5104858069142078462 #❤️
         )
         try: await message.delete()
         except: pass
@@ -222,7 +222,7 @@ async def restart_bot(client: Client, message: Message):
         os.execl(sys.executable, *args)
     except Exception as e:
         print(f"Error occured while Restarting the bot: {e}")
-        return await msg.edit_text(f"<b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Shidoteshika1</i></b>\n<blockquote expandable><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
+        return await msg.edit_text(f"<b><i>! Eʀʀᴏʀ, Cᴏɴᴛᴀᴄᴛ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴛᴏ sᴏʟᴠᴇ ᴛʜᴇ ɪssᴜᴇs @Un_Soul | @JeffySama</i></b>\n<blockquote expandable><b>Rᴇᴀsᴏɴ:</b> {e}</blockquote>")
     # Optionally, you can add cleanup tasks here
     #subprocess.Popen([sys.executable, "main.py"])  # Adjust this if your start file is named differently
     #sys.exit()
