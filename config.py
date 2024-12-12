@@ -7,7 +7,7 @@ from logging.handlers import RotatingFileHandler
 
 
 #Bot token @Botfather, --⚠️ REQUIRED--
-TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "8177755574:AAHmMVV4xl-vD11I8mwX8UXxkO7H2p0S8Pw")
+TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "7568177214:AAHRi1fg2Yiduv46IK70AJBmxm4Og9spQwQ")
 
 #Your API ID from my.telegram.org, --⚠️ REQUIRED--
 APP_ID = int(os.environ.get("APP_ID", "23579843"))
@@ -16,13 +16,13 @@ APP_ID = int(os.environ.get("APP_ID", "23579843"))
 API_HASH = os.environ.get("API_HASH", "813614877521e3b94bed3d1562192fdd")
 
 #Your db channel Id --⚠️ REQUIRED--
-CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002362863690"))
+CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002264216992"))
 
 #OWNER ID --⚠️ REQUIRED--
 OWNER_ID = int(os.environ.get("OWNER_ID", "5548954124"))
 
 #SUPPORT_GROUP: This is used for normal users for getting help if they don't understand how to use the bot --⚠ OPTIONAL--
-SUPPORT_GROUP = os.environ.get("SUPPORT_GROUP", "")
+SUPPORT_GROUP = os.environ.get("SUPPORT_GROUP", "https://t.me/chathub_stardust")
 
 #Port
 PORT = os.environ.get("PORT", "8080")
@@ -30,7 +30,7 @@ PORT = os.environ.get("PORT", "8080")
 #Database --⚠️ REQUIRED--
 DB_URI = os.environ.get("DATABASE_URL", "mongodb+srv://jeffreymosesdj:Jeffrey@cluster2.cuiux.mongodb.net/?retryWrites=true&w=majority")
 
-DB_NAME = os.environ.get("DATABASE_NAME", "Cluster2")
+DB_NAME = os.environ.get("DATABASE_NAME", "Cluster4")
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
