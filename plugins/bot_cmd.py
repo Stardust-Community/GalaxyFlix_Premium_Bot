@@ -172,11 +172,11 @@ async def help(client: Client, message: Message):
     buttons = [
         [
             InlineKeyboardButton("🤖 Oᴡɴᴇʀ", url=f"tg://openmessage?user_id={OWNER_ID}"), 
-            InlineKeyboardButton("🧑‍💻 Dᴇᴠᴇʟᴏᴘᴇʀ", url="https://t.me/Shidoteshika1")
+            InlineKeyboardButton("🧑‍💻 Dᴇᴠᴇʟᴏᴘᴇʀ", url="https://t.me/Un_Soul")
         ]
     ]
     if SUPPORT_GROUP:
-        buttons.insert(0, [InlineKeyboardButton("🌐 Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ Gʀᴏᴜᴘ", url=SUPPORT_GROUP)])
+        buttons.insert(0, [InlineKeyboardButton("🌐 Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ Gʀᴏᴜᴘ", url="https://t.me/chathub_Stardust")])
 
     try:
         reply_markup = InlineKeyboardMarkup(buttons)
