@@ -10,8 +10,8 @@ autodel_cmd_pic = "https://telegra.ph/file/a64533814021b40057ccd.jpg"
 #start message
 START_MSG = """<b>⚡ Hᴇʏ, {mention} ~
 
-<blockquote expandable>I ᴀᴍ ᴀɴ ᴀᴅᴠᴀɴᴄᴇ ғɪʟᴇ sʜᴀʀᴇ ʙᴏᴛ V3.
-Tʜᴇ ʙᴇsᴛ ᴘᴀʀᴛ ɪs ɪ ᴀᴍ ᴀʟsᴏ sᴜᴘᴘᴏʀᴛ ʀᴇǫᴜᴇsᴛ ғᴏʀᴄᴇsᴜʙ ғᴇᴀᴛᴜʀᴇ, Tᴏ ᴋɴᴏᴡ ᴅᴇᴛᴀɪʟᴇᴅ ɪɴғᴏʀᴍᴀᴛɪᴏɴ ᴄʟɪᴄᴋ ᴀʙᴏᴜᴛ ᴍᴇ ʙᴜᴛᴛᴏɴ ᴛᴏ ᴋɴᴏᴡ ᴍʏ ᴀʟʟ ᴀᴅᴠᴀɴᴄᴇ ғᴇᴀᴛᴜʀᴇs</blockquote></b>"""
+<blockquote expandable>
+Tʜᴇ ʙᴇsᴛ A Vision may seem like a great tool, but one day, the power one accumulates always finds a way to turn back on you.</blockquote></b>"""
 
 #Force sub message 
 FORCE_MSG = """<b><blockquote>⚠️ Hᴇʏ, {mention} ×</blockquote>
