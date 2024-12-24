@@ -11,7 +11,7 @@ autodel_cmd_pic = "https://telegra.ph/file/a64533814021b40057ccd.jpg"
 START_MSG = """<b>⚡ Hᴇʏ, {mention} ~
 
 <blockquote expandable>
-Tʜᴇ ʙᴇsᴛ A Vision may seem like a great tool, but one day, the power one accumulates always finds a way to turn back on you.</blockquote></b>"""
+ᴀ ᴠɪsɪᴏɴ ᴍᴀʏ sᴇᴇᴍ ʟɪᴋᴇ ᴀ ɢʀᴇᴀᴛ ᴛᴏᴏʟ, ʙᴜᴛ ᴏɴᴇ ᴅᴀʏ, ᴛʜᴇ ᴘᴏᴡᴇʀ ᴏɴᴇ ᴀᴄᴄᴜᴍᴜʟᴀᴛᴇs ᴀʟᴡᴀʏs ғɪɴᴅs ᴀ ᴡᴀʏ ᴛᴏ ᴛᴜʀɴ ʙᴀᴄᴋ ᴏɴ ʏᴏᴜ.</blockquote></b>"""
 
 #Force sub message 
 FORCE_MSG = """<b><blockquote>⚠️ Hᴇʏ, {mention} ×</blockquote>
