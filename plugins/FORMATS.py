@@ -11,7 +11,7 @@ autodel_cmd_pic = "https://telegra.ph/file/a64533814021b40057ccd.jpg"
 START_MSG = """<b>⚡ Hᴇʏ, {mention} ~
 
 <blockquote expandable>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴏɴɢᴏɪɴɢ sᴛᴀʀᴅᴜsᴛ
-ᴀ ᴠɪsɪᴏɴ ᴍᴀʏ sᴇᴇᴍ ʟɪᴋᴇ ᴀ ɢʀᴇᴀᴛ ᴛᴏᴏʟ, ʙᴜᴛ ᴏɴᴇ ᴅᴀʏ, ᴛʜᴇ ᴘᴏᴡᴇʀ ᴏɴᴇ ᴀᴄᴄᴜᴍᴜʟᴀᴛᴇs ᴀʟᴡᴀʏs ғɪɴᴅs ᴀ ᴡᴀʏ ᴛᴏ ᴛᴜʀɴ ʙᴀᴄᴋ ᴏɴ ʏᴏᴜ.</blockquote></b>"""
+ᴡʜᴇɴ ʏᴏᴜ ʀᴇᴀʟɪᴢᴇ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ sᴘᴇɴᴅ ᴛʜᴇ ʀᴇsᴛ ᴏғ ʏᴏᴜʀ ʟɪғᴇ ᴡɪᴛʜ sᴏᴍᴇʙᴏᴅʏ, ʏᴏᴜ ᴡᴀɴᴛ ᴛʜᴇ ʀᴇsᴛ ᴏғ ʏᴏᴜʀ ʟɪғᴇ ᴛᴏ sᴛᴀʀᴛ ᴀs sᴏᴏɴ ᴀs ᴘᴏssɪʙʟᴇ..</blockquote></b>"""
 
 #Force sub message 
 FORCE_MSG = """<b><blockquote>⚠️ Hᴇʏ, {mention} ×</blockquote>
